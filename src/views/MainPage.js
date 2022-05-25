@@ -13,6 +13,7 @@ const MainPage = () => {
       <Header>
         <HeaderLogoImage src={HeaderLogoI} onClick={onClickLogo} />
         <HeaderLogo>Epowe</HeaderLogo>
+        <Line />
       </Header>
     </Container>
   );
@@ -25,12 +26,13 @@ const Container = styled.div`
   background-color: #ffffff;
   overflow: hidden;
 `;
+
 const Header = styled.div`
   position: relative;
   left: 23px;
   top: 19px;
   width: 100vw;
-  height: 100vh;
+  height: 85px;
   background-color: #ffffff;
   overflow: hidden;
 `;
@@ -42,13 +44,27 @@ const HeaderLogoImage = styled.img`
 `;
 
 const HeaderLogo = styled.div`
+  position: relative;
+  display: inline-block;
+  bottom: 11px;
+  margin-left: 19px;
+  text-align: center;
   font-family: Montserrat-SemiBold;
   font-size: 22px;
   color: #6c63ff;
   cursor: pointer;
 `;
+
+const Line = styled.div`
+  height: 1px;
+  width: 1026px;
+  background-color: #e0e0e0;
+  margin-left: 238px;
+`;
+
 const UserContainer = styled.div`
   position: absolute;
   right: 0px;
 `;
+
 export default MainPage;
