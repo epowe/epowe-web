@@ -62,9 +62,4 @@ const Line = styled.div`
   margin-left: 238px;
 `;
 
-const UserContainer = styled.div`
-  position: absolute;
-  right: 0px;
-`;
-
 export default MainPage;
