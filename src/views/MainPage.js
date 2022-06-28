@@ -2,6 +2,8 @@ import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import HeaderLogoI from "../images/HeaderLogo.png";
+import GoogleLoginButton from "../images/GoogleLoginButton.png";
+import NaverLoginButton from "../images/NaverLoginButton.png";
 import '../App.css'
 
 const MainPage = () => {
@@ -9,12 +11,9 @@ const MainPage = () => {
   const onClickLogo = () => {
     navigate("/");
   };
-  //전체 스크린 크기 가져오기
-  var screenWidth = window.innerWidth;
-  var screenHeight = window.innerHeight;
 
   return (
-    <Container>
+    <>
       <Header>
         <HeaderLogoImage src={HeaderLogoI} onClick={onClickLogo} />
         <HeaderLogo>Epowe</HeaderLogo>
@@ -29,16 +28,35 @@ const MainPage = () => {
             날개를 달아주는 서비스 입니다.
           </ContentText>
         </TitleContainer>
+        <ButtonContainer>
+          <NaverLogin src={NaverLoginButton}></NaverLogin>
+          <GoogleLogin src={GoogleLoginButton}></GoogleLogin>
+        </ButtonContainer>
       </BodyContainer>
-    </Container>
+    </>
   );
 };
-const BodyContainer = styled.div`
-  position: relative;
-  width: 100vw;
-  height: 100vh;
+const NaverLogin = styled.img`
+  width: 337px;
+  height: 55px;
+
+`;
+const GoogleLogin = styled.img`
+  margin-top: 25px;
+  width: 337px;
+  height: 55px;
+`;
+
+const ButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+`;
+
+const BodyContainer = styled.div`
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  justify-content: space-evenly;
   align-items: center;
 `;
 const TitleContainer = styled.div`
@@ -62,17 +80,10 @@ const TextLine = styled.div`
 
 `;
 const ContentText = styled.div`
+  position: relative;
   font-family: Montserrat-Regular;
   font-size: 20px;
-  position: relative;
   margin-top: 37px;
-`;
-const Container = styled.div`
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  background-color: #ffffff;
-  overflow: hidden;
 `;
 
 const Header = styled.div`
@@ -109,7 +120,7 @@ const HeaderLogo = styled.div`
 
 const Line = styled.div`
   height: 1px;
-  width: 90%;
+  width: 90vw;
   background-color: #e0e0e0;
   margin-left: 238px;
 `;
