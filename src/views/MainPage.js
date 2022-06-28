@@ -2,24 +2,71 @@ import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import HeaderLogoI from "../images/HeaderLogo.png";
+import '../App.css'
 
 const MainPage = () => {
   const navigate = useNavigate();
   const onClickLogo = () => {
     navigate("/");
   };
+  //전체 스크린 크기 가져오기
+  var screenWidth = window.innerWidth;
+  var screenHeight = window.innerHeight;
+
   return (
     <Container>
       <Header>
         <HeaderLogoImage src={HeaderLogoI} onClick={onClickLogo} />
-        <Cover></Cover>
         <HeaderLogo>Epowe</HeaderLogo>
         <Line />
       </Header>
+      <BodyContainer>
+        <TitleContainer>
+          <TitleText>AI 모의 면접 교정</TitleText>
+          <TextLine />
+          <ContentText>
+            이에이승은 면접에서 어려움을 겪고 있는 사람들에게 <br />
+            날개를 달아주는 서비스 입니다.
+          </ContentText>
+        </TitleContainer>
+      </BodyContainer>
     </Container>
   );
 };
+const BodyContainer = styled.div`
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const TitleContainer = styled.div`
+  width: 541px;
+  height: 194px;
+  float: left;
+  flex-direction: column;
+`;
+const TitleText = styled.div`
+  font-family: Montserrat-Bold;
+  font-size: 44px;
+  position: relative;
+`;
 
+const TextLine = styled.div`
+  position: relative;
+  height: 1px;
+  width: 500px;
+  background-color: #e0e0e0;
+  margin-top: 50px;
+
+`;
+const ContentText = styled.div`
+  font-family: Montserrat-Regular;
+  font-size: 20px;
+  position: relative;
+  margin-top: 37px;
+`;
 const Container = styled.div`
   position: relative;
   width: 100vw;
@@ -50,7 +97,7 @@ const HeaderLogo = styled.div`
   bottom: 11px;
   margin-left: 19px;
   text-align: center;
-  font-family: Montserrat-SemiBold;
+  font-family: Montserrat-Bold;
   display: inline-block;
   position: relative;
   font-size: 22px;
@@ -62,7 +109,7 @@ const HeaderLogo = styled.div`
 
 const Line = styled.div`
   height: 1px;
-  width: 1026px;
+  width: 90%;
   background-color: #e0e0e0;
   margin-left: 238px;
 `;
