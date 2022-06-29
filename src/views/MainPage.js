@@ -5,6 +5,7 @@ import HeaderLogoI from "../images/HeaderLogo.png";
 import GoogleLoginButton from "../images/GoogleLoginButton.png";
 import NaverLoginButton from "../images/NaverLoginButton.png";
 import '../App.css'
+import Header from "./Header.js";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -14,11 +15,7 @@ const MainPage = () => {
 
   return (
     <>
-      <Header>
-        <HeaderLogoImage src={HeaderLogoI} onClick={onClickLogo} />
-        <HeaderLogo>2-POW</HeaderLogo>
-        <Line />
-      </Header>
+      <Header/>
       <BodyContainer>
         <TitleContainer>
           <TitleText>AI 모의 면접 교정</TitleText>
@@ -83,16 +80,6 @@ const ContentText = styled.div`
   font-family: Montserrat-Regular;
   font-size: 20px;
   margin-top: 37px;
-`;
-
-const Header = styled.div`
-  position: relative;
-  left: 23px;
-  top: 19px;
-  width: 100vw;
-  height: 85px;
-  background-color: #ffffff;
-  overflow: hidden;
 `;
 
 const HeaderLogoImage = styled.img`
