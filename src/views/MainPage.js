@@ -16,7 +16,7 @@ const MainPage = () => {
     <>
       <Header>
         <HeaderLogoImage src={HeaderLogoI} onClick={onClickLogo} />
-        <HeaderLogo>Epowe</HeaderLogo>
+        <HeaderLogo>2-POW</HeaderLogo>
         <Line />
       </Header>
       <BodyContainer>
