@@ -39,7 +39,6 @@ const MainPage = () => {
 const NaverLogin = styled.img`
   width: 337px;
   height: 55px;
-
 `;
 const GoogleLogin = styled.img`
   margin-top: 25px;
