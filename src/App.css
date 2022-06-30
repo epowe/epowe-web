@@ -1,5 +1,8 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 .App {
   text-align: center;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .App-logo {
@@ -35,4 +38,30 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* 폰트 설정 */
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: url("./fonts/Montserrat-Bold.ttf");
+}
+@font-face {
+  font-family: "Montserrat-Light";
+  src: url("./fonts/Montserrat-Light.ttf");
+}
+@font-face {
+  font-family: "Montserrat-Medium";
+  src: url("./fonts/Montserrat-Medium.ttf");
+}
+@font-face {
+  font-family: "Montserrat-Regular";
+  src: url("./fonts/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat-SemiBold";
+  src: url("./fonts/Montserrat-SemiBold.ttf");
+}
+@font-face {
+  font-family: "Montserrat-Thin";
+  src: url("./fonts/Montserrat-Thin.ttf");
 }
