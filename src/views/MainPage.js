@@ -2,9 +2,9 @@ import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import HeaderLogoI from "../images/HeaderLogo.png";
-import GoogleLoginButton from "../images/GoogleLoginButton.png";
-import NaverLoginButton from "../images/NaverLoginButton.png";
-import '../App.css'
+import GoogleLogoImg from "../images/GoogleLogo.png";
+import NaverLogoImg from "../images/NaverLogo.png";
+import "../App.css";
 import Header from "./Header.js";
 
 const MainPage = () => {
@@ -15,7 +15,7 @@ const MainPage = () => {
 
   return (
     <>
-      <Header/>
+      <Header />
       <BodyContainer>
         <TitleContainer>
           <TitleText>AI 모의 면접 교정</TitleText>
@@ -26,21 +26,88 @@ const MainPage = () => {
           </ContentText>
         </TitleContainer>
         <ButtonContainer>
-          <NaverLogin src={NaverLoginButton}></NaverLogin>
-          <GoogleLogin src={GoogleLoginButton}></GoogleLogin>
+          <NaverLogin>
+            <NaverContainer>
+              <NaverLogo src={NaverLogoImg}></NaverLogo>
+              <NaverText>네이버 로그인</NaverText>
+            </NaverContainer>
+          </NaverLogin>
+          <GoogleLogin>
+            <GoogleContainer>
+              <GoogleLogo src={GoogleLogoImg}></GoogleLogo>
+              <GoogleText>구글 로그인</GoogleText>
+            </GoogleContainer>
+          </GoogleLogin>
+          {/* <NaverLogin src={NaverLoginButton}></NaverLogin>
+          <GoogleLogin src={GoogleLoginButton}></GoogleLogin> */}
         </ButtonContainer>
       </BodyContainer>
     </>
   );
 };
-const NaverLogin = styled.img`
+
+const GoogleText = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 37px;
+  font-size: 15px;
+  font-weight: 700;
+  color: black;
+`;
+
+const NaverText = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 27px;
+  font-size: 15px;
+  font-weight: 800;
+  color: white;
+`;
+
+const GoogleContainer = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 27px;
+`;
+const NaverContainer = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 20px;
+`;
+
+const NaverLogo = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+const GoogleLogo = styled.img`
+  width: 27px;
+  height: 27px;
+`;
+
+const NaverLogin = styled.div`
   width: 337px;
   height: 55px;
+  border: 1px solid;
+  border-radius: 10px;
+  color: lightgray;
+  background: #01be31;
 `;
-const GoogleLogin = styled.img`
+const GoogleLogin = styled.div`
   margin-top: 25px;
   width: 337px;
   height: 55px;
+  border: 1px solid;
+  border-radius: 10px;
+  color: lightgray;
 `;
 
 const ButtonContainer = styled.div`
@@ -73,7 +140,6 @@ const TextLine = styled.div`
   width: 500px;
   background-color: #e0e0e0;
   margin-top: 50px;
-
 `;
 const ContentText = styled.div`
   position: relative;
