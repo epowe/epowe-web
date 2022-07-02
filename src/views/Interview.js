@@ -31,14 +31,15 @@ const BodyContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 20%;
+  align-items: center;
+  min-width: 20em;
 `;
 
 const Button = styled.button`
   box-sizing: border-box;
   background: #6C63FF;
   color: white;
-  width: 100%;
+  width: 90%;
   padding: 15px;
   margin: 1vh 0;
   border: none;
