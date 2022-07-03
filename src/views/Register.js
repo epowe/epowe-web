@@ -30,7 +30,8 @@ const BodyContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 20%;
+  align-items: center;
+  min-width: 20em;
 `;
 
 const Title = styled.div`
@@ -45,7 +46,7 @@ const Button = styled.button`
   box-sizing: border-box;
   background: #6C63FF;
   color: white;
-  width: 100%;
+  width: 90%;
   padding: 15px;
   margin-top: 20vh;
   border: none;
@@ -61,7 +62,7 @@ const Input = styled.input`
   box-sizing: border-box;
   border: #6C63FF 2px solid;
   outline: none;
-  width: 100%;
+  width: 90%;
   height: 50px;
   padding: 0 0 0 15px;
   margin-top: 5vh;
