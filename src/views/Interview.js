@@ -1,14 +1,20 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import Header from "./Header.js";
 
 const Interview = () => {
+  const navigate = useNavigate();
+  const onClickStart = () => {
+    navigate("/interview/info");
+  };
+
   return (
     <>
-      <Header/>
+      <Header isLogin="true"/>
       <BodyContainer>
         <ButtonContainer>
-          <Button>
+          <Button onClick={onClickStart}>
             모의면접 시작하기
           </Button>
           <Button>
@@ -32,20 +38,20 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 20em;
+  min-width: 20rem;
 `;
 
 const Button = styled.button`
   box-sizing: border-box;
   background: #6C63FF;
   color: white;
-  width: 90%;
-  padding: 15px;
+  width: 100%;
+  padding: 0.8rem;
   margin: 1vh 0;
   border: none;
   border-radius: 50px;
   font-family: Montserrat-Bold;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   text-align: center;
