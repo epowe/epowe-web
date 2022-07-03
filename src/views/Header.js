@@ -4,59 +4,85 @@ import { useNavigate } from "react-router-dom";
 import HeaderLogoI from "../images/HeaderLogo.png";
 import "../App.css";
 
-const Header = () => {
+const Header = ({isLogin}) => {
     const navigate = useNavigate();
     const onClickLogo = () => {
       navigate("/");
     };
+
+    const onLogout = () => {
+      //로그아웃 처리하기
+      navigate("/");
+    };
+
     return (
       <>
         <Container>
-          <HeaderLogoImage src={HeaderLogoI} onClick={onClickLogo} />
-          <HeaderLogo>2-POW</HeaderLogo>
-          <Line />
+          <LogoContainer>
+            <HeaderLogoImage src={HeaderLogoI} onClick={onClickLogo} />
+            <HeaderLogo onClick={onClickLogo}>2-POW</HeaderLogo>
+          </LogoContainer>
+          {isLogin? <SmallButton onClick={onLogout}>로그아웃</SmallButton>:''}
         </Container>
+        <Line />
       </>
     );
 };
 
 const Container = styled.div`
-  position: relative;
-  left: 23px;
-  top: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 1.2rem;
   width: 100vw;
-  height: 85px;
+  height: 5rem;
   background-color: #ffffff;
   overflow: hidden;
 `;
 
+const LogoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;  
+`;
+
 const HeaderLogoImage = styled.img`
-  width: 51px;
-  height: 51px;
+  width: 3rem;
+  height: 3rem;
   cursor: pointer;
 `;
 
 const HeaderLogo = styled.div`
   position: relative;
   display: inline-block;
-  bottom: 11px;
-  margin-left: 19px;
+  margin: 0.8rem;
   text-align: center;
   font-family: Montserrat-Bold;
   display: inline-block;
-  position: relative;
-  font-size: 22px;
+  font-size: 1.4rem;
   color: #6c63ff;
   cursor: pointer;
-  margin-left: 19px;
-  margin-top: 20px;
+`;
+
+const SmallButton = styled.button`
+  border: none;
+  border-radius: 50px;
+  color: #ffffff;
+  background: #6c63ff; 
+  height: 2rem;
+  width: 5rem;
+  font-family: Montserrat-Bold;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-right: 5rem;
 `;
 
 const Line = styled.div`
-  height: 1px;
+  height: 0.08rem;
   width: 90vw;
   background-color: #e0e0e0;
-  margin-left: 238px;
+  margin-left: 12rem;
 `;
 
 export default Header;
