@@ -1,6 +1,6 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { useNavigate, Link, useParam } from "react-router-dom";
 import HeaderLogoI from "../images/HeaderLogo.png";
 import GoogleLogoImg from "../images/GoogleLogo.png";
 import NaverLogoImg from "../images/NaverLogo.png";

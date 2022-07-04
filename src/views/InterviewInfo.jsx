@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import AddRemoveInputField from './AddRemoveInputField.js';
+import AddRemoveInputField from "./AddRemoveInputField.jsx";
 import Header from "./Header.js";
 
 const InterviewInfo = () => {
@@ -9,12 +9,12 @@ const InterviewInfo = () => {
   const titleRef = useRef();
 
   const onStart = () => {
-    if (titleRef.current.value !== '') {
-      //if (질문 1개 이상 입력했는지 확인하기) { 
+    if (titleRef.current.value !== "") {
+      //if (질문 1개 이상 입력했는지 확인하기) {
       //  제목+질문들 처리하기
       //  navigate('/interview?q=1'); // ???
       //}
-      //else { alert(); //-> modal로 바꾸기 } 
+      //else { alert(); //-> modal로 바꾸기 }
     } else {
       alert("면접 제목을 입력해주세요"); //-> modal로 바꾸기
     }
@@ -22,19 +22,23 @@ const InterviewInfo = () => {
 
   return (
     <>
-      <Header isLogin="true"/>
+      <Header isLogin="true" />
       <BodyContainer>
         <Container>
           <Title>모의면접 정보 입력</Title>
           <div className="container">
             <div className="row my-3">
-            <input ref={titleRef} type="text" name="question" className="form-control shadow-none"  placeholder="면접 제목" />
+              <input
+                ref={titleRef}
+                type="text"
+                name="question"
+                className="form-control shadow-none"
+                placeholder="면접 제목"
+              />
               <AddRemoveInputField />
             </div>
           </div>
-          <Button onClick={onStart}>
-            면접 시작
-          </Button>
+          <Button onClick={onStart}>면접 시작</Button>
         </Container>
       </BodyContainer>
     </>
@@ -58,7 +62,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-weight: bold;
   font-size: 1.5rem;
   text-align: center;
@@ -69,7 +73,7 @@ const Button = styled.button`
   box-sizing: border-box;
   position: sticky;
   top: 100%;
-  background: #6C63FF;
+  background: #6c63ff;
   color: white;
   width: 90%;
   padding: 0.8rem;
@@ -82,4 +86,4 @@ const Button = styled.button`
   text-align: center;
 `;
 
-export default InterviewInfo
+export default InterviewInfo;
