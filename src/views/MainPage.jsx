@@ -6,12 +6,33 @@ import GoogleLogoImg from "../images/GoogleLogo.png";
 import NaverLogoImg from "../images/NaverLogo.png";
 import "../App.css";
 import Header from "./Header.js";
+import axios from "axios";
+import API from "../API.js";
+import { Oauth2RedirectURL } from "./Oauth2RedirectURL";
+import { GoogleAuthURL } from "./GoogleAuthURL";
+import { NaverAuthURL } from "./NaverAuthURL";
 
 const MainPage = () => {
   const navigate = useNavigate();
   const onClickLogo = () => {
     navigate("/");
   };
+  const [testStr, setTestStr] = useState("");
+
+  // 변수 초기화
+  function callback(str) {
+    setTestStr(str);
+  }
+
+  // 첫 번째 렌더링을 마친 후 실행
+  useEffect(() => {
+    axios({
+      url: "/oauth2/authorization/naver",
+      method: "GET",
+    }).then((res) => {
+      callback(res.data);
+    });
+  }, []);
 
   return (
     <>
@@ -25,18 +46,19 @@ const MainPage = () => {
             날개를 달아주는 서비스 입니다.
           </ContentText>
         </TitleContainer>
+        {testStr}
         <ButtonContainer>
           <NaverLogin>
             {/* 로그인 버튼을 클릭하면 다음 주소로 요청가게끔 구현 */}
-            <Link
+            {/* <Link
               to="/oauth2/authorization/naver"
               style={{ textDecoration: "none" }}
-            >
-              <NaverContainer>
-                <NaverLogo src={NaverLogoImg}></NaverLogo>
-                <NaverText>네이버 로그인</NaverText>
-              </NaverContainer>
-            </Link>
+            > */}
+            <NaverContainer onClick={console.log(testStr)}>
+              <NaverLogo src={NaverLogoImg}></NaverLogo>
+              <NaverText>네이버 로그인</NaverText>
+            </NaverContainer>
+            {/* </Link> */}
           </NaverLogin>
           <GoogleLogin>
             {/* 로그인 버튼을 클릭하면 다음 주소로 요청가게끔 구현 */}

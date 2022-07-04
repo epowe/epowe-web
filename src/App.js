@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect, useContext, useState } from "react";
-import MainPage from "./views/MainPage";
+import MainPage from "./views/MainPage.jsx";
 import Interview from "./views/Interview";
 import Register from "./views/Register";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
