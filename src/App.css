@@ -1,8 +1,7 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 .App {
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .App-logo {
@@ -39,7 +38,6 @@
     transform: rotate(360deg);
   }
 }
-
 /* 폰트 설정 */
 @font-face {
   font-family: "Montserrat-Bold";

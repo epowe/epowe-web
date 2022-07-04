@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import HeaderLogoI from "../images/HeaderLogo.png";
 import GoogleLogoImg from "../images/GoogleLogo.png";
 import NaverLogoImg from "../images/NaverLogo.png";
@@ -27,19 +27,27 @@ const MainPage = () => {
         </TitleContainer>
         <ButtonContainer>
           <NaverLogin>
-            <NaverContainer>
-              <NaverLogo src={NaverLogoImg}></NaverLogo>
-              <NaverText>네이버 로그인</NaverText>
-            </NaverContainer>
+            <Link
+              to="/oauth2/authorization/naver"
+              style={{ textDecoration: "none" }}
+            >
+              <NaverContainer>
+                <NaverLogo src={NaverLogoImg}></NaverLogo>
+                <NaverText>네이버 로그인</NaverText>
+              </NaverContainer>
+            </Link>
           </NaverLogin>
           <GoogleLogin>
-            <GoogleContainer>
-              <GoogleLogo src={GoogleLogoImg}></GoogleLogo>
-              <GoogleText>구글 로그인</GoogleText>
-            </GoogleContainer>
+            <Link
+              to="/oauth2/authorization/google"
+              style={{ textDecoration: "none" }}
+            >
+              <GoogleContainer>
+                <GoogleLogo src={GoogleLogoImg}></GoogleLogo>
+                <GoogleText>구글 로그인</GoogleText>
+              </GoogleContainer>
+            </Link>
           </GoogleLogin>
-          {/* <NaverLogin src={NaverLoginButton}></NaverLogin>
-          <GoogleLogin src={GoogleLoginButton}></GoogleLogin> */}
         </ButtonContainer>
       </BodyContainer>
     </>
