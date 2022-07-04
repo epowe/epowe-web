@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import HeaderLogoI from "../images/HeaderLogo.png";
 import GoogleLogoImg from "../images/GoogleLogo.png";
 import NaverLogoImg from "../images/NaverLogo.png";
@@ -27,6 +27,7 @@ const MainPage = () => {
         </TitleContainer>
         <ButtonContainer>
           <NaverLogin>
+            {/* 로그인 버튼을 클릭하면 다음 주소로 요청가게끔 구현 */}
             <Link
               to="/oauth2/authorization/naver"
               style={{ textDecoration: "none" }}
@@ -38,6 +39,7 @@ const MainPage = () => {
             </Link>
           </NaverLogin>
           <GoogleLogin>
+            {/* 로그인 버튼을 클릭하면 다음 주소로 요청가게끔 구현 */}
             <Link
               to="/oauth2/authorization/google"
               style={{ textDecoration: "none" }}
