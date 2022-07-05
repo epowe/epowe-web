@@ -34,5 +34,6 @@
 //   },
 // };
 
-export const API = "http://localhost:8080";
-export default API;
+export const API = () => {
+  const API_BASE_URL = process.env.REACT_APP_BASE_URL;
+};
