@@ -1,7 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, Link, useParam } from "react-router-dom";
-import HeaderLogoI from "../images/HeaderLogo.png";
 import GoogleLogoImg from "../images/GoogleLogo.png";
 import NaverLogoImg from "../images/NaverLogo.png";
 import "../App.css";
@@ -11,28 +10,32 @@ import API from "../API.js";
 import { Oauth2RedirectURL } from "./Oauth2RedirectURL";
 import { GoogleAuthURL } from "./GoogleAuthURL";
 import { NaverAuthURL } from "./NaverAuthURL";
+export const API_BASE_URL = "http://localhost:8080";
 
+//서버에서 인증을 완료한 후에 프론트엔드로 돌아올 redirect uri (app.oauth2.authorized-redirect-uri와 일치해야 한다)
+export const OAUTH2_REDIRECT_URI = "http://localhost:3000/oauth2/redirect";
+
+export const GOOGLE_AUTH_URL =
+  API_BASE_URL +
+  "/oauth2/authorization/google?redirect_uri=" +
+  OAUTH2_REDIRECT_URI;
+export const FACEBOOK_AUTH_URL =
+  API_BASE_URL +
+  "/oauth2/authorization/facebook?redirect_uri=" +
+  OAUTH2_REDIRECT_URI;
+export const NAVER_AUTH_URL =
+  API_BASE_URL +
+  "/oauth2/authorization/naver?redirect_uri=" +
+  OAUTH2_REDIRECT_URI;
+export const KAKAO_AUTH_URL =
+  API_BASE_URL +
+  "/oauth2/authorization/kakao?redirect_uri=" +
+  OAUTH2_REDIRECT_URI;
 const MainPage = () => {
   const navigate = useNavigate();
   const onClickLogo = () => {
     navigate("/");
   };
-  const [testStr, setTestStr] = useState("");
-
-  // 변수 초기화
-  function callback(str) {
-    setTestStr(str);
-  }
-
-  // 첫 번째 렌더링을 마친 후 실행
-  useEffect(() => {
-    axios({
-      url: "/oauth2/authorization/naver",
-      method: "GET",
-    }).then((res) => {
-      callback(res.data);
-    });
-  }, []);
 
   return (
     <>
@@ -46,7 +49,6 @@ const MainPage = () => {
             날개를 달아주는 서비스 입니다.
           </ContentText>
         </TitleContainer>
-        {testStr}
         <ButtonContainer>
           <NaverLogin>
             {/* 로그인 버튼을 클릭하면 다음 주소로 요청가게끔 구현 */}
@@ -54,23 +56,27 @@ const MainPage = () => {
               to="/oauth2/authorization/naver"
               style={{ textDecoration: "none" }}
             > */}
-            <NaverContainer onClick={console.log(testStr)}>
-              <NaverLogo src={NaverLogoImg}></NaverLogo>
-              <NaverText>네이버 로그인</NaverText>
-            </NaverContainer>
+            <a href={NAVER_AUTH_URL} style={{ textDecoration: "none" }}>
+              <NaverContainer>
+                <NaverLogo src={NaverLogoImg}></NaverLogo>
+                <NaverText>네이버 로그인</NaverText>
+              </NaverContainer>
+            </a>
             {/* </Link> */}
           </NaverLogin>
           <GoogleLogin>
             {/* 로그인 버튼을 클릭하면 다음 주소로 요청가게끔 구현 */}
-            <Link
+            {/* <Link
               to="/oauth2/authorization/google"
               style={{ textDecoration: "none" }}
-            >
+            > */}
+            <a href={GOOGLE_AUTH_URL} style={{ textDecoration: "none" }}>
               <GoogleContainer>
                 <GoogleLogo src={GoogleLogoImg}></GoogleLogo>
                 <GoogleText>구글 로그인</GoogleText>
               </GoogleContainer>
-            </Link>
+            </a>
+            s{/* </Link> */}
           </GoogleLogin>
         </ButtonContainer>
       </BodyContainer>

@@ -12,7 +12,7 @@ function App() {
     <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/interview" element={<Interview />} />
-      <Route path="/register" element={<Register />} />
+      <Route exact path="/oauth2/redirect" component={<Register />} />
       <Route path="/interview/info" element={<InterviewInfo />} />
       <Route path="/interview/feedback" element={<Feedback />} />
     </Routes>
