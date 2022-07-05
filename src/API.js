@@ -14,6 +14,7 @@
 //         JSON.stringify({
 //           socialType: socialType,
 //           socialId: socialId,
+
 //         }),
 //         {
 //           headers: {
@@ -34,3 +35,4 @@
 // };
 
 export const API = "http://localhost:8080";
+export default API;
