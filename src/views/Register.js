@@ -35,8 +35,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: 'Montserrat';
-  font-weight: bold;
+  font-family: SCDream-Regular;
   font-size: 24px;
   text-align: center;
   margin: 0;
@@ -51,9 +50,8 @@ const Button = styled.button`
   margin-top: 20vh;
   border: none;
   border-radius: 50px;
-  font-family: Montserrat-Bold;
+  font-family: SCDream-Regular;
   font-size: 15px;
-  font-weight: 600;
   cursor: pointer;
   text-align: center;
 `;
@@ -67,7 +65,7 @@ const Input = styled.input`
   padding: 0 0 0 15px;
   margin-top: 5vh;
   border-radius: 50px;
-  font-family: Montserrat-Bold;
+  font-family: SCDream-Regular;
   font-size: 15px;
 `;
 

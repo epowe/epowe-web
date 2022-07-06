@@ -126,6 +126,7 @@ const NaverLogin = styled.div`
   border-radius: 10px;
   color: lightgray;
   background: #01be31;
+  font-family: SCDream-Light;
 `;
 const GoogleLogin = styled.div`
   margin-top: 25px;
@@ -134,6 +135,7 @@ const GoogleLogin = styled.div`
   border: 1px solid;
   border-radius: 10px;
   color: lightgray;
+  font-family: SCDream-Light;
 `;
 
 const ButtonContainer = styled.div`
@@ -155,7 +157,7 @@ const TitleContainer = styled.div`
   flex-direction: column;
 `;
 const TitleText = styled.div`
-  font-family: Montserrat-Bold;
+  font-family: SCDream-Regular;
   font-size: 44px;
   position: relative;
 `;
@@ -169,38 +171,8 @@ const TextLine = styled.div`
 `;
 const ContentText = styled.div`
   position: relative;
-  font-family: Montserrat-Regular;
   font-size: 20px;
   margin-top: 37px;
-`;
-
-const HeaderLogoImage = styled.img`
-  width: 51px;
-  height: 51px;
-  cursor: pointer;
-`;
-
-const HeaderLogo = styled.div`
-  position: relative;
-  display: inline-block;
-  bottom: 11px;
-  margin-left: 19px;
-  text-align: center;
-  font-family: Montserrat-Bold;
-  display: inline-block;
-  position: relative;
-  font-size: 22px;
-  color: #6c63ff;
-  cursor: pointer;
-  margin-left: 19px;
-  margin-top: 20px;
-`;
-
-const Line = styled.div`
-  height: 1px;
-  width: 90vw;
-  background-color: #e0e0e0;
-  margin-left: 238px;
 `;
 
 export default MainPage;

@@ -71,9 +71,8 @@ const SmallButton = styled.button`
   background: #6c63ff; 
   height: 2rem;
   width: 5rem;
-  font-family: Montserrat-Bold;
+  font-family: SCDream-Regular;
   font-size: 0.7rem;
-  font-weight: bold;
   padding: 0.5rem;
   margin-right: 5rem;
 `;

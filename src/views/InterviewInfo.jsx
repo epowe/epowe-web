@@ -58,12 +58,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   min-width: 30rem;
+  width: 30%;
   height: 90%;
 `;
 
 const Title = styled.div`
-  font-family: "Montserrat";
-  font-weight: bold;
+  font-family: SCDream-Regular;
   font-size: 1.5rem;
   text-align: center;
   margin: 0;
@@ -79,9 +79,8 @@ const Button = styled.button`
   padding: 0.8rem;
   border: none;
   border-radius: 50px;
-  font-family: Montserrat-Bold;
+  font-family: SCDream-Regular;
   font-size: 1rem;
-  font-weight: 600;
   cursor: pointer;
   text-align: center;
 `;
