@@ -50,8 +50,6 @@ const ButtonContainer = styled.div`
   flex-direction: column;
   align-items: center;
   min-width: 20rem;
-  position: sticky;
-  top: 100%;
 `;
 
 const Title = styled.div`
