@@ -27,6 +27,11 @@ const Interview = () => {
 }
 
 const BodyContainer = styled.div`
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100vw;
   height: 80vh;
   display: flex;

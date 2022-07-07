@@ -30,6 +30,10 @@ const Header = ({isLogin}) => {
 };
 
 const Container = styled.div`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -78,10 +82,13 @@ const SmallButton = styled.button`
 `;
 
 const Line = styled.div`
+  position: fixed;
+  top: 5rem;
+  left: 12rem;
+  right: 0;
   height: 0.08rem;
   width: 90vw;
   background-color: #e0e0e0;
-  margin-left: 12rem;
 `;
 
 export default Header;
