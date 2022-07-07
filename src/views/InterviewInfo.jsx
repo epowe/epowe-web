@@ -34,7 +34,8 @@ const InterviewInfo = () => {
                 name="question"
                 className="form-control shadow-none"
                 placeholder="면접 제목"
-              />
+                autocomplete="off"
+                />
               <AddRemoveInputField />
             </div>
           </div>
