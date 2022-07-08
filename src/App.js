@@ -8,11 +8,19 @@ import InterviewInfo from "./views/InterviewInfo.jsx";
 import Feedback from "./views/Feedback";
 
 function App() {
+  const [isLogged, setIsLogged] = useState(
+    localStorage.getItem("isLogged") === "true" ? true : false
+  );
+  const value = {
+    isLogged,
+    setIsLogged,
+  };
+
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/interview" element={<Interview />} />
-      <Route exact path="/oauth2/redirect" component={<Register />} />
+      <Route path="/oauth2/redirect" element={<Register />} />
       <Route path="/interview/info" element={<InterviewInfo />} />
       <Route path="/interview/feedback" element={<Feedback />} />
     </Routes>
