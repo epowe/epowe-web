@@ -9,18 +9,6 @@ import axios from "axios";
 import GoogleAuthURL from "../GoogleAuthURL";
 import NaverAuthURL from "../NaverAuthURL";
 
-// export const API_BASE_URL = process.env.REACT_APP_BASE_URL;
-// //서버에서 인증을 완료한 후에 프론트엔드로 돌아올 redirect uri (app.oauth2.authorized-redirect-uri와 일치해야 한다)
-// export const OAUTH2_REDIRECT_URI = process.env.OAUTH2_REDIRECT_URI;
-// export const GOOGLE_AUTH_URL =
-//   API_BASE_URL +
-//   "/oauth2/authorization/google?redirect_uri=" +
-//   OAUTH2_REDIRECT_URI;
-// export const NAVER_AUTH_URL =
-//   API_BASE_URL +
-//   "/oauth2/authorization/naver?redirect_uri=" +
-//   OAUTH2_REDIRECT_URI;
-
 const MainPage = () => {
   const navigate = useNavigate();
   const onClickLogo = () => {
