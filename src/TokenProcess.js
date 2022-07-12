@@ -32,10 +32,11 @@ const GoogleLoginRedirect = ({ location }) => {
     try {
       //응답 성공
       const response = await axios.get("http://localhost:8080/afterLogin", {
-        headers: {
-          Authorization: `Bearer ${userToken2}`,
-        },
+        // headers: {
+        //   Authorization: `Bearer ${userToken2}`,
+        // },
       });
+      console.log(userToken2 + "했다했다");
       if (response.status === 200) {
         console.log("afterLogin api get 요청 성공");
       }
@@ -50,7 +51,7 @@ const GoogleLoginRedirect = ({ location }) => {
     if (userToken2) {
       localStorage.clear();
       localStorage.setItem("jwtToken", userToken2);
-      // axios.defaults.headers.common["Authorization"] = `Bearer ${userToken2}`;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${userToken2}`;
       authAfterLogin();
     } else {
       console.log("토큰을 못 받아옴");
