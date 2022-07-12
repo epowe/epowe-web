@@ -13,6 +13,7 @@ import FeedbackDetail from "./views/FeedbackDetail.jsx";
 import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
 import TokenProcess from "./TokenProcess";
+
 const App = () => {
   const BASE_URL = ApiBaseURL;
   // axios.defaults.baseURL = BASE_URL;
@@ -25,31 +26,28 @@ const App = () => {
     setIsLogged,
   };
 
-  const authLogin = async () => {
-    try {
-      //응답 성공
-      const response = await axios.get(
-        "http://localhost:3000/oauth2/redirect",
-        {
-          // headers: {
-          //   "Content-Type": "application/json",
-          // },
-          withCredentials: true,
-        }
-      );
-      if (response.status === 200) {
-        console.log("Okay");
-      }
-      console.log(response);
-      console.log("응답 성공");
-    } catch (error) {
-      //응답 실패
+  // const authLogin = async () => {
+  //   try {
+  //     //응답 성공
+  //     const response = await axios.get(
+  //       "http://localhost:3000/oauth2/redirect",
+  //       {
+  //         withCredentials: true,
+  //       }
+  //     );
+  //     if (response.status === 200) {
+  //       console.log("Okay");
+  //     }
+  //     console.log(response);
+  //     console.log("응답 성공");
+  //   } catch (error) {
+  //     //응답 실패
 
-      console.error(error);
-      console.log("응답 실패glalalal");
-    }
-  };
-  // const getToken = ({ location }) => {
+  //     console.error(error);
+  //     console.log("응답 실패glalalal");
+  //   }
+  // };
+  // useEffect((location) => {
   //   const params = new URLSearchParams(window.location.search);
   //   let userToken = params.get("userToken");
 
@@ -58,19 +56,8 @@ const App = () => {
   //   };
   //   let userToken2 = getParameter("userToken");
   //   console.log(userToken2);
-  //   return <></>;
-  // };
-  useEffect((location) => {
-    const params = new URLSearchParams(window.location.search);
-    let userToken = params.get("userToken");
-
-    let getParameter = (key) => {
-      return new URLSearchParams(window.location.search).get(key);
-    };
-    let userToken2 = getParameter("userToken");
-    console.log(userToken2);
-    authLogin();
-  }, []);
+  //   // authLogin();
+  // }, []);
 
   return (
     <Routes>
