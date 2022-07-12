@@ -30,6 +30,10 @@ const Header = ({isLogin}) => {
 };
 
 const Container = styled.div`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -71,18 +75,20 @@ const SmallButton = styled.button`
   background: #6c63ff; 
   height: 2rem;
   width: 5rem;
-  font-family: Montserrat-Bold;
+  font-family: SCDream-Regular;
   font-size: 0.7rem;
-  font-weight: bold;
   padding: 0.5rem;
   margin-right: 5rem;
 `;
 
 const Line = styled.div`
+  position: fixed;
+  top: 5rem;
+  left: 12rem;
+  right: 0;
   height: 0.08rem;
   width: 90vw;
   background-color: #e0e0e0;
-  margin-left: 12rem;
 `;
 
 export default Header;

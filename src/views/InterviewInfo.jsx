@@ -34,7 +34,8 @@ const InterviewInfo = () => {
                 name="question"
                 className="form-control shadow-none"
                 placeholder="면접 제목"
-              />
+                autocomplete="off"
+                />
               <AddRemoveInputField />
             </div>
           </div>
@@ -46,6 +47,11 @@ const InterviewInfo = () => {
 };
 
 const BodyContainer = styled.div`
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100vw;
   height: 80vh;
   display: flex;
@@ -58,15 +64,15 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   min-width: 30rem;
+  width: 30%;
   height: 90%;
 `;
 
 const Title = styled.div`
-  font-family: "Montserrat";
-  font-weight: bold;
+  font-family: SCDream-Regular;
   font-size: 1.5rem;
   text-align: center;
-  margin: 0;
+  margin: 1.5rem;
 `;
 
 const Button = styled.button`
@@ -79,9 +85,8 @@ const Button = styled.button`
   padding: 0.8rem;
   border: none;
   border-radius: 50px;
-  font-family: Montserrat-Bold;
+  font-family: SCDream-Regular;
   font-size: 1rem;
-  font-weight: 600;
   cursor: pointer;
   text-align: center;
 `;

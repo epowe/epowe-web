@@ -41,8 +41,6 @@ const Container = styled.div`
   border: 1px solid #e2e2e2;
   box-shadow: 0px 10px 6px rgba(0, 0, 0, 0.01);
   border-radius: 50px;
-  font-family: Montserrat;
-  font-weight: 500;
   padding: 0.8rem 1rem;
   display: flex;
   justify-content: space-between;
