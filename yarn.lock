@@ -1389,6 +1389,13 @@
   "resolved" "https://registry.npmjs.org/@types/aria-query/-/aria-query-4.2.2.tgz"
   "version" "4.2.2"
 
+"@types/http-proxy@^1.17.8":
+  "integrity" "sha512-QsbSjA/fSk7xB+UXlCT3wHBy5ai9wOcNDWwZAtud+jXhwOM3l+EYZh8Lng4+/6n8uar0J7xILzqftJdJ/Wdfkw=="
+  "resolved" "https://registry.npmjs.org/@types/http-proxy/-/http-proxy-1.17.9.tgz"
+  "version" "1.17.9"
+  dependencies:
+    "@types/node" "*"
+
 "@types/jest@*":
   "integrity" "sha512-fUy7YRpT+rHXto1YlL+J9rs0uLGyiqVt3ZOTQR+4ROc47yNl8WLdVLgUloBRhOxP1PZvguHl44T3H0wAWxahYQ=="
   "resolved" "https://registry.npmjs.org/@types/jest/-/jest-27.5.1.tgz"
@@ -1396,6 +1403,11 @@
   dependencies:
     "jest-matcher-utils" "^27.0.0"
     "pretty-format" "^27.0.0"
+
+"@types/node@*":
+  "integrity" "sha512-HzNRZtp4eepNitP+BD6k2L6DROIDG4Q0fm4x+dwfsr6LGmROENnok75VGw40628xf+iR24WeMFcHuuBDUAzzsQ=="
+  "resolved" "https://registry.npmjs.org/@types/node/-/node-18.0.3.tgz"
+  "version" "18.0.3"
 
 "@types/prop-types@*":
   "integrity" "sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w=="
@@ -2550,6 +2562,13 @@
     "snapdragon-node" "^2.0.1"
     "split-string" "^3.0.2"
     "to-regex" "^3.0.1"
+
+"braces@^3.0.2":
+  "integrity" "sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A=="
+  "resolved" "https://registry.npmjs.org/braces/-/braces-3.0.2.tgz"
+  "version" "3.0.2"
+  dependencies:
+    "fill-range" "^7.0.1"
 
 "braces@~3.0.2":
   "integrity" "sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A=="
@@ -5579,6 +5598,17 @@
     "agent-base" "6"
     "debug" "4"
 
+"http-proxy-middleware@^2.0.6":
+  "integrity" "sha512-ya/UeJ6HVBYxrgYotAZo1KvPWlgB48kUJLDePFeneHsVujFaW5WNj2NgWCAE//B1Dl02BIfYlpNgBy8Kf8Rjmw=="
+  "resolved" "https://registry.npmjs.org/http-proxy-middleware/-/http-proxy-middleware-2.0.6.tgz"
+  "version" "2.0.6"
+  dependencies:
+    "@types/http-proxy" "^1.17.8"
+    "http-proxy" "^1.18.1"
+    "is-glob" "^4.0.1"
+    "is-plain-obj" "^3.0.0"
+    "micromatch" "^4.0.2"
+
 "http-proxy-middleware@~0.18.0":
   "integrity" "sha512-Fs25KVMPAIIcgjMZkVHJoKg9VcXcC1C8yb9JUgeDvVXY0S/zgVIhMb+qVswDIgtJe2DfckMSY2d6TuTEutlk6Q=="
   "resolved" "https://registry.npmjs.org/http-proxy-middleware/-/http-proxy-middleware-0.18.0.tgz"
@@ -5589,7 +5619,7 @@
     "lodash" "^4.17.5"
     "micromatch" "^3.1.9"
 
-"http-proxy@^1.16.2":
+"http-proxy@^1.16.2", "http-proxy@^1.18.1":
   "integrity" "sha512-7mz/721AbnJwIVbnaSv1Cz3Am0ZLT/UBwkC92VlxhXv/k/BBQfM2fXElQNC27BVGr0uwUpplYPQM9LnaBMR5NQ=="
   "resolved" "https://registry.npmjs.org/http-proxy/-/http-proxy-1.18.1.tgz"
   "version" "1.18.1"
@@ -6135,6 +6165,11 @@
   "version" "1.0.1"
   dependencies:
     "path-is-inside" "^1.0.1"
+
+"is-plain-obj@^3.0.0":
+  "integrity" "sha512-gwsOE28k+23GP1B6vFl1oVh/WOzmawBrKwo5Ev6wMKzPkaXaCDIQKzLnvsA42DRlbVTWorkgTKIviAKCWkfUwA=="
+  "resolved" "https://registry.npmjs.org/is-plain-obj/-/is-plain-obj-3.0.0.tgz"
+  "version" "3.0.0"
 
 "is-plain-object@^2.0.1", "is-plain-object@^2.0.3", "is-plain-object@^2.0.4":
   "integrity" "sha512-h5PpgXkWitc38BBMYawTYMWJHFZJVnBquFE57xFpjB8pJFiF6gZ+bU+WyI/yqXiFR5mdLsgYNaPe8uao6Uv9Og=="
@@ -7322,6 +7357,14 @@
     "snapdragon" "^0.8.1"
     "to-regex" "^3.0.2"
 
+"micromatch@^4.0.2":
+  "integrity" "sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA=="
+  "resolved" "https://registry.npmjs.org/micromatch/-/micromatch-4.0.5.tgz"
+  "version" "4.0.5"
+  dependencies:
+    "braces" "^3.0.2"
+    "picomatch" "^2.3.1"
+
 "microseconds@0.2.0":
   "integrity" "sha512-n7DHHMjR1avBbSpsTBj6fmMGh2AGrifVV4e+WYc3Q9lO+xnSZ3NyhcBND3vzzatt05LFhoKFRxrIyklmLlUtyA=="
   "resolved" "https://registry.npmjs.org/microseconds/-/microseconds-0.2.0.tgz"
@@ -8119,7 +8162,7 @@
   "resolved" "https://registry.npmjs.org/picocolors/-/picocolors-1.0.0.tgz"
   "version" "1.0.0"
 
-"picomatch@^2.0.4", "picomatch@^2.2.1", "picomatch@^2.3.0":
+"picomatch@^2.0.4", "picomatch@^2.2.1", "picomatch@^2.3.0", "picomatch@^2.3.1":
   "integrity" "sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA=="
   "resolved" "https://registry.npmjs.org/picomatch/-/picomatch-2.3.1.tgz"
   "version" "2.3.1"

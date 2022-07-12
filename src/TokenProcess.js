@@ -27,11 +27,14 @@ const GoogleLoginRedirect = ({ location }) => {
     return new URLSearchParams(window.location.search).get(key);
   };
   let userToken2 = getParameter("userToken");
+
   const authAfterLogin = async () => {
     try {
       //응답 성공
       const response = await axios.get("http://localhost:8080/afterLogin", {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${userToken2}`,
+        },
       });
       if (response.status === 200) {
         console.log("afterLogin api get 요청 성공");
@@ -42,17 +45,18 @@ const GoogleLoginRedirect = ({ location }) => {
       console.log("afterlogin 응답 실패");
     }
   };
+
   useEffect(() => {
     if (userToken2) {
+      localStorage.clear();
       localStorage.setItem("jwtToken", userToken2);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${userToken2}`;
+      // axios.defaults.headers.common["Authorization"] = `Bearer ${userToken2}`;
       authAfterLogin();
     } else {
       console.log("토큰을 못 받아옴");
     }
-    console.log(
-      localStorage.getItem("jwtToken") + "토큰을 localStorage에 저장했다."
-    );
+    console.log(localStorage.getItem("jwtToken"));
+    console.log("토큰을 localStorage에 저장했다.");
   }, []);
 
   return <></>;
