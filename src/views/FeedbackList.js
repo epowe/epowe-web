@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
+import FeedbackTable from './FeedbackTable'
 import Header from './Header'
 
 const FeedbackList = () => {
@@ -8,7 +9,9 @@ const FeedbackList = () => {
       <Header isLogin="true"/>
       <BodyContainer>
         <Title>전체 피드백 목록</Title>
-        
+        <TableContainer>
+          <FeedbackTable />
+        </TableContainer>
       </BodyContainer>
     </>
   )
@@ -33,6 +36,12 @@ const Title = styled.div`
   font-size: 1.5rem;
   text-align: center;
   margin: 1.5rem;
+`;
+
+const TableContainer = styled.div`
+  text-align: center;
+  overflow-y: auto;
+  max-height: 30rem;
 `;
 
 export default FeedbackList

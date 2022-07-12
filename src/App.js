@@ -6,6 +6,7 @@ import Register from "./views/Register";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import InterviewInfo from "./views/InterviewInfo.jsx";
 import Feedback from "./views/Feedback";
+<<<<<<< HEAD
 import MyFeedback from "./views/MyFeedback";
 import FeedbackList from "./views/FeedbackList";
 import QuestionList from "./views/QuestionList";
@@ -13,6 +14,14 @@ import FeedbackDetail from "./views/FeedbackDetail";
 import ApiBaseURL from "./ApiBaseURL";
 import axios from "axios";
 import TokenProcess from "./views/TokenProcess";
+=======
+import MyFeedback from './views/MyFeedback';
+import FeedbackList from './views/FeedbackList';
+import QuestionList from './views/QuestionList';
+import FeedbackDetail from './views/FeedbackDetail.jsx';
+import axios from 'axios';
+import ApiBaseURL from './ApiBaseURL';
+>>>>>>> 3ef4b5bdd9de6d829193134a1059eec1554b3cc3
 
 const App = () => {
   const BASE_URL = ApiBaseURL;
@@ -80,10 +89,10 @@ const App = () => {
       <Route path="/oauth2/redirect" element={<TokenProcess />} />
       <Route path="/interview/info" element={<InterviewInfo />} />
       <Route path="/interview/feedback" element={<Feedback />} />
-      <Route path="/myfeedback" element={<MyFeedback />} />
-      <Route path="/feedbacklist" element={<FeedbackList />} />
-      <Route path="/questionlist" element={<QuestionList />} />
-      <Route path="/feedbackDetail" element={<FeedbackDetail />} />
+      <Route path="/feedback" element={<MyFeedback />} />
+      <Route path="/feedback/list" element={<FeedbackList />} />
+      <Route path="/feedback/list/questions" element={<QuestionList />} />
+      <Route path="/feedback/list/questions/detail" element={<FeedbackDetail />} />
     </Routes>
   );
 };

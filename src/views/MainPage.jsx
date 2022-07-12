@@ -8,6 +8,7 @@ import Header from "./Header.js";
 import axios from "axios";
 import GoogleAuthURL from "../GoogleAuthURL";
 import NaverAuthURL from "../NaverAuthURL";
+import TypeIt from 'typeit-react';
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -23,8 +24,12 @@ const MainPage = () => {
           <TitleText>AI 모의 면접 교정</TitleText>
           <TextLine />
           <ContentText>
-            이에이승은 면접에서 어려움을 겪고 있는 사람들에게 <br />
-            날개를 달아주는 서비스 입니다.
+            <TypeIt
+              options={{
+                strings: ["이에이승은 면접에서 어려움을 겪고 있는 사람들에게", "날개를 달아주는 서비스입니다."],
+                speed: 90,
+                waitUntilVisible: true,
+              }} />
           </ContentText>
         </TitleContainer>
         <ButtonContainer>

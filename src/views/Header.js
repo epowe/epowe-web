@@ -22,7 +22,14 @@ const Header = ({isLogin}) => {
             <HeaderLogoImage src={HeaderLogoI} onClick={onClickLogo} />
             <HeaderLogo onClick={onClickLogo}>2-POW</HeaderLogo>
           </LogoContainer>
-          {isLogin? <SmallButton onClick={onLogout}>로그아웃</SmallButton>:''}
+          {isLogin?
+          <SmallContainer>
+            <SmallButton onClick={onLogout}>로그아웃</SmallButton>
+            <ProfileContainer onClick={() => navigate("/feedback")}>
+              <Image src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"/>
+              <Span>홍길동</Span>
+            </ProfileContainer>
+          </SmallContainer>:''}
         </Container>
         <Line />
       </>
@@ -37,11 +44,12 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 1.2rem;
+  padding: 0 1.2rem;
   width: 100vw;
   height: 5rem;
   background-color: #ffffff;
   overflow: hidden;
+  z-index: 1;
 `;
 
 const LogoContainer = styled.div`
@@ -68,6 +76,11 @@ const HeaderLogo = styled.div`
   cursor: pointer;
 `;
 
+const SmallContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const SmallButton = styled.button`
   border: none;
   border-radius: 50px;
@@ -78,7 +91,26 @@ const SmallButton = styled.button`
   font-family: SCDream-Regular;
   font-size: 0.7rem;
   padding: 0.5rem;
-  margin-right: 5rem;
+`;
+
+const ProfileContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-contents: space-evenly;
+  margin: 0 1rem;
+  cursor: pointer;
+`;
+
+const Image = styled.img`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin: 0 0.5rem;
+`;
+
+const Span = styled.span`
+  font-family: SCDream-Regular;
+  font-size: 0.8rem;
 `;
 
 const Line = styled.div`
