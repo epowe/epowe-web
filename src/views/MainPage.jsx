@@ -8,6 +8,7 @@ import Header from "./Header.js";
 import axios from "axios";
 import GoogleAuthURL from "../GoogleAuthURL";
 import NaverAuthURL from "../NaverAuthURL";
+import TypeIt from 'typeit-react';
 
 const MainPage = () => {
   const navigate = useNavigate();

@@ -6,17 +6,12 @@ import Register from "./views/Register";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import InterviewInfo from "./views/InterviewInfo.jsx";
 import Feedback from "./views/Feedback";
-<<<<<<< HEAD
 import MyFeedback from './views/MyFeedback';
 import FeedbackList from './views/FeedbackList';
 import QuestionList from './views/QuestionList';
 import FeedbackDetail from './views/FeedbackDetail.jsx';
-=======
-import MyFeedback from "./views/MyFeedback";
-import FeedbackList from "./views/FeedbackList";
-import QuestionList from "./views/QuestionList";
-import FeedbackDetail from "./views/FeedbackDetail";
->>>>>>> main
+import axios from 'axios';
+import ApiBaseURL from './ApiBaseURL';
 
 function App() {
   const BASE_URL = ApiBaseURL;
