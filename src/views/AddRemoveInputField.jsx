@@ -45,6 +45,7 @@ const AddRemoveInputField = () => {
                       name="question"
                       className="form-control shadow-none"
                       placeholder="질문"
+                      autocomplete="off"
                     />
                   </div>
                 </div>

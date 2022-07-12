@@ -37,6 +37,11 @@ const Feedback = () => {
 }
 
 const BodyContainer = styled.div`
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100vw;
   height: 80vh;
   display: flex;
@@ -50,13 +55,10 @@ const ButtonContainer = styled.div`
   flex-direction: column;
   align-items: center;
   min-width: 20rem;
-  position: sticky;
-  top: 100%;
 `;
 
 const Title = styled.div`
-  font-family: 'Montserrat';
-  font-weight: bold;
+  font-family: SCDream-Regular;
   font-size: 1.5rem;
   text-align: center;
 `;
@@ -70,9 +72,8 @@ const Button = styled.button`
   margin-top: 1rem;
   border: none;
   border-radius: 50px;
-  font-family: Montserrat-Bold;
+  font-family: SCDream-Regular;
   font-size: 1rem;
-  font-weight: 600;
   cursor: pointer;
   text-align: center;
 `;
