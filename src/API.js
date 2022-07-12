@@ -1,39 +1,23 @@
-// import axios from "axios";
+import axios from "axios";
+import ApiBaseURL from "./ApiBaseURL";
+const BASE_URL = ApiBaseURL;
 
-// const BASE_URL = process.env.REACT_APP_BASE_URL;
+axios.defaults.baseURL = BASE_URL;
+axios.defaults.withCredentials = false;
 
-// axios.defaults.baseURL = BASE_URL;
-// axios.defaults.withCredentials = false;
-
-// export const API = {
-//   //로그인
-//   authLogin: async ({ socialType, socialId }) => {
-//     try {
-//       const response = await axios.post(
-//         `/api/v1/member/auth/web/login`,
-//         JSON.stringify({
-//           socialType: socialType,
-//           socialId: socialId,
-
-//         }),
-//         {
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//         }
-//       );
-//       if (response.status === 200) {
-//         axios.defaults.headers.common[
-//           "Authorization"
-//         ] = `Bearer ${localStorage.getItem("accessToken")}`;
-//         return response.data.data;
-//       } else return false;
-//     } catch (e) {
-//       console.log(e);
-//     }
-//   },
-// };
-
-export const API = () => {
-  const API_BASE_URL = process.env.REACT_APP_BASE_URL;
+export const API = {
+  //로그인
+  authLogin: async (data) => {
+    try {
+      const response = await axios.get(
+        "/oauth2/redirect",
+        JSON.stringify({
+          accessToken: data,
+        })
+      );
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  },
 };

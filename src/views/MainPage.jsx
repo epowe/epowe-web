@@ -6,19 +6,8 @@ import NaverLogoImg from "../images/NaverLogo.png";
 import "../App.css";
 import Header from "./Header.js";
 import axios from "axios";
-import TypeIt from 'typeit-react';
-
-export const API_BASE_URL = process.env.REACT_APP_BASE_URL;
-//서버에서 인증을 완료한 후에 프론트엔드로 돌아올 redirect uri (app.oauth2.authorized-redirect-uri와 일치해야 한다)
-export const OAUTH2_REDIRECT_URI = process.env.OAUTH2_REDIRECT_URI;
-export const GOOGLE_AUTH_URL =
-  API_BASE_URL +
-  "/oauth2/authorization/google?redirect_uri=" +
-  OAUTH2_REDIRECT_URI;
-export const NAVER_AUTH_URL =
-  API_BASE_URL +
-  "/oauth2/authorization/naver?redirect_uri=" +
-  OAUTH2_REDIRECT_URI;
+import GoogleAuthURL from "../GoogleAuthURL";
+import NaverAuthURL from "../NaverAuthURL";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -49,7 +38,7 @@ const MainPage = () => {
               to="/oauth2/authorization/naver"
               style={{ textDecoration: "none" }}
             > */}
-            <a href={NAVER_AUTH_URL} style={{ textDecoration: "none" }}>
+            <a href={NaverAuthURL} style={{ textDecoration: "none" }}>
               <NaverContainer>
                 <NaverLogo src={NaverLogoImg}></NaverLogo>
                 <NaverText>네이버 로그인</NaverText>
@@ -63,7 +52,7 @@ const MainPage = () => {
               to="/oauth2/authorization/google"
               style={{ textDecoration: "none" }}
             > */}
-            <a href={GOOGLE_AUTH_URL} style={{ textDecoration: "none" }}>
+            <a href={GoogleAuthURL} style={{ textDecoration: "none" }}>
               <GoogleContainer>
                 <GoogleLogo src={GoogleLogoImg}></GoogleLogo>
                 <GoogleText>구글 로그인</GoogleText>
