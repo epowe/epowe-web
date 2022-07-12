@@ -7,9 +7,10 @@ const FeedbackDetail = () => {
     <>
       <Header isLogin="true"/>
       <BodyContainer>
-        <Title>{'면접 제목 >'} 상세 피드백 보기</Title>
+        <Title>{'면접제목 >'} 상세 피드백 보기</Title>
         <Container>
-
+          <div>video</div>
+          <div>table</div>
         </Container>
       </BodyContainer>
     </>
@@ -43,6 +44,7 @@ const Title = styled.div`
 const Container = styled.div`
   display: flex;
   justify-content: space-evenly;
+  width: 85%;
 `;
 
 export default FeedbackDetail

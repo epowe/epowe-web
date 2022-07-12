@@ -9,7 +9,7 @@ import Feedback from "./views/Feedback";
 import MyFeedback from './views/MyFeedback';
 import FeedbackList from './views/FeedbackList';
 import QuestionList from './views/QuestionList';
-import FeedbackDetail from './views/FeedbackDetail';
+import FeedbackDetail from './views/FeedbackDetail.jsx';
 
 function App() {
   return (
@@ -19,10 +19,10 @@ function App() {
       <Route exact path="/oauth2/redirect" component={<Register />} />
       <Route path="/interview/info" element={<InterviewInfo />} />
       <Route path="/interview/feedback" element={<Feedback />} />
-      <Route path="/myfeedback" element={<MyFeedback />} />
-      <Route path="/feedbacklist" element={<FeedbackList />} />
-      <Route path="/questionlist" element={<QuestionList />} />
-      <Route path="/feedbackDetail" element={<FeedbackDetail />} />
+      <Route path="/feedback" element={<MyFeedback />} />
+      <Route path="/feedback/list" element={<FeedbackList />} />
+      <Route path="/feedback/list/questions" element={<QuestionList />} />
+      <Route path="/feedback/list/questions/detail" element={<FeedbackDetail />} />
     </Routes>
   );
 }

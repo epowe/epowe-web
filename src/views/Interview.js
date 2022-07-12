@@ -17,7 +17,7 @@ const Interview = () => {
           <Button onClick={onClickStart}>
             모의면접 시작하기
           </Button>
-          <Button>
+          <Button onClick={() => navigate("/feedback")}>
             내 피드백 보기
           </Button>   
         </ButtonContainer>

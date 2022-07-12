@@ -1,8 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from "styled-components"
 import Header from './Header'
 
 const MyFeedback = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <Header isLogin="true"/>
@@ -26,7 +29,7 @@ const MyFeedback = () => {
             <span>30</span>
           </Feedback>
         </Container>
-        <Button>전체 피드백 목록</Button>
+        <Button onClick={() => navigate("/feedback/list")}>전체 피드백 목록</Button>
       </BodyContainer>
     </>
   )
@@ -38,13 +41,13 @@ const BodyContainer = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  overflow-y: auto;
   width: 100vw;
   height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  min-height: 30rem;
 `;
 
 const Title = styled.div`

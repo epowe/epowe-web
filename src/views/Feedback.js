@@ -22,9 +22,9 @@ const Feedback = () => {
       <Header isLogin="true" />
       <BodyContainer>
         <Title>모의면접 평가 점수</Title>
-        <FeedbackField count={feedback.count} speed={feedback.speed} word={feedback.word} accent={feedback.accent} />
+        <FeedbackField {...feedback} />
         <ButtonContainer>
-          <Button>
+          <Button onClick={() => navigate("/feedback/list/questions")}>
             상세 피드백 보기
           </Button>   
           <Button onClick={onClickHome}>
@@ -61,6 +61,7 @@ const Title = styled.div`
   font-family: SCDream-Regular;
   font-size: 1.5rem;
   text-align: center;
+  margin: 1.5rem;
 `;
 
 const Button = styled.button`
