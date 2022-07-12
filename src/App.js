@@ -10,8 +10,11 @@ import MyFeedback from "./views/MyFeedback";
 import FeedbackList from "./views/FeedbackList";
 import QuestionList from "./views/QuestionList";
 import FeedbackDetail from "./views/FeedbackDetail";
+import ApiBaseURL from "./ApiBaseURL";
+import axios from "axios";
+import TokenProcess from "./views/TokenProcess";
 
-function App() {
+const App = () => {
   const BASE_URL = ApiBaseURL;
   // axios.defaults.baseURL = BASE_URL;
   axios.defaults.withCredentials = false;
@@ -26,15 +29,6 @@ function App() {
   const authLogin = async () => {
     try {
       //응답 성공
-<<<<<<< HEAD
-      axios
-        .get("http://localhost:3000/oauth2/redirect", {
-          withCredentials: true,
-        })
-        .then((response) => {
-          console.log(response.data);
-        });
-=======
       const response = await axios.get(
         "http://localhost:3000/oauth2/redirect",
         {
@@ -49,7 +43,6 @@ function App() {
       }
       console.log(response);
       console.log("응답 성공");
->>>>>>> donguri
     } catch (error) {
       //응답 실패
 
@@ -57,7 +50,26 @@ function App() {
       console.log("응답 실패glalalal");
     }
   };
-  useEffect(() => {
+  // const getToken = ({ location }) => {
+  //   const params = new URLSearchParams(window.location.search);
+  //   let userToken = params.get("userToken");
+
+  //   let getParameter = (key) => {
+  //     return new URLSearchParams(window.location.search).get(key);
+  //   };
+  //   let userToken2 = getParameter("userToken");
+  //   console.log(userToken2);
+  //   return <></>;
+  // };
+  useEffect((location) => {
+    const params = new URLSearchParams(window.location.search);
+    let userToken = params.get("userToken");
+
+    let getParameter = (key) => {
+      return new URLSearchParams(window.location.search).get(key);
+    };
+    let userToken2 = getParameter("userToken");
+    console.log(userToken2);
     authLogin();
   }, []);
 
@@ -65,7 +77,7 @@ function App() {
     <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/interview" element={<Interview />} />
-      <Route path="/oauth2/redirect" element={<Register />} />
+      <Route path="/oauth2/redirect" element={<TokenProcess />} />
       <Route path="/interview/info" element={<InterviewInfo />} />
       <Route path="/interview/feedback" element={<Feedback />} />
       <Route path="/myfeedback" element={<MyFeedback />} />
@@ -74,6 +86,6 @@ function App() {
       <Route path="/feedbackDetail" element={<FeedbackDetail />} />
     </Routes>
   );
-}
+};
 
 export default App;
