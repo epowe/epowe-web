@@ -3,7 +3,12 @@ import React, { useEffect, useContext, useState } from "react";
 import MainPage from "./views/MainPage.jsx";
 import Interview from "./views/Interview";
 import Register from "./views/Register";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import InterviewInfo from "./views/InterviewInfo.jsx";
 import Feedback from "./views/Feedback";
 import MyFeedback from "./views/MyFeedback";
@@ -30,6 +35,7 @@ const App = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userAddress, setUserAddress] = useState("");
   const [userProfile, setUserProfile] = useState("");
+  const [existingUser, setExistingUser] = useState(false);
 
   const getUserAddress = async () => {
     var result = await API.authAfterLogin();
@@ -46,9 +52,11 @@ const App = () => {
       if (userAddress) {
         console.log("userAddress 존재");
         console.log(userAddress);
-      }
-      else{
-        
+        setExistingUser(true);
+        console.log(existingUser);
+      } else {
+        console.log("address 존재하지 않음");
+        console.log(existingUser);
       }
     } else {
       console.log("JWT 발급 실패");
@@ -58,8 +66,15 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
+      <Route
+        path="/oauth2/redirect"
+        element={<TokenProcess />}
+        render={() =>
+          existingUser ? <Navigate replace to="/interview" /> : <Register />
+        }
+      />
       <Route path="/interview" element={<Interview />} />
-      <Route path="/oauth2/redirect" element={<TokenProcess />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/interview/info" element={<InterviewInfo />} />
       <Route path="/interview/feedback" element={<Feedback />} />
       <Route path="/feedback" element={<MyFeedback />} />

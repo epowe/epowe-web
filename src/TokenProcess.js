@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import queryString from "query-string";
 import React, { useEffect } from "react";
 import axios from "axios";
@@ -16,8 +16,8 @@ export const TokenProcess = ({ location }) => {
     if (userToken2) {
       localStorage.clear();
       localStorage.setItem("jwtToken", userToken2);
-      // axios.defaults.headers.common["Authorization"] = `Bearer ${userToken2}`;
-      //authAfterLogin();
+      
+      
     } else {
       console.log("토큰을 못 받아옴");
     }
