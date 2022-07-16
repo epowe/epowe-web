@@ -12,7 +12,8 @@ import QuestionList from "./views/QuestionList";
 import FeedbackDetail from "./views/FeedbackDetail.jsx";
 import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
-import TokenProcess from "./TokenProcess";
+import { TokenProcess } from "./TokenProcess";
+import { API } from "./API";
 
 const App = () => {
   const BASE_URL = ApiBaseURL;
@@ -25,38 +26,34 @@ const App = () => {
     isLogged,
     setIsLogged,
   };
-  // const authLogin = async () => {
-  //   try {
-  //     //응답 성공
-  //     const response = await axios.get(
-  //       "http://localhost:3000/oauth2/redirect",
-  //       {
-  //         withCredentials: true,
-  //       }
-  //     );
-  //     if (response.status === 200) {
-  //       console.log("Okay");
-  //     }
-  //     console.log(response);
-  //     console.log("응답 성공");
-  //   } catch (error) {
-  //     //응답 실패
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userAddress, setUserAddress] = useState("");
+  const [userProfile, setUserProfile] = useState("");
 
-  //     console.error(error);
-  //     console.log("응답 실패glalalal");
-  //   }
-  // };
-  // useEffect((location) => {
-  //   const params = new URLSearchParams(window.location.search);
-  //   let userToken = params.get("userToken");
+  const getUserAddress = async () => {
+    var result = await API.authAfterLogin();
+    if (result) {
+      setUserAddress(result.address);
+    } else {
+      console.log("사용자 데이터 잘 들어오지 않음");
+    }
+  };
 
-  //   let getParameter = (key) => {
-  //     return new URLSearchParams(window.location.search).get(key);
-  //   };
-  //   let userToken2 = getParameter("userToken");
-  //   console.log(userToken2);
-  //   // authLogin();
-  // }, []);
+  useEffect(() => {
+    if (localStorage.getItem("jwtToken")) {
+      getUserAddress();
+      if (userAddress) {
+        console.log("userAddress 존재");
+        console.log(userAddress);
+      }
+      else{
+        
+      }
+    } else {
+      console.log("JWT 발급 실패");
+    }
+  }, [userAddress]);
 
   return (
     <Routes>
