@@ -31,16 +31,19 @@ const GoogleLoginRedirect = ({ location }) => {
   const authAfterLogin = async () => {
     try {
       //응답 성공
-      const response = await axios.get("http://localhost:8080/afterLogin", {
+      const response = await axios.get("http://localhost:3000/auth/info", {
         headers: {
           Authorization: `Bearer ${userToken2}`,
+          "Content-Type": "application/json",
         },
       });
       if (response.status === 200) {
         console.log("afterLogin api get 요청 성공");
+        console.log(response);
+        return response.data;
       }
+      
     } catch (error) {
-      //응답 실패
       console.error(error);
       console.log("afterlogin 응답 실패");
     }
@@ -61,5 +64,5 @@ const GoogleLoginRedirect = ({ location }) => {
 
   return <></>;
 };
-
+/// 토큰이 들어오지 않으면 401로 
 export default GoogleLoginRedirect;

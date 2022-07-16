@@ -25,7 +25,6 @@ const App = () => {
     isLogged,
     setIsLogged,
   };
-
   // const authLogin = async () => {
   //   try {
   //     //응답 성공
