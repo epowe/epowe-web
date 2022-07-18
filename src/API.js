@@ -46,10 +46,13 @@ export const API = {
       );
       if (response.status === 200) {
         console.log("address를 서버에게 잘 전송하였습니다");
-        return response.data.data;
+        console.log(address);
+        return response.data;
       } else return false;
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log("address를 서버에게 잘 전송하지 못하였습니다.");
+      console.error(error);
+      console.log(error);
     }
     return false;
   },
