@@ -25,7 +25,8 @@ export const TokenProcess = ({ location }) => {
     if (userToken2) {
       localStorage.clear();
       localStorage.setItem("jwtToken", userToken2);
-      if (localStorage.getItem("existingUser") == "true") {
+      localStorage.setItem("isLogged", true);
+      if (localStorage.getItem("existingUser") == true) {
         navInterview();
         console.log("메인 페이지로 네비게이트 했다");
       } else {

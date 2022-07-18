@@ -21,9 +21,6 @@ import { TokenProcess } from "./TokenProcess";
 import { API } from "./API";
 
 const App = () => {
-  const BASE_URL = ApiBaseURL;
-  // axios.defaults.baseURL = BASE_URL;
-  axios.defaults.withCredentials = false;
   const [isLogged, setIsLogged] = useState(
     localStorage.getItem("isLogged") === "true" ? true : false
   );
@@ -51,10 +48,10 @@ const App = () => {
       if (userAddress) {
         console.log("userAddress 존재");
         console.log(userAddress);
-        localStorage.setItem("existingUser", "true");
+        localStorage.setItem("existingUser", true);
       } else {
         console.log("address 존재하지 않음");
-        localStorage.setItem("existingUser", "false");
+        localStorage.setItem("existingUser", false);
         console.log(localStorage.getItem("existingUser") + "ddd");
       }
     } else {
@@ -67,21 +64,39 @@ const App = () => {
       <Route path="/" element={<MainPage />} />
       <Route
         path="/oauth2/redirect"
-        element={<TokenProcess />}
-        // render={() =>
-        //   existingUser ? <Navigate replace to="/interview" /> : <Register />
-        // }
+        element={!isLogged ? <Navigate replace to="/" /> : <TokenProcess />}
       />
-      <Route path="/interview" element={<Interview />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/interview/info" element={<InterviewInfo />} />
-      <Route path="/interview/feedback" element={<Feedback />} />
-      <Route path="/feedback" element={<MyFeedback />} />
-      <Route path="/feedback/list" element={<FeedbackList />} />
-      <Route path="/feedback/list/questions" element={<QuestionList />} />
+      <Route
+        path="/interview"
+        element={!isLogged ? <Navigate replace to="/" /> : <Interview />}
+      />
+      <Route
+        path="/register"
+        element={!isLogged ? <Navigate replace to="/" /> : <Register />}
+      />
+      <Route
+        path="/interview/info"
+        element={!isLogged ? <Navigate replace to="/" /> : <InterviewInfo />}
+      />
+      <Route
+        path="/interview/feedback"
+        element={!isLogged ? <Navigate replace to="/" /> : <TokenProcess />}
+      />
+      <Route
+        path="/feedback"
+        element={!isLogged ? <Navigate replace to="/" /> : <MyFeedback />}
+      />
+      <Route
+        path="/feedback/list"
+        element={!isLogged ? <Navigate replace to="/" /> : <FeedbackList />}
+      />
+      <Route
+        path="/feedback/list/questions"
+        element={!isLogged ? <Navigate replace to="/" /> : <QuestionList />}
+      />
       <Route
         path="/feedback/list/questions/detail"
-        element={<FeedbackDetail />}
+        element={!isLogged ? <Navigate replace to="/" /> : <FeedbackDetail />}
       />
     </Routes>
   );
