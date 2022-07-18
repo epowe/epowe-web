@@ -1,26 +1,11 @@
-// import React, { useEffect } from "react";
-// import { useParams } from "react-router";
-
-// function GoogleLoginRedirect() {
-//   const params = useParams();
-
-//   useEffect(() => {
-//     localStorage.clear();
-//     localStorage.setItem("token", params.token);
-//     console.log(params.token);
-//     window.location.replace("/");
-//   }, []);
-
-//   return <></>;
-// }
-
-// export default GoogleLoginRedirect;
-import { useLocation } from "react-router-dom";
+import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import queryString from "query-string";
 import React, { useEffect } from "react";
 import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
-const GoogleLoginRedirect = ({ location }) => {
+
+export const TokenProcess = ({ location }) => {
+  //url 에서 토큰 가져오는 부분
   const params = new URLSearchParams(window.location.search);
   let userToken = params.get("userToken");
   let getParameter = (key) => {
@@ -28,31 +13,25 @@ const GoogleLoginRedirect = ({ location }) => {
   };
   let userToken2 = getParameter("userToken");
 
-  const authAfterLogin = async () => {
-    try {
-      //응답 성공
-      const response = await axios.get("http://localhost:8080/afterLogin", {
-        // headers: {
-        //   Authorization: `Bearer ${userToken2}`,
-        // },
-      });
-      console.log(userToken2 + "했다했다");
-      if (response.status === 200) {
-        console.log("afterLogin api get 요청 성공");
-      }
-    } catch (error) {
-      //응답 실패
-      console.error(error);
-      console.log("afterlogin 응답 실패");
-    }
+  //주소 여부에 따라서 페이지 바뀌게해주는 함수
+  const navigate = useNavigate();
+  const navInterview = () => {
+    return navigate("/interview/info");
   };
-
+  const navRegister = () => {
+    return navigate("/register");
+  };
   useEffect(() => {
     if (userToken2) {
       localStorage.clear();
       localStorage.setItem("jwtToken", userToken2);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${userToken2}`;
-      authAfterLogin();
+      if (localStorage.getItem("existingUser") == "true") {
+        navInterview();
+        console.log("메인 페이지로 네비게이트 했다");
+      } else {
+        navRegister();
+        console.log("회원가입 페이지로 네비게이트 했다");
+      }
     } else {
       console.log("토큰을 못 받아옴");
     }
@@ -62,5 +41,4 @@ const GoogleLoginRedirect = ({ location }) => {
 
   return <></>;
 };
-
-export default GoogleLoginRedirect;
+/// 토큰이 들어오지 않으면 401로

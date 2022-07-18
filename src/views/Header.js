@@ -4,36 +4,41 @@ import { useNavigate } from "react-router-dom";
 import HeaderLogoI from "../images/HeaderLogo.png";
 import "../App.css";
 
-const Header = ({isLogin}) => {
-    const navigate = useNavigate();
-    const onClickLogo = () => {
-      navigate("/");
-    };
+const Header = ({ isLogin }) => {
+  const navigate = useNavigate();
+  const onClickLogo = () => {
+    navigate("/");
+    localStorage.clear();
+    console.log("localstorage에 토큰, address 없어짐");
+  };
 
-    const onLogout = () => {
-      //로그아웃 처리하기
-      navigate("/");
-    };
+  const onLogout = () => {
+    //로그아웃 처리하기
+    navigate("/");
+  };
 
-    return (
-      <>
-        <Container>
-          <LogoContainer>
-            <HeaderLogoImage src={HeaderLogoI} onClick={onClickLogo} />
-            <HeaderLogo onClick={onClickLogo}>2-POW</HeaderLogo>
-          </LogoContainer>
-          {isLogin?
+  return (
+    <>
+      <Container>
+        <LogoContainer>
+          <HeaderLogoImage src={HeaderLogoI} onClick={onClickLogo} />
+          <HeaderLogo onClick={onClickLogo}>2-POW</HeaderLogo>
+        </LogoContainer>
+        {isLogin ? (
           <SmallContainer>
             <SmallButton onClick={onLogout}>로그아웃</SmallButton>
             <ProfileContainer onClick={() => navigate("/feedback")}>
-              <Image src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"/>
+              <Image src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" />
               <Span>홍길동</Span>
             </ProfileContainer>
-          </SmallContainer>:''}
-        </Container>
-        <Line />
-      </>
-    );
+          </SmallContainer>
+        ) : (
+          ""
+        )}
+      </Container>
+      <Line />
+    </>
+  );
 };
 
 const Container = styled.div`
@@ -55,7 +60,7 @@ const Container = styled.div`
 const LogoContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;  
+  align-items: center;
 `;
 
 const HeaderLogoImage = styled.img`
@@ -85,7 +90,7 @@ const SmallButton = styled.button`
   border: none;
   border-radius: 50px;
   color: #ffffff;
-  background: #6c63ff; 
+  background: #6c63ff;
   height: 2rem;
   width: 5rem;
   font-family: SCDream-Regular;
