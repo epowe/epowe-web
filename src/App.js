@@ -21,18 +21,13 @@ import { TokenProcess } from "./TokenProcess";
 import { API } from "./API";
 
 const App = () => {
-  const [isLogged, setIsLogged] = useState(
-    localStorage.getItem("isLogged") === "true" ? true : false
-  );
-  const value = {
-    isLogged,
-    setIsLogged,
-  };
+  const [isLogged, setIsLogged] = useState(false);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userAddress, setUserAddress] = useState("");
   const [userProfile, setUserProfile] = useState("");
 
+  //백에서 전달받은 데이터 중 주소 데이터의 유무를 판별하는 함수
   const getUserAddress = async () => {
     var result = await API.authAfterLogin();
     if (result) {
@@ -44,6 +39,10 @@ const App = () => {
 
   useEffect(() => {
     if (localStorage.getItem("jwtToken")) {
+      if (localStorage.getItem("isLogged")) {
+        setIsLogged(true);
+        console.log("login이 localstorage에 저장되옸습니다.");
+      }
       getUserAddress();
       if (userAddress) {
         console.log("userAddress 존재");
@@ -57,15 +56,12 @@ const App = () => {
     } else {
       console.log("JWT 발급 실패");
     }
-  }, [userAddress]);
+  }, [userAddress, isLogged]);
 
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
-      <Route
-        path="/oauth2/redirect"
-        element={!isLogged ? <Navigate replace to="/" /> : <TokenProcess />}
-      />
+      <Route path="/oauth2/redirect" element={<TokenProcess />} />
       <Route
         path="/interview"
         element={!isLogged ? <Navigate replace to="/" /> : <Interview />}

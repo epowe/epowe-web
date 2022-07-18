@@ -23,7 +23,6 @@ export const TokenProcess = ({ location }) => {
   };
   useEffect(() => {
     if (userToken2) {
-      localStorage.clear();
       localStorage.setItem("jwtToken", userToken2);
       localStorage.setItem("isLogged", true);
       if (localStorage.getItem("existingUser") == true) {
