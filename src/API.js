@@ -30,4 +30,27 @@ export const API = {
       console.log("afterlogin 응답 실패");
     }
   },
+  memberPostAddress: async ({ address }) => {
+    try {
+      const response = await axios.post(
+        `/register`,
+        JSON.stringify({
+          address: address,
+        }),
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("address를 서버에게 잘 전송하였습니다");
+        return response.data.data;
+      } else return false;
+    } catch (e) {
+      console.log(e);
+    }
+    return false;
+  },
 };
