@@ -6,16 +6,15 @@ import { API } from "../API";
 const Register = () => {
   const navigate = useNavigate();
   const addressRef = useRef();
-  const [address, setAddress] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userProfile, setUserProfile] = useState("");
 
   const onRegister = () => {
-    if (address.current.value !== "") {
+    if (addressRef.current.value !== "") {
       //회원가입 처리하기
       // navigate("/interview");
-      console.log(address + "  dwefwefwe");
+      console.log(addressRef.current.value);
       giveAddress();
     } else {
       alert("사는 지역을 입력해주세요."); //-> modal로 바꾸기
@@ -36,7 +35,9 @@ const Register = () => {
 
   //회원가입하기 버튼 클릭시 클라이언트 API를 사용해서 백엔드로 데이터 옮기기
   const giveAddress = async () => {
-    var result = await API.userPostAddress({ address: "ㄴㅇㄴㅇ" });
+    var result = await API.userPostAddress({
+      address: addressRef.current.value,
+    });
     if (result) {
       console.log("서버에 주소 데이터 전송 완료.");
     } else {
@@ -44,10 +45,6 @@ const Register = () => {
       console.log(result);
     }
   };
-
-  const onChange = useCallback((e) => {
-    setAddress(e.target.address);
-  }, []);
 
   useEffect(() => {
     getUserInfo();
