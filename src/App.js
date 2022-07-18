@@ -22,10 +22,7 @@ import { API } from "./API";
 
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
   const [userAddress, setUserAddress] = useState("");
-  const [userProfile, setUserProfile] = useState("");
 
   //백에서 전달받은 데이터 중 주소 데이터의 유무를 판별하는 함수
   const getUserAddress = async () => {

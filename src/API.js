@@ -11,7 +11,7 @@ export const API = {
   authAfterLogin: async () => {
     try {
       //응답 성공
-      const response = await axios.get("http://localhost:3000/auth/info", {
+      const response = await axios.get("/auth/info", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
           "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export const API = {
         console.log("afterLogin api get 요청 성공");
         console.log(response.data);
         return response.data;
-      } else if (response.status === 401) {
+      } else {
         console.log("토큰이 들어오지 않음");
         console.log(response);
       }
@@ -30,7 +30,7 @@ export const API = {
       console.log("afterlogin 응답 실패");
     }
   },
-  memberPostAddress: async ({ address }) => {
+  userPostAddress: async ({ address }) => {
     try {
       const response = await axios.post(
         `/register`,
