@@ -14,6 +14,7 @@ const Register = () => {
     if (addressRef.current.value !== "") {
       //회원가입 처리하기
       navigate("/interview");
+      giveAddress();
     } else {
       alert("사는 지역을 입력해주세요."); //-> modal로 바꾸기
     }
@@ -24,7 +25,7 @@ const Register = () => {
     var result = await API.authAfterLogin();
     if (result) {
       setUserEmail(result.email);
-      setUserName(result.picture);
+      setUserProfile(result.picture);
       setUserName(result.username);
     } else {
       console.log("사용자 데이터 잘 들어오지 않음");
@@ -35,28 +36,13 @@ const Register = () => {
   const giveAddress = async () => {
     var result = await API.userPostAddress({ addressRef });
     if (result) {
-      setUserEmail(result.email);
-      setUserName(result.picture);
-      setUserName(result.username);
+      console.log("서버에 주소 데이터 전송 완료.");
     } else {
-      console.log("사용자 데이터 잘 들어오지 않음");
+      console.log("서버에 주소 데이터 전송 실패.");
+      console.log(result);
     }
   };
 
-  useEffect(() => {
-    getUserInfo();
-  }, []);
-
-  const sendAddress = async () => {
-    var result = await API.userPostAddress();
-    if (result) {
-      setUserEmail(result.email);
-      setUserName(result.picture);
-      setUserName(result.username);
-    } else {
-      console.log("사용자 데이터 잘 들어오지 않음");
-    }
-  };
   useEffect(() => {
     getUserInfo();
   }, []);
@@ -69,7 +55,7 @@ const Register = () => {
           <Title>회원가입</Title>
           <ProfileContainer>
             <Span>
-              <Image src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" />
+              <Image src={userProfile} />
             </Span>
             <Span>{userName}</Span>
             <Span>{userEmail}</Span>
