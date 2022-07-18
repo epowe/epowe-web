@@ -8,13 +8,10 @@ import Header from "./Header.js";
 import axios from "axios";
 import GoogleAuthURL from "../GoogleAuthURL";
 import NaverAuthURL from "../NaverAuthURL";
-import TypeIt from 'typeit-react';
+import TypeIt from "typeit-react";
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const onClickLogo = () => {
-    navigate("/");
-  };
 
   return (
     <>
@@ -26,10 +23,14 @@ const MainPage = () => {
           <ContentText>
             <TypeIt
               options={{
-                strings: ["이에이승은 면접에서 어려움을 겪고 있는 사람들에게", "날개를 달아주는 서비스입니다."],
+                strings: [
+                  "이에이승은 면접에서 어려움을 겪고 있는 사람들에게",
+                  "날개를 달아주는 서비스입니다.",
+                ],
                 speed: 90,
                 waitUntilVisible: true,
-              }} />
+              }}
+            />
           </ContentText>
         </TitleContainer>
         <ButtonContainer>

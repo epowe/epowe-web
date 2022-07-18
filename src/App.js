@@ -35,7 +35,6 @@ const App = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userAddress, setUserAddress] = useState("");
   const [userProfile, setUserProfile] = useState("");
-  const [existingUser, setExistingUser] = useState(false);
 
   const getUserAddress = async () => {
     var result = await API.authAfterLogin();
@@ -52,11 +51,11 @@ const App = () => {
       if (userAddress) {
         console.log("userAddress 존재");
         console.log(userAddress);
-        setExistingUser(true);
-        console.log(existingUser);
+        localStorage.setItem("existingUser", "true");
       } else {
         console.log("address 존재하지 않음");
-        console.log(existingUser);
+        localStorage.setItem("existingUser", "false");
+        console.log(localStorage.getItem("existingUser") + "ddd");
       }
     } else {
       console.log("JWT 발급 실패");
@@ -69,9 +68,9 @@ const App = () => {
       <Route
         path="/oauth2/redirect"
         element={<TokenProcess />}
-        render={() =>
-          existingUser ? <Navigate replace to="/interview" /> : <Register />
-        }
+        // render={() =>
+        //   existingUser ? <Navigate replace to="/interview" /> : <Register />
+        // }
       />
       <Route path="/interview" element={<Interview />} />
       <Route path="/register" element={<Register />} />
