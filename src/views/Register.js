@@ -13,7 +13,7 @@ const Register = () => {
   const onRegister = () => {
     if (addressRef.current.value !== "") {
       //회원가입 처리하기
-      // navigate("/interview");
+      navigate("/interview");
       console.log(addressRef.current.value);
       giveAddress();
     } else {

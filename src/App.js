@@ -15,6 +15,7 @@ import MyFeedback from "./views/MyFeedback";
 import FeedbackList from "./views/FeedbackList";
 import QuestionList from "./views/QuestionList";
 import FeedbackDetail from "./views/FeedbackDetail.jsx";
+import VideoRecordTest from "./views/VideoRecordTest.jsx";
 import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
 import { TokenProcess } from "./TokenProcess";
@@ -91,6 +92,8 @@ const App = () => {
         path="/feedback/list/questions/detail"
         element={!isLogged ? <Navigate replace to="/" /> : <FeedbackDetail />}
       />
+      {/* 비디오 레코드 테스트 페이지 */}
+      <Route path="/videotest" element={<VideoRecordTest />} />
     </Routes>
   );
 };
