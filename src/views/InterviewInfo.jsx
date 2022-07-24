@@ -1,26 +1,85 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
-import AddRemoveInputField from "./AddRemoveInputField.jsx";
 import Header from "./Header.js";
 
 const InterviewInfo = () => {
   const navigate = useNavigate();
-  const titleRef = useRef();
+  const [started, setStarted] = useState(false);
+  const [isNext, setIsNext] = useState(true);
+  const [current, setCurrent] = useState(0);
+  const [title, setTitle] = useState("");
+  const [questions, setQuestions] = useState([
+    {
+      question: "",
+    },
+  ]);
 
-  const onStart = () => {
-    if (titleRef.current.value !== "") {
-      //if (질문 1개 이상 입력했는지 확인하기) {
-      //  제목+질문들 처리하기
-      //  navigate('/interview?q=1'); // ???
-      //}
-      //else { alert(); //-> modal로 바꾸기 }
+  useBeforeunload((event) => event.preventDefault());
+
+  const addInputField = () => {
+    setQuestions([
+      ...questions,
+      {
+        question: "",
+      },
+    ]);
+  };
+
+  const removeInputFields = (index) => {
+    const rows = [...questions];
+    rows.splice(index, 1);
+    setQuestions(rows);
+  };
+
+  const handleChange = (index, event) => {
+    const { name, value } = event.target;
+    const list = [...questions];
+    list[index][name] = value;
+    setQuestions(list);
+  };
+
+  const handleStart = () => {
+    if (title === "") {
+      alert("면접 제목을 입력해주세요");
+    } else if (!questions.every((q) => q.question !== "")) {
+      alert("면접 질문을 입력해주세요");
     } else {
-      alert("면접 제목을 입력해주세요"); //-> modal로 바꾸기
+      if (questions.length === 1) {
+        setIsNext(false);
+      }
+      setStarted(true);
     }
   };
 
+  const handleNext = () => {
+    setCurrent(current + 1);
+    if (isNext) {
+      if (current < questions.length - 2) {
+        setIsNext(true);
+      } else {
+        setIsNext(false);
+      }
+    } else {
+      navigate("/interview/feedback");
+    }
+    
+  };
+
   return (
+    started ?
+    <>
+      <Header />
+      <BodyContainer>
+        <Container>
+          <Question>질문{current+1} {questions.at(current).question}</Question>
+          <Video></Video>
+          <Button onClick={handleNext}>{isNext?"다음":"면접 끝내기"}</Button>
+        </Container>
+      </BodyContainer>
+    </>
+    :
     <>
       <Header isLogin="true" />
       <BodyContainer>
@@ -29,17 +88,68 @@ const InterviewInfo = () => {
           <div className="container">
             <div className="row my-3">
               <input
-                ref={titleRef}
                 type="text"
-                name="question"
+                onChange={(event) => setTitle(event.target.value)}
+                name="title"
                 className="form-control shadow-none"
                 placeholder="면접 제목"
                 autocomplete="off"
                 />
-              <AddRemoveInputField />
             </div>
           </div>
-          <Button onClick={onStart}>면접 시작</Button>
+          <div className="container">
+            <div className="row">
+              <div className="col-xl-13">
+                {questions.map((data, index) => {
+                  const { question } = data;
+                  return (
+                    <div className="row my-3" key={index}>
+                      <div className="col-11">
+                        <div className="form-group">
+                          <input
+                            type="text"
+                            onChange={(event) => handleChange(index, event)}
+                            value={question}
+                            name="question"
+                            className="form-control shadow-none"
+                            placeholder="질문"
+                            autocomplete="off"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-1">
+                        {questions.length !== 1 ? (
+                          <button
+                            className="btn btn-outline-secondary"
+                            onClick={() => removeInputFields(index)}
+                          >
+                            x
+                          </button>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+                <div className="row">
+                  <div className="col-xl-4">
+                    {questions.length < 5 ? (
+                      <button
+                        className="btn btn-sm btn-light"
+                        onClick={addInputField}
+                      >
+                        질문 추가
+                      </button>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <Button onClick={handleStart}>면접 시작</Button>
         </Container>
       </BodyContainer>
     </>
@@ -76,6 +186,14 @@ const Title = styled.div`
   margin: 1.5rem;
 `;
 
+const Question = styled.div`
+  width: 600px;
+  font-family: SCDream-Regular;
+  font-size: 1.2rem;
+  text-align: start;
+  padding: 2rem;
+`;
+
 const Button = styled.button`
   box-sizing: border-box;
   position: sticky;
@@ -84,12 +202,20 @@ const Button = styled.button`
   color: white;
   width: 90%;
   padding: 0.8rem;
+  margin-top: 1rem;
   border: none;
   border-radius: 50px;
   font-family: SCDream-Regular;
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
+`;
+
+const Video = styled.div`
+  color: white;
+  background-color: black;
+  min-height: 360px;
+  width: 640px;
 `;
 
 export default InterviewInfo;
