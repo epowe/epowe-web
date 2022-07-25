@@ -11,19 +11,19 @@ export const API = {
   authAfterLogin: async () => {
     try {
       console.log(
-        "로컬에 저장한걸로 요청한 토큰:   " + localStorage.getItem("jwtToken")
+        "로컬에 저장한걸로 요청한 토큰:   " + localStorage.getItem("accessToken")
       );
       //응답 성공
       const response = await axios.get("/auth/info", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "application/json",
         },
       });
       if (response.status === 200) {
         console.log(
           "로컬에 저장한걸로 요청 성공한 토큰:   " +
-            localStorage.getItem("jwtToken")
+            localStorage.getItem("accessToken")
         );
         console.log("afterLogin api get 요청 성공");
         console.log(response.data);
@@ -47,7 +47,7 @@ export const API = {
         }),
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             "Content-Type": "application/json",
           },
         }

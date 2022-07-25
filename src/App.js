@@ -19,14 +19,29 @@ import VideoRecordTest from "./views/VideoRecordTest.jsx";
 import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
 import { TokenProcess } from "./TokenProcess";
+import jwt_decode from "jwt-decode";
 import { API } from "./API";
 
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
   // const [userAddress, setUserAddress] = useState("");
 
+  const isTokenExpired = (token) => {
+    var decoded = jwt_decode(token);
+    console.log("토큰을 디코드한 값: " + decoded.exp);
+    // if (decoded.exp < Date.now() / 1000) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+  };
+
   useEffect(() => {
-    if (localStorage.getItem("jwtToken")) {
+    if (localStorage.getItem("accessToken")) {
+      console.log("accessToken이 로컬에 저장되었습니다.");
+      var accessToken = localStorage.getItem("accessToken");
+      console.log("토큰은??" + localStorage.getItem("accessToken"));
+      isTokenExpired(accessToken);
       if (localStorage.getItem("isLogged")) {
         setIsLogged(true);
         console.log("login이 localstorage에 저장되었습니다.");
