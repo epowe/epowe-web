@@ -8,11 +8,11 @@ import { API } from "./API";
 export const TokenProcess = ({ location }) => {
   //url 에서 토큰 가져오는 부분
   const params = new URLSearchParams(window.location.search);
-  let userToken = params.get("userToken");
+  let accessToken = params.get("accessToken");
   let getParameter = (key) => {
     return new URLSearchParams(window.location.search).get(key);
   };
-  let userToken2 = getParameter("userToken");
+  let accessToken2 = getParameter("accessToken");
 
   //주소 여부에 따라서 페이지 바뀌게해주는 함수
   const navigate = useNavigate();
@@ -43,9 +43,9 @@ export const TokenProcess = ({ location }) => {
   };
 
   useEffect(() => {
-    if (userToken2) {
-      console.log("발급 받은 토큰:   " + userToken2);
-      localStorage.setItem("jwtToken", userToken2);
+    if (accessToken2) {
+      console.log("발급 받은 토큰:   " + accessToken2);
+      localStorage.setItem("jwtToken", accessToken2);
       localStorage.setItem("isLogged", true);
       getUserAddress();
       console.log("wejkfbkwebfkbjk");
