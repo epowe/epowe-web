@@ -23,38 +23,18 @@ import { API } from "./API";
 
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
-  const [userAddress, setUserAddress] = useState("");
-
-  //백에서 전달받은 데이터 중 주소 데이터의 유무를 판별하는 함수
-  const getUserAddress = async () => {
-    var result = await API.authAfterLogin();
-    if (result) {
-      setUserAddress(result.address);
-    } else {
-      console.log("사용자 데이터 잘 들어오지 않음");
-    }
-  };
+  // const [userAddress, setUserAddress] = useState("");
 
   useEffect(() => {
     if (localStorage.getItem("jwtToken")) {
       if (localStorage.getItem("isLogged")) {
         setIsLogged(true);
-        console.log("login이 localstorage에 저장되옸습니다.");
-      }
-      getUserAddress();
-      if (userAddress) {
-        console.log("userAddress 존재");
-        console.log(userAddress);
-        localStorage.setItem("existingUser", true);
-      } else {
-        console.log("address 존재하지 않음");
-        localStorage.setItem("existingUser", false);
-        console.log(localStorage.getItem("existingUser") + "ddd");
+        console.log("login이 localstorage에 저장되었습니다.");
       }
     } else {
       console.log("JWT 발급 실패");
     }
-  }, [userAddress, isLogged]);
+  }, [isLogged]);
 
   return (
     <Routes>

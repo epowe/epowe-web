@@ -3,6 +3,7 @@ import queryString from "query-string";
 import React, { useEffect } from "react";
 import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
+import { API } from "./API";
 
 export const TokenProcess = ({ location }) => {
   //url 에서 토큰 가져오는 부분
@@ -15,18 +16,37 @@ export const TokenProcess = ({ location }) => {
 
   //주소 여부에 따라서 페이지 바뀌게해주는 함수
   const navigate = useNavigate();
+
   const navInterview = () => {
     return navigate("/interview/info");
   };
+
   const navRegister = () => {
     return navigate("/register");
+  };
+
+  //백에서 전달받은 데이터 중 주소 데이터의 유무를 판별하는 함수
+  const getUserAddress = async () => {
+    var result = await API.authAfterLogin();
+    if (result) {
+      if (result.address) {
+        console.log(
+          "사용자 존재, 서버로부터 주소 받아옴 주소는:" + result.address
+        );
+        return true;
+      }
+    } else {
+      console.log("사용자 주소 데이터 잘 들어오지 않음");
+      return false;
+    }
   };
   useEffect(() => {
     if (userToken2) {
       console.log("발급 받은 토큰:   " + userToken2);
       localStorage.setItem("jwtToken", userToken2);
       localStorage.setItem("isLogged", true);
-      if (localStorage.getItem("existingUser") == true) {
+      console.log("wejkfbkwebfkbjk");
+      if (getUserAddress()) {
         navInterview();
         console.log("메인 페이지로 네비게이트 했다");
       } else {

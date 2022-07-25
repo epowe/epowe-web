@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import AddRemoveInputField from "./AddRemoveInputField.jsx";
 import Header from "./Header.js";
 
 const VideoRecordTest = () => {
