@@ -27,9 +27,10 @@ export const API = {
         );
         console.log("afterLogin api get 요청 성공");
         console.log(response.data);
+        
         return response.data;
       } else {
-        console.log("토큰이 들어오지 않음");
+        console.log("authAfterLogin 응답 없음");
         console.log(response);
       }
     } catch (error) {
