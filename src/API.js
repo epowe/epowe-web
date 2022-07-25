@@ -11,7 +11,8 @@ export const API = {
   authAfterLogin: async () => {
     try {
       console.log(
-        "로컬에 저장한걸로 요청한 토큰:   " + localStorage.getItem("accessToken")
+        "로컬에 저장한걸로 요청한 토큰:   " +
+          localStorage.getItem("accessToken")
       );
       //응답 성공
       const response = await axios.get("/auth/info", {
@@ -27,7 +28,7 @@ export const API = {
         );
         console.log("afterLogin api get 요청 성공");
         console.log(response.data);
-        
+
         return response.data;
       } else {
         console.log("authAfterLogin 응답 없음");
@@ -37,6 +38,37 @@ export const API = {
       console.error(error);
       console.log("afterlogin 응답 실패");
     }
+  },
+  getAccessUsingRefresh: async ({ accessToken, refreshToken }) => {
+    try {
+      const response = await axios.post(
+        `/auth/reissue`,
+        JSON.stringify({
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log(
+          "accessToken과 refreshToken을 정상적으로 재발급 받았습니다."
+        );
+        console.log(response);
+        return response.data;
+      } else {
+        console.log("accessToken과 refreshToken을 재발급 받지 못하였습니다.");
+        console.log(response);
+        return false;
+      }
+    } catch (error) {
+      console.log("accessToken과 refreshToken을 재발급 받지 못하였습니다.");
+      console.error(error);
+    }
+    return false;
   },
   userPostAddress: async ({ address }) => {
     try {

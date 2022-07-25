@@ -36,12 +36,33 @@ const App = () => {
     // }
   };
 
+  const getNewAccess = async ({ accessToken, refreshToken }) => {
+    var result = await API.getAccessUsingRefresh({
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
+    if (result) {
+      console.log("서버에 만료된 토큰 전송 완료.");
+      console.log(result.data);
+    } else {
+      console.log("서버에 만료된 토큰 전송 실패.");
+      console.log(result);
+    }
+  };
+
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
+    if (
+      localStorage.getItem("accessToken") &&
+      localStorage.getItem("refreshToken")
+    ) {
       console.log("accessToken이 로컬에 저장되었습니다.");
+      console.log("refreshToken이 로컬에 저장되었습니다.");
       var accessToken = localStorage.getItem("accessToken");
-      console.log("토큰은??" + localStorage.getItem("accessToken"));
-      isTokenExpired(accessToken);
+      var refreshToken = localStorage.getItem("refreshToken");
+      console.log("access 토큰은??????" + accessToken);
+      console.log("refresh 토큰은?????" + refreshToken);
+      getNewAccess(accessToken, refreshToken);
+      // isTokenExpired(accessToken);
       if (localStorage.getItem("isLogged")) {
         setIsLogged(true);
         console.log("login이 localstorage에 저장되었습니다.");
