@@ -29,6 +29,12 @@ const App = () => {
   const isTokenExpired = (token) => {
     var decoded = jwt_decode(token);
     console.log("토큰을 디코드한 값: " + decoded.exp);
+    const today = new Date();
+    //getTime은 밀리세컨드로 반환됨
+    const extendTime = today.setDate(today.getTime() + decoded.exp);
+    var newdate = new Date(extendTime);
+    console.log(today);
+
     // if (decoded.exp < Date.now() / 1000) {
     //   return true;
     // } else {
@@ -36,10 +42,10 @@ const App = () => {
     // }
   };
 
-  const getNewAccess = async ({ accessToken, refreshToken }) => {
+  const getNewAccess = async () => {
     var result = await API.getAccessUsingRefresh({
-      accessToken: accessToken,
-      refreshToken: refreshToken,
+      accessToken: localStorage.getItem("accessToken"),
+      refreshToken: localStorage.getItem("refreshToken"),
     });
     if (result) {
       console.log("서버에 만료된 토큰 전송 완료.");
@@ -61,11 +67,12 @@ const App = () => {
       var refreshToken = localStorage.getItem("refreshToken");
       console.log("access 토큰은??????" + accessToken);
       console.log("refresh 토큰은?????" + refreshToken);
-      getNewAccess(accessToken, refreshToken);
+      getNewAccess();
       // isTokenExpired(accessToken);
       if (localStorage.getItem("isLogged")) {
         setIsLogged(true);
         console.log("login이 localstorage에 저장되었습니다.");
+        isTokenExpired(accessToken);
       }
     } else {
       console.log("JWT 발급 실패");
