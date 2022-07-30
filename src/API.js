@@ -49,13 +49,8 @@ export const API = {
         console.log(
           "accessToken과 refreshToken을 정상적으로 재발급 받았습니다."
         );
-<<<<<<< HEAD
-        console.log(response);
-        return response.data.data;
-=======
         console.log(response.data);
         return response.data;
->>>>>>> donguri
       } else {
         console.log("accessToken과 refreshToken을 재발급 받지 못하였습니다.");
         console.log(response);
@@ -84,7 +79,7 @@ export const API = {
       if (response.status === 200) {
         console.log("address를 서버에게 잘 전송하였습니다");
         console.log(address);
-        return response.data.data;
+        return response.data;
       } else return false;
     } catch (error) {
       console.log("address를 서버에게 잘 전송하지 못하였습니다.");

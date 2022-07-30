@@ -44,17 +44,10 @@ export const TokenProcess = ({ location }) => {
 
   useEffect(() => {
     if (accessToken && refreshToken) {
-<<<<<<< HEAD
-      console.log("발급 받은 엑세스 토큰:  " + accessToken);
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-      console.log("발급 받은 refresh 토큰:   " + refreshToken);
-=======
       console.log("서버로부터 발급 받은 엑세스 토큰:   " + accessToken);
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
       console.log("서버로부터 발급 받은 refresh 토큰:   " + refreshToken);
->>>>>>> donguri
       localStorage.setItem("isLogged", true);
       getUserAddress();
     } else {
@@ -65,4 +58,4 @@ export const TokenProcess = ({ location }) => {
 
   return <></>;
 };
-/// 토큰이 들어오지 않으면 401로 (401 UNAUTHORIZED)
+/// 토큰이 들어오지 않으면 401로
