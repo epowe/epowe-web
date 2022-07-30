@@ -67,8 +67,8 @@ const App = () => {
       console.log("refreshToken이 로컬에 저장되었습니다.");
       var accessToken = localStorage.getItem("accessToken");
       var refreshToken = localStorage.getItem("refreshToken");
-      console.log("access 토큰은??????" + accessToken);
-      console.log("refresh 토큰은?????" + refreshToken);
+      console.log("localStorage에 저장한 access 토큰은??????" + accessToken);
+      console.log("localStorage에 저장한 refresh 토큰은?????" + refreshToken);
       getNewAccess();
       // isTokenExpired(accessToken);
       if (localStorage.getItem("isLogged")) {
