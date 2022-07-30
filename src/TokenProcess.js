@@ -44,10 +44,10 @@ export const TokenProcess = ({ location }) => {
 
   useEffect(() => {
     if (accessToken && refreshToken) {
-      console.log("발급 받은 토큰:   " + accessToken);
+      console.log("발급 받은 엑세스 토큰:  " + accessToken);
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-      console.log("refresh 토큰은? " + refreshToken);
+      console.log("발급 받은 refresh 토큰:   " + refreshToken);
       localStorage.setItem("isLogged", true);
       getUserAddress();
     } else {

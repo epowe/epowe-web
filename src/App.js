@@ -49,7 +49,9 @@ const App = () => {
     });
     if (result) {
       console.log("서버에 만료된 토큰 전송 완료.");
-      console.log(result.data);
+      console.log(result);
+      console.log("새로발급받은 리프레쉬 토큰은????" + result.refreshToken);
+      console.log("새로발급받은 엑세스 토큰은????" + result.accessToken);
     } else {
       console.log("서버에 만료된 토큰 전송 실패.");
       console.log(result);
