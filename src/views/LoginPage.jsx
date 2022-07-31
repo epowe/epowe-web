@@ -50,7 +50,6 @@ const MainPage = () => {
                 <NaverText>네이버 로그인</NaverText>
               </NaverContainer>
             </a>
-            {/* </Link> */}
           </NaverLogin>
           <GoogleLogin>
             <a href={GoogleAuthURL} style={{ textDecoration: "none" }}>
@@ -59,7 +58,6 @@ const MainPage = () => {
                 <GoogleText>구글 로그인</GoogleText>
               </GoogleContainer>
             </a>
-            {/* </Link> */}
           </GoogleLogin>
         </ButtonContainer>
       </BodyContainer>

@@ -30,30 +30,32 @@ export const API = {
       console.log("afterlogin 응답 실패");
     }
   },
-  //로그인 2
-  authLogin: async () => {
+  //리프레쉬 토큰 첫 발급
+  getRefreshToken: async () => {
     try {
       //응답 성공
-      const response = await axios.get("/oauth2/redirect", {
+      const response = await axios.get("/auth/refresh-token", {
         headers: {
-          // Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "application/json",
         },
       });
       if (response.status === 200) {
-        console.log("새로운 get 요청 방식 요청 성공");
+        console.log("refreshToken 받아오기 성공");
         console.log(response.data);
 
         return response.data;
       } else {
-        console.log("새로운 get 요청 방식 요청 실패");
+        console.log("refreshToken 받아오기 실패");
         console.log(response);
       }
     } catch (error) {
       console.error(error);
-      console.log("새로운 get 요청 방식 요청 실패");
+      console.log("refreshToken 받아오는 api 로직 실패");
     }
   },
+
+  //(리프레쉬, 엑세스)토큰 재발급 api
   getAccessUsingRefresh: async ({ accessToken, refreshToken }) => {
     try {
       const response = await axios.post(
@@ -85,6 +87,7 @@ export const API = {
     }
     return false;
   },
+  //유저의 주소 정보를 보내주는 api
   userPostAddress: async ({ address }) => {
     try {
       const response = await axios.post(
