@@ -13,6 +13,15 @@ import TypeIt from "typeit-react";
 const MainPage = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log(
+      "리로드 리프레쉬 토큰 테스트: " + localStorage.getItem("refreshToken")
+    );
+    console.log(
+      "리로드 엑세스 토큰 테스트: " + localStorage.getItem("accessToken")
+    );
+  }, []);
+
   return (
     <>
       <Header />
@@ -35,32 +44,20 @@ const MainPage = () => {
         </TitleContainer>
         <ButtonContainer>
           <NaverLogin>
-            {/* 로그인 버튼을 클릭하면 다음 주소로 요청가게끔 구현 */}
-            {/* <Link
-              to="/oauth2/authorization/naver"
-              style={{ textDecoration: "none" }}
-            > */}
             <a href={NaverAuthURL} style={{ textDecoration: "none" }}>
               <NaverContainer>
                 <NaverLogo src={NaverLogoImg}></NaverLogo>
                 <NaverText>네이버 로그인</NaverText>
               </NaverContainer>
             </a>
-            {/* </Link> */}
           </NaverLogin>
           <GoogleLogin>
-            {/* 로그인 버튼을 클릭하면 다음 주소로 요청가게끔 구현 */}
-            {/* <Link
-              to="/oauth2/authorization/google"
-              style={{ textDecoration: "none" }}
-            > */}
             <a href={GoogleAuthURL} style={{ textDecoration: "none" }}>
               <GoogleContainer>
                 <GoogleLogo src={GoogleLogoImg}></GoogleLogo>
                 <GoogleText>구글 로그인</GoogleText>
               </GoogleContainer>
             </a>
-            {/* </Link> */}
           </GoogleLogin>
         </ButtonContainer>
       </BodyContainer>

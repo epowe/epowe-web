@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect, useContext, useState } from "react";
-import MainPage from "./views/MainPage.jsx";
+import LoginPage from "./views/LoginPage.jsx";
 import Interview from "./views/Interview";
 import Register from "./views/Register";
 import {
@@ -10,7 +10,6 @@ import {
   Navigate,
 } from "react-router-dom";
 import InterviewInfo from "./views/InterviewInfo.jsx";
-import Feedback from "./views/Feedback";
 import MyFeedback from "./views/MyFeedback";
 import FeedbackList from "./views/FeedbackList";
 import QuestionList from "./views/QuestionList";
@@ -69,7 +68,7 @@ const App = () => {
       var refreshToken = localStorage.getItem("refreshToken");
       console.log("localStorage에 저장한 access 토큰은??????" + accessToken);
       console.log("localStorage에 저장한 refresh 토큰은?????" + refreshToken);
-      getNewAccess();
+      // getNewAccess();
       // isTokenExpired(accessToken);
       if (localStorage.getItem("isLogged")) {
         setIsLogged(true);
@@ -83,7 +82,7 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<MainPage />} />
+      <Route path="/" element={<LoginPage />} />
       <Route path="/oauth2/redirect" element={<TokenProcess />} />
       <Route
         path="/interview"

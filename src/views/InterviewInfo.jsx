@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
 import Header from "./Header.js";
-
+import { API } from "../API";
 const InterviewInfo = () => {
   const navigate = useNavigate();
   const [started, setStarted] = useState(false);
@@ -64,22 +64,24 @@ const InterviewInfo = () => {
     } else {
       navigate("/interview/feedback");
     }
-    
   };
 
-  return (
-    started ?
+  return started ? (
     <>
       <Header />
       <BodyContainer>
         <Container>
-          <Question>질문{current+1} {questions.at(current).question}</Question>
+          <Question>
+            질문{current + 1} {questions.at(current).question}
+          </Question>
           <Video></Video>
-          <Button onClick={handleNext}>{isNext?"다음":"면접 끝내기"}</Button>
+          <Button onClick={handleNext}>
+            {isNext ? "다음" : "면접 끝내기"}
+          </Button>
         </Container>
       </BodyContainer>
     </>
-    :
+  ) : (
     <>
       <Header isLogin="true" />
       <BodyContainer>
@@ -94,7 +96,7 @@ const InterviewInfo = () => {
                 className="form-control shadow-none"
                 placeholder="면접 제목"
                 autocomplete="off"
-                />
+              />
             </div>
           </div>
           <div className="container">
