@@ -7,11 +7,11 @@ const FeedbackDetail = () => {
   return (
     <>
       <Header isLogin="true"/>
-      <Title>{'면접제목 >'} 상세 피드백 보기
-      <br/>
-      <Question>질문 1 자기소개</Question>
-      </Title>
       <BodyContainer>
+      <Title>{'면접제목 >'} 상세 피드백 보기
+        <br/>
+        <Question>질문 1 자기소개</Question>
+      </Title>
         <Container>
           <VideoContainer>
             <Video />
@@ -42,46 +42,42 @@ const Title = styled.div`
   font-family: SCDream-Regular;
   font-size: 1.2rem;
   text-align: start;
-  margin: 1.5rem;
+  margin: 1rem;
 `;
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
   margin: 0 10rem;
-  height: 100%;
+  height: 70vh;
+  padding-top: 3rem;
 `;
 
 const TableContainer = styled.div`
   flex-shrink: 0;
   text-align: center;
   overflow-y: auto;
-  flex-shrink: 0;
   padding: 1rem;
   width: 50%;
-  max-height: 80%;
+  flex: 1;
 `;
 
 const VideoContainer = styled.div`
-  flex-shrink: 0;
-  background-color: black;
   width: 50%;
-  flex-shrink: 0;
   margin: 1rem;
+  flex: 1;
 `;
 
 const Video = styled.div`
   padding-top: 56.25%;
+  background-color: black;
 `;
 
 const Question = styled.div`
-  position: relative;
-  top: 2.5rem;
   width: 100%;
   font-family: SCDream-Regular;
   font-size: 1.5rem;
   text-align: start;
+  margin: 1rem;
 `;
 
 export default FeedbackDetail
