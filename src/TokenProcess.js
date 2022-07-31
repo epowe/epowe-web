@@ -73,4 +73,4 @@ export const TokenProcess = ({ location }) => {
 
   return <></>;
 };
-/// 토큰이 들어오지 않으면 401로 (401 UNAUTHORIZED)
+/// 토큰이 들어오지 않으면 401로

@@ -3,7 +3,29 @@ import { useNavigate } from "react-router-dom";
 import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
 import Header from "./Header.js";
-import { API } from "../API";
+
+const Styles = {
+  Video: { width: "100%", height: "100%" },
+  None: { display: 'none' },
+};
+
+const getWebcam = (callback) => {
+  try {
+    const constraints = {
+      audio: true,
+      video: {
+        width: { min: 1280 },
+        height: { min: 720 }
+      }
+    };
+    navigator.mediaDevices.getUserMedia(constraints)
+      .then(callback);
+  } catch (err) {
+    console.log(err);
+    return undefined;
+  }
+};
+
 const InterviewInfo = () => {
   const navigate = useNavigate();
   const [started, setStarted] = useState(false);
@@ -15,6 +37,7 @@ const InterviewInfo = () => {
       question: "",
     },
   ]);
+  const videoRef = React.useRef(null);
 
   useBeforeunload((event) => event.preventDefault());
 
@@ -50,17 +73,36 @@ const InterviewInfo = () => {
         setIsNext(false);
       }
       setStarted(true);
-    }
+      
+      // 녹화 시작
+      getWebcam((stream => {
+        console.log(stream);
+        videoRef.current.srcObject = stream;
+      }));
+    };
   };
 
   const handleNext = () => {
     setCurrent(current + 1);
+    const s = videoRef.current.srcObject;
+    
+    // 녹화 멈추기
+    s.getTracks().forEach((track) => {
+      track.stop();
+    });
+
     if (isNext) {
       if (current < questions.length - 2) {
         setIsNext(true);
       } else {
         setIsNext(false);
       }
+
+      // 녹화 시작
+      getWebcam((stream => {
+        console.log(stream);
+        videoRef.current.srcObject = stream;
+      }));
     } else {
       navigate("/interview/feedback");
     }
@@ -71,13 +113,13 @@ const InterviewInfo = () => {
       <Header />
       <BodyContainer>
         <Container>
-          <Question>
-            질문{current + 1} {questions.at(current).question}
-          </Question>
-          <Video></Video>
-          <Button onClick={handleNext}>
-            {isNext ? "다음" : "면접 끝내기"}
-          </Button>
+          <Question>질문{current+1} {questions.at(current).question}</Question>
+          <Video>
+            <div>
+              <video ref={videoRef} autoPlay style={Styles.Video} />
+            </div>
+          </Video>
+          <Button onClick={handleNext}>{isNext?"다음":"면접 끝내기"}</Button>
         </Container>
       </BodyContainer>
     </>
@@ -214,8 +256,6 @@ const Button = styled.button`
 `;
 
 const Video = styled.div`
-  color: white;
-  background-color: black;
   min-height: 360px;
   width: 640px;
 `;
