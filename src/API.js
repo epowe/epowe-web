@@ -7,7 +7,6 @@ axios.defaults.withCredentials = false;
 
 export const API = {
   //로그인
-
   authAfterLogin: async () => {
     try {
       //응답 성공
@@ -31,6 +30,30 @@ export const API = {
       console.log("afterlogin 응답 실패");
     }
   },
+  //로그인 2
+  authLogin: async () => {
+    try {
+      //응답 성공
+      const response = await axios.get("/oauth2/redirect", {
+        headers: {
+          // Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        console.log("새로운 get 요청 방식 요청 성공");
+        console.log(response.data);
+
+        return response.data;
+      } else {
+        console.log("새로운 get 요청 방식 요청 실패");
+        console.log(response);
+      }
+    } catch (error) {
+      console.error(error);
+      console.log("새로운 get 요청 방식 요청 실패");
+    }
+  },
   getAccessUsingRefresh: async ({ accessToken, refreshToken }) => {
     try {
       const response = await axios.post(
@@ -49,7 +72,7 @@ export const API = {
         console.log(
           "accessToken과 refreshToken을 정상적으로 재발급 받았습니다."
         );
-        console.log(response.data);
+        console.log(response);
         return response.data;
       } else {
         console.log("accessToken과 refreshToken을 재발급 받지 못하였습니다.");
