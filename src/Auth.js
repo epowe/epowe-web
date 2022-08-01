@@ -3,13 +3,14 @@ const cookies = new Cookies();
 
 export function setRefreshTokenToCookie(refreshToken) {
   const today = new Date();
-  console.log("Auth 접근 함.");
   const expireDate = today.setDate(today.getDate() + 7);
   cookies.set("refreshToken", refreshToken, {
-    sameSite: "strict",
+    sameSite: "Lax",
     expires: new Date(expireDate),
     httpOnly: false,
   });
+  console.log("리프레쉬 토큰 쿠키에 생성 완료.");
+  console.log("Auth 에서 쿠키에 저장한 리프레쉬 토큰은? " + getCookieToken());
 }
 
 export const getCookieToken = () => {
@@ -17,5 +18,5 @@ export const getCookieToken = () => {
 };
 
 export const removeCookieToken = () => {
-  return cookies.remove("refreshToken", { sameSite: "strict" });
+  return cookies.remove("refreshToken", { sameSite: "Lax" });
 };

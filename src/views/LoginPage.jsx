@@ -10,18 +10,7 @@ import GoogleAuthURL from "../GoogleAuthURL";
 import NaverAuthURL from "../NaverAuthURL";
 import TypeIt from "typeit-react";
 
-const MainPage = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(
-      "리로드 리프레쉬 토큰 테스트: " + localStorage.getItem("refreshToken")
-    );
-    console.log(
-      "리로드 엑세스 토큰 테스트: " + localStorage.getItem("accessToken")
-    );
-  }, []);
-
+const LoginPage = () => {
   return (
     <>
       <Header />
@@ -173,4 +162,4 @@ const ContentText = styled.div`
   margin-top: 37px;
 `;
 
-export default MainPage;
+export default LoginPage;

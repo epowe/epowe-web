@@ -4,10 +4,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
 import { API } from "./API";
+import {
+  removeCookieToken,
+  getCookieToken,
+  setRefreshTokenToCookie,
+} from "./Auth";
 
 export const TokenProcess = ({ location }) => {
-  //url 에서 토큰 가져오는 부분
-
+  //redirect url에서 토큰을 뽑아오는 부분
   let getParameter = (key) => {
     return new URLSearchParams(window.location.search).get(key);
   };
@@ -40,13 +44,18 @@ export const TokenProcess = ({ location }) => {
     }
   };
 
-  //백에서 전달 받은 리프레쉬 토큰 저장 함수
-  const saveRefreshToken = async () => {
+  //백에서 전달 받은 리프레쉬 토큰을 가져와서 쿠키에 저장하는 함수
+  const bringRefreshToken = async () => {
     var result = await API.getRefreshToken();
     if (result) {
       if (result.refreshToken) {
-        console.log("새로 받아온 리프레쉬 토큰은?:" + result.refreshToken);
-        localStorage.setItem("refreshToken", result.refreshToken);
+        console.log(
+          "api를 이용해 서버로부터 새로 받아온 리프레쉬 토큰은?:" +
+            result.refreshToken
+        );
+        setRefreshTokenToCookie(result.refreshToken);
+      } else {
+        console.log("서버에서 받아온 result.refreshToken의 토큰이 없음");
       }
     } else {
       console.log("사용자 리프레쉬 토큰 데이터 잘 들어오지 않음");
@@ -55,19 +64,18 @@ export const TokenProcess = ({ location }) => {
 
   useEffect(() => {
     if (accessToken) {
-      console.log("서버로부터 발급 받은 엑세스 토큰:   " + accessToken);
+      console.log("서버로부터 발급 받은 엑세스 토큰: " + accessToken);
       localStorage.setItem("accessToken", accessToken);
-      saveRefreshToken();
-      console.log(
-        "서버로부터 발급 받은 refresh 토큰:   " +
-          localStorage.getItem("refreshToken")
-      );
+      console.log("TokenProcess에서 엑세스 토큰을 localStorage에 저장했다.");
+      bringRefreshToken();
       localStorage.setItem("isLogged", true);
+      console.log(
+        "TokenProcess에서 islogged를 true로 localStorage에 저장했다."
+      );
       getUserAddress();
     } else {
       console.log("토큰을 못 받아옴");
     }
-    console.log("토큰을 localStorage에 저장했다.");
   }, []);
 
   return <></>;

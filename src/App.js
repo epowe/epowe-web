@@ -28,30 +28,17 @@ import {
 
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
-  // const [userAddress, setUserAddress] = useState("");
-
-  const convertDate = (milliSecond) => {
-    const days = ["일", "월", "화", "수", "목", "금", "토"];
-    const data = new Date(milliSecond); //Date객체 생성
-
-    const year = data.getFullYear(); //0000년 가져오기
-    const month = data.getMonth() + 1; //월은 0부터 시작하니 +1하기
-    const date = data.getDate(); //일자 가져오기
-    const day = days[data.getDay()]; //요일 가져오기
-
-    return `${year}.${month}.${date}. (${day})`;
-  };
+  // 토큰 만료일 계산해주는 함수
   const isTokenExpired = (token) => {
     var decoded = jwt_decode(token);
-    console.log("만료일 밀리세컨드 표시: " + decoded.exp);
-    const today = new Date();
-    const newdate = new Date(decoded.exp);
-    const extendTime = today.setDate(today.getDate() + newdate);
-    // var newdate = new Date(extendTime);
-    console.log("연장된 날짜: " + Date.now());
-    console.log("지금 날짜: " + today);
+    if (decoded.exp < Date.now() / 1000) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
+  // 새로운 토큰 재발급 함수
   const getNewAccess = async () => {
     var result = await API.getAccessUsingRefresh({
       accessToken: localStorage.getItem("accessToken"),
@@ -69,20 +56,39 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (
-      localStorage.getItem("accessToken")
-      //&&
-      // localStorage.getItem("refreshToken")
-    ) {
-      console.log("accessToken이 로컬에 저장되었습니다.");
-      console.log("refreshToken이 로컬에 저장되었습니다.");
+    if (true) {
+      console.log("(app.js 에서 접근) accessToken이 로컬에 저장되었습니다.");
+      console.log("(app.js 에서 접근) refreshToken이 쿠키에 저장되었습니다.");
       var accessToken = localStorage.getItem("accessToken");
-      var refreshToken = localStorage.getItem("refreshToken");
-      console.log("localStorage에 저장한 access 토큰은??????" + accessToken);
-      console.log("localStorage에 저장한 refresh 토큰은?????" + refreshToken);
+      var refreshToken = getCookieToken();
+      console.log(
+        "(app.js 에서 접근) localStorage에 저장한 access 토큰은??????" +
+          accessToken
+      );
+      console.log(
+        "(app.js 에서 접근)쿠키에 저장한 refresh 토큰은?????" + refreshToken
+      );
+      // if (isTokenExpired(accessToken)) {
+      //   console.log("아직 accessToken 유효함 !!");
+      // } else {
+      //   console.log("accssToken 만료됨 ㅠㅠ");
+      //   console.log("refreshToken : ", refreshToken);
+      //   if (refreshToken && !isTokenExpired(refreshToken)) {
+      //     console.log("refreshToken 유효");
+      //     getAccess({
+      //       accessToken: accessToken,
+      //       refreshToken: refreshToken,
+      //     });
+      //   } else {
+      //     console.log("refreshToken 만료");
+      //     localStorage.removeItem("accessToken");
+      //     localStorage.removeItem("isLogged");
+      //     setIsLogged(false);
+      //     removeCookieToken();
+      //   }
+      // }
       // getNewAccess();
       // isTokenExpired(accessToken);
-      setRefreshTokenToCookie(localStorage.getItem("refreshToken"));
       if (localStorage.getItem("isLogged")) {
         setIsLogged(true);
         console.log("login이 localstorage에 저장되었습니다.");
@@ -91,7 +97,7 @@ const App = () => {
     } else {
       console.log("JWT 발급 실패");
     }
-  }, [isLogged]);
+  }, []);
 
   return (
     <Routes>
