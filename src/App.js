@@ -25,20 +25,26 @@ const App = () => {
   const [isLogged, setIsLogged] = useState(false);
   // const [userAddress, setUserAddress] = useState("");
 
+  const convertDate = (milliSecond) => {
+    const days = ["일", "월", "화", "수", "목", "금", "토"];
+    const data = new Date(milliSecond); //Date객체 생성
+
+    const year = data.getFullYear(); //0000년 가져오기
+    const month = data.getMonth() + 1; //월은 0부터 시작하니 +1하기
+    const date = data.getDate(); //일자 가져오기
+    const day = days[data.getDay()]; //요일 가져오기
+
+    return `${year}.${month}.${date}. (${day})`;
+  };
   const isTokenExpired = (token) => {
     var decoded = jwt_decode(token);
-    console.log("토큰을 디코드한 값: " + decoded.exp);
+    console.log("만료일 밀리세컨드 표시: " + decoded.exp);
     const today = new Date();
-    //getTime은 밀리세컨드로 반환됨
-    const extendTime = today.setDate(today.getTime() + decoded.exp);
-    var newdate = new Date(extendTime);
-    console.log(today);
-
-    // if (decoded.exp < Date.now() / 1000) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
+    const newdate = new Date(decoded.exp);
+    const extendTime = today.setDate(today.getDate() + newdate);
+    // var newdate = new Date(extendTime);
+    console.log("연장된 날짜: " + Date.now());
+    console.log("지금 날짜: " + today);
   };
 
   const getNewAccess = async () => {
@@ -59,8 +65,8 @@ const App = () => {
 
   useEffect(() => {
     if (
-      localStorage.getItem("accessToken") &&
-      localStorage.getItem("refreshToken")
+      localStorage.getItem("accessToken")
+      // && localStorage.getItem("refreshToken")
     ) {
       console.log("accessToken이 로컬에 저장되었습니다.");
       console.log("refreshToken이 로컬에 저장되었습니다.");
@@ -69,7 +75,7 @@ const App = () => {
       console.log("localStorage에 저장한 access 토큰은??????" + accessToken);
       console.log("localStorage에 저장한 refresh 토큰은?????" + refreshToken);
       // getNewAccess();
-      // isTokenExpired(accessToken);
+      isTokenExpired(accessToken);
       if (localStorage.getItem("isLogged")) {
         setIsLogged(true);
         console.log("login이 localstorage에 저장되었습니다.");

@@ -39,15 +39,15 @@ export const API = {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "application/json",
         },
+        withCreadentials: true,
       });
       if (response.status === 200) {
         console.log("refreshToken 받아오기 성공");
         console.log(response.data);
-
         return response.data;
       } else {
         console.log("refreshToken 받아오기 실패");
-        console.log(response);
+        console.log(response.data);
       }
     } catch (error) {
       console.error(error);
