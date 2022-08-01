@@ -3,9 +3,8 @@ const cookies = new Cookies();
 
 export function setRefreshTokenToCookie(refreshToken) {
   const today = new Date();
-
+  console.log("Auth 접근 함.");
   const expireDate = today.setDate(today.getDate() + 7);
-
   cookies.set("refreshToken", refreshToken, {
     sameSite: "strict",
     expires: new Date(expireDate),

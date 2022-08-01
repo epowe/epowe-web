@@ -57,7 +57,6 @@ export const TokenProcess = ({ location }) => {
     if (accessToken) {
       console.log("서버로부터 발급 받은 엑세스 토큰:   " + accessToken);
       localStorage.setItem("accessToken", accessToken);
-      //localStorage.setItem("refreshToken", refreshToken);
       saveRefreshToken();
       console.log(
         "서버로부터 발급 받은 refresh 토큰:   " +

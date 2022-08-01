@@ -20,6 +20,11 @@ import ApiBaseURL from "./ApiBaseURL";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
 import { API } from "./API";
+import {
+  removeCookieToken,
+  getCookieToken,
+  setRefreshTokenToCookie,
+} from "./Auth";
 
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -66,7 +71,8 @@ const App = () => {
   useEffect(() => {
     if (
       localStorage.getItem("accessToken")
-      // && localStorage.getItem("refreshToken")
+      //&&
+      // localStorage.getItem("refreshToken")
     ) {
       console.log("accessToken이 로컬에 저장되었습니다.");
       console.log("refreshToken이 로컬에 저장되었습니다.");
@@ -75,7 +81,8 @@ const App = () => {
       console.log("localStorage에 저장한 access 토큰은??????" + accessToken);
       console.log("localStorage에 저장한 refresh 토큰은?????" + refreshToken);
       // getNewAccess();
-      isTokenExpired(accessToken);
+      // isTokenExpired(accessToken);
+      setRefreshTokenToCookie(localStorage.getItem("refreshToken"));
       if (localStorage.getItem("isLogged")) {
         setIsLogged(true);
         console.log("login이 localstorage에 저장되었습니다.");
