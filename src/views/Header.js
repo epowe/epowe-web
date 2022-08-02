@@ -8,9 +8,13 @@ import { removeCookieToken } from "../Auth";
 const Header = ({ isLogin }) => {
   const navigate = useNavigate();
   const onClickLogo = () => {
-    navigate("/");
-    localStorage.clear();
-    console.log("localstorage에 토큰, address 없어짐");
+    if (localStorage.getItem("isLogged")) {
+      navigate("/interview");
+    } else {
+      navigate("/");
+      localStorage.clear();
+      console.log("로그인된 상태가 아니여서 로그인 페이지로 이동 ");
+    }
   };
 
   const onLogout = () => {
