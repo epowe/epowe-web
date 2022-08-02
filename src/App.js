@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginPage from "./views/LoginPage.jsx";
 import Interview from "./views/Interview";
 import Register from "./views/Register";
@@ -20,12 +20,7 @@ import ApiBaseURL from "./ApiBaseURL";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
 import { API } from "./API";
-import {
-  removeCookieToken,
-  getCookieToken,
-  setRefreshTokenToCookie,
-} from "./Auth";
-
+import { removeCookieToken } from "./Auth";
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
   // 토큰 만료일 계산해주는 함수
@@ -56,43 +51,22 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (true) {
-      console.log("(app.js 에서 접근) accessToken이 로컬에 저장되었습니다.");
-      console.log("(app.js 에서 접근) refreshToken이 쿠키에 저장되었습니다.");
+    if (window.location.pathname === "/") {
+      localStorage.clear();
+      removeCookieToken();
+      console.log("로그인 페이지로 와서 localStorage와 쿠키 사라짐");
+    }
+    if (localStorage.getItem("accessToken")) {
+      console.log("accessToken이 로컬에 저장되었습니다.");
+      console.log("refreshToken이 로컬에 저장되었습니다.");
       var accessToken = localStorage.getItem("accessToken");
-      var refreshToken = getCookieToken();
-      console.log(
-        "(app.js 에서 접근) localStorage에 저장한 access 토큰은??????" +
-          accessToken
-      );
-      console.log(
-        "(app.js 에서 접근)쿠키에 저장한 refresh 토큰은?????" + refreshToken
-      );
-      console.log("skldlskdksl");
-      // if (isTokenExpired(accessToken)) {
-      //   console.log("아직 accessToken 유효함 !!");
-      // } else {
-      //   console.log("accssToken 만료됨 ㅠㅠ");
-      //   console.log("refreshToken : ", refreshToken);
-      //   if (refreshToken && !isTokenExpired(refreshToken)) {
-      //     console.log("refreshToken 유효");
-      //     getAccess({
-      //       accessToken: accessToken,
-      //       refreshToken: refreshToken,
-      //     });
-      //   } else {
-      //     console.log("refreshToken 만료");
-      //     localStorage.removeItem("accessToken");
-      //     localStorage.removeItem("isLogged");
-      //     setIsLogged(false);
-      //     removeCookieToken();
-      //   }
-      // }
-      // getNewAccess();
-      // isTokenExpired(accessToken);
+      var refreshToken = localStorage.getItem("refreshToken");
+      console.log("localStorage에 저장한 access 토큰은??????" + accessToken);
+      console.log("localStorage에 저장한 refresh 토큰은?????" + refreshToken);
       if (localStorage.getItem("isLogged")) {
         setIsLogged(true);
         console.log("login이 localstorage에 저장되었습니다.");
+        console.log(isLogged);
         isTokenExpired(accessToken);
       }
     } else {

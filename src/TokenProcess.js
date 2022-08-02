@@ -4,12 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
 import { API } from "./API";
-import {
-  removeCookieToken,
-  getCookieToken,
-  setRefreshTokenToCookie,
-} from "./Auth";
-
+import { setRefreshTokenToCookie } from "./Auth";
 export const TokenProcess = ({ location }) => {
   //redirect url에서 토큰을 뽑아오는 부분
   let getParameter = (key) => {
@@ -51,13 +46,8 @@ export const TokenProcess = ({ location }) => {
     var result = await API.getRefreshToken();
     if (result) {
       if (result.refreshToken) {
-        console.log(
-          "api를 이용해 서버로부터 새로 받아온 리프레쉬 토큰은?:" +
-            result.refreshToken
-        );
+        console.log("새로 받아온 리프레쉬 토큰은?:" + result.refreshToken);
         setRefreshTokenToCookie(result.refreshToken);
-      } else {
-        console.log("서버에서 받아온 result.refreshToken의 토큰이 없음");
       }
     } else {
       console.log("사용자 리프레쉬 토큰 데이터 잘 들어오지 않음");

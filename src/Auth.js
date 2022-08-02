@@ -14,9 +14,11 @@ export function setRefreshTokenToCookie(refreshToken) {
 }
 
 export const getCookieToken = () => {
+  console.log("auth 에서 쿠키 가져옴");
   return cookies.get("refreshToken");
 };
 
 export const removeCookieToken = () => {
-  return cookies.remove("refreshToken", { sameSite: "Lax" });
+  console.log("auth 에서 쿠키 삭제됨")
+  return cookies.remove("refreshToken", { sameSite: "strict" });
 };
