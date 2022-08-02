@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import HeaderLogoI from "../images/HeaderLogo.png";
 import "../App.css";
+import { removeCookieToken } from "../Auth";
 
 const Header = ({ isLogin }) => {
   const navigate = useNavigate();
@@ -14,6 +15,10 @@ const Header = ({ isLogin }) => {
 
   const onLogout = () => {
     //로그아웃 처리하기
+    removeCookieToken();
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("isLogged");
+    console.log("로그아웃 되었습니다.");
     navigate("/");
   };
 
