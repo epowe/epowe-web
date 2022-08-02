@@ -20,9 +20,10 @@ import ApiBaseURL from "./ApiBaseURL";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
 import { API } from "./API";
-import { removeCookieToken } from "./Auth";
+import { removeCookieToken, getCookieToken } from "./Auth";
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
+  const [addressExist, setAddressExist] = useState(false);
   // 토큰 만료일 계산해주는 함수
   const isTokenExpired = (token) => {
     var decoded = jwt_decode(token);
@@ -56,27 +57,39 @@ const App = () => {
       removeCookieToken();
       console.log("로그인 페이지로 와서 localStorage와 쿠키 사라짐");
     }
-    if (localStorage.getItem("accessToken")) {
-      console.log("accessToken이 로컬에 저장되었습니다.");
-      console.log("refreshToken이 로컬에 저장되었습니다.");
-      var accessToken = localStorage.getItem("accessToken");
-      var refreshToken = localStorage.getItem("refreshToken");
-      console.log("localStorage에 저장한 access 토큰은??????" + accessToken);
-      console.log("localStorage에 저장한 refresh 토큰은?????" + refreshToken);
-      if (localStorage.getItem("isLogged")) {
-        setIsLogged(true);
-        console.log("login이 localstorage에 저장되었습니다.");
-        console.log(isLogged);
-        isTokenExpired(accessToken);
+    if (localStorage.getItem("isLogged")) {
+      setIsLogged(true);
+      console.log("jwt 발급 완료");
+
+      if (localStorage.getItem("address") === true) {
+        setAddressExist(true);
+        console.log("주소 존재한다.");
       }
+      // console.log("accessToken이 로컬에 저장되었습니다.");
+      // console.log("refreshToken이 로컬에 저장되었습니다.");
+      // var accessToken = localStorage.getItem("accessToken");
+      // var refreshToken = localStorage.getItem("refreshToken");
+      // console.log("localStorage에 저장한 access 토큰은??????" + accessToken);
+      // console.log("localStorage에 저장한 refresh 토큰은?????" + refreshToken);
     } else {
       console.log("JWT 발급 실패");
     }
-  }, []);
+    console.log("sdkjfnbksdjf" + isLogged);
+  }, [isLogged]);
 
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
+      {/* <Route
+        path="/"
+        element={
+          isLogged === false ? (
+            <LoginPage />
+          ) : (
+            <Navigate replace to="/register" />
+          )
+        }
+      /> */}
       <Route path="/oauth2/redirect" element={<TokenProcess />} />
       <Route
         path="/interview"

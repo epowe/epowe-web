@@ -21,6 +21,7 @@ const Header = ({ isLogin }) => {
     } else {
       navigate("/");
       localStorage.clear();
+      removeCookieToken();
       console.log("로그인된 상태가 아니여서 로그인 페이지로 이동.");
     }
   };

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
 import { API } from "./API";
-import { setRefreshTokenToCookie } from "./Auth";
+import { setRefreshTokenToCookie, getCookieToken } from "./Auth";
 export const TokenProcess = ({ location }) => {
   //redirect url에서 토큰을 뽑아오는 부분
   let getParameter = (key) => {
@@ -48,9 +48,11 @@ export const TokenProcess = ({ location }) => {
       if (result.refreshToken) {
         console.log("새로 받아온 리프레쉬 토큰은?:" + result.refreshToken);
         setRefreshTokenToCookie(result.refreshToken);
+        return true;
       }
     } else {
       console.log("사용자 리프레쉬 토큰 데이터 잘 들어오지 않음");
+      return false;
     }
   };
 
@@ -59,8 +61,12 @@ export const TokenProcess = ({ location }) => {
       console.log("서버로부터 발급 받은 엑세스 토큰: " + accessToken);
       localStorage.setItem("accessToken", accessToken);
       console.log("TokenProcess에서 엑세스 토큰을 localStorage에 저장했다.");
-      bringRefreshToken();
-      localStorage.setItem("isLogged", true);
+      if (bringRefreshToken() && localStorage.getItem("accessToken")) {
+        localStorage.setItem("isLogged", true);
+        console.log("islogged 들어옴");
+      } else {
+        console.log("islogged 안들어옴");
+      }
       console.log(
         "TokenProcess에서 islogged를 true로 localStorage에 저장했다."
       );
