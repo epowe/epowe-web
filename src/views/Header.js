@@ -13,7 +13,11 @@ const Header = ({ isLogin }) => {
 
   const onClickLogo = () => {
     if (localStorage.getItem("isLogged")) {
-      navigate("/interview");
+      if (window.location.pathname === "/register") {
+        navigate("/register");
+      } else {
+        navigate("/interview");
+      }
     } else {
       navigate("/");
       localStorage.clear();
