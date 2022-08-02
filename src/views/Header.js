@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import HeaderLogoI from "../images/HeaderLogo.png";
@@ -41,6 +41,10 @@ const Header = ({ isLogin }) => {
       console.log("사용자 데이터 잘 들어오지 않음");
     }
   };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   return (
     <>
