@@ -24,8 +24,7 @@ const Header = ({ isLogin }) => {
   const onLogout = () => {
     //로그아웃 처리하기
     removeCookieToken();
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("isLogged");
+    localStorage.clear();
     console.log("로그아웃 되었습니다.");
     navigate("/");
   };
@@ -53,7 +52,8 @@ const Header = ({ isLogin }) => {
           <HeaderLogoImage src={HeaderLogoI} onClick={onClickLogo} />
           <HeaderLogo onClick={onClickLogo}>2-POW</HeaderLogo>
         </LogoContainer>
-        {localStorage.getItem("isLogged") ? (
+        {localStorage.getItem("isLogged") &&
+        (window.location.pathname === "/") !== true ? (
           <SmallContainer>
             <SmallButton onClick={onLogout}>로그아웃</SmallButton>
             <ProfileContainer onClick={() => navigate("/feedback")}>

@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginPage from "./views/LoginPage.jsx";
 import Interview from "./views/Interview";
 import Register from "./views/Register";
@@ -20,7 +20,7 @@ import ApiBaseURL from "./ApiBaseURL";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
 import { API } from "./API";
-
+import { removeCookieToken } from "./Auth";
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
   // const [userAddress, setUserAddress] = useState("");
@@ -56,10 +56,16 @@ const App = () => {
   };
 
   useEffect(() => {
+    if (window.location.pathname === "/") {
+      localStorage.clear();
+      removeCookieToken();
+      console.log("로그인 페이지로 와서 localStorage와 쿠키 사라짐");
+    }
     if (
       localStorage.getItem("accessToken") &&
       localStorage.getItem("refreshToken")
     ) {
+      console.log(window.location.pathname !== "/");
       console.log("accessToken이 로컬에 저장되었습니다.");
       console.log("refreshToken이 로컬에 저장되었습니다.");
       var accessToken = localStorage.getItem("accessToken");
@@ -71,6 +77,7 @@ const App = () => {
       if (localStorage.getItem("isLogged")) {
         setIsLogged(true);
         console.log("login이 localstorage에 저장되었습니다.");
+        console.log(isLogged);
         isTokenExpired(accessToken);
       }
     } else {
