@@ -7,13 +7,8 @@ axios.defaults.withCredentials = false;
 
 export const API = {
   //로그인
-
   authAfterLogin: async () => {
     try {
-      console.log(
-        "로컬에 저장한걸로 요청한 토큰:   " +
-          localStorage.getItem("accessToken")
-      );
       //응답 성공
       const response = await axios.get("/auth/info", {
         headers: {
@@ -22,10 +17,6 @@ export const API = {
         },
       });
       if (response.status === 200) {
-        console.log(
-          "로컬에 저장한걸로 요청 성공한 토큰:   " +
-            localStorage.getItem("accessToken")
-        );
         console.log("afterLogin api get 요청 성공");
         console.log(response.data);
 
@@ -39,6 +30,32 @@ export const API = {
       console.log("afterlogin 응답 실패");
     }
   },
+  //리프레쉬 토큰 첫 발급
+  getRefreshToken: async () => {
+    try {
+      //응답 성공
+      const response = await axios.get("/auth/refresh-token", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+        },
+        withCreadentials: true,
+      });
+      if (response.status === 200) {
+        console.log("refreshToken 받아오기 성공");
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("refreshToken 받아오기 실패");
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      console.log("refreshToken 받아오는 api 로직 실패");
+    }
+  },
+
+  //(리프레쉬, 엑세스)토큰 재발급 api
   getAccessUsingRefresh: async ({ accessToken, refreshToken }) => {
     try {
       const response = await axios.post(
@@ -57,7 +74,7 @@ export const API = {
         console.log(
           "accessToken과 refreshToken을 정상적으로 재발급 받았습니다."
         );
-        console.log(response);
+        console.log(response.data);
         return response.data;
       } else {
         console.log("accessToken과 refreshToken을 재발급 받지 못하였습니다.");
@@ -70,6 +87,7 @@ export const API = {
     }
     return false;
   },
+  //유저의 주소 정보를 보내주는 api
   userPostAddress: async ({ address }) => {
     try {
       const response = await axios.post(

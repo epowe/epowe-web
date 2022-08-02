@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect, useContext, useState } from "react";
-import MainPage from "./views/MainPage.jsx";
+import LoginPage from "./views/LoginPage.jsx";
 import Interview from "./views/Interview";
 import Register from "./views/Register";
 import {
@@ -10,7 +10,6 @@ import {
   Navigate,
 } from "react-router-dom";
 import InterviewInfo from "./views/InterviewInfo.jsx";
-import Feedback from "./views/Feedback";
 import MyFeedback from "./views/MyFeedback";
 import FeedbackList from "./views/FeedbackList";
 import QuestionList from "./views/QuestionList";
@@ -21,27 +20,25 @@ import ApiBaseURL from "./ApiBaseURL";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
 import { API } from "./API";
+import {
+  removeCookieToken,
+  getCookieToken,
+  setRefreshTokenToCookie,
+} from "./Auth";
 
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
-  // const [userAddress, setUserAddress] = useState("");
-
+  // 토큰 만료일 계산해주는 함수
   const isTokenExpired = (token) => {
     var decoded = jwt_decode(token);
-    console.log("토큰을 디코드한 값: " + decoded.exp);
-    const today = new Date();
-    //getTime은 밀리세컨드로 반환됨
-    const extendTime = today.setDate(today.getTime() + decoded.exp);
-    var newdate = new Date(extendTime);
-    console.log(today);
-
-    // if (decoded.exp < Date.now() / 1000) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
+    if (decoded.exp < Date.now() / 1000) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
+  // 새로운 토큰 재발급 함수
   const getNewAccess = async () => {
     var result = await API.getAccessUsingRefresh({
       accessToken: localStorage.getItem("accessToken"),
@@ -49,7 +46,9 @@ const App = () => {
     });
     if (result) {
       console.log("서버에 만료된 토큰 전송 완료.");
-      console.log(result.data);
+      console.log(result);
+      console.log("새로발급받은 리프레쉬 토큰은????" + result.refreshToken);
+      console.log("새로발급받은 엑세스 토큰은????" + result.accessToken);
     } else {
       console.log("서버에 만료된 토큰 전송 실패.");
       console.log(result);
@@ -57,17 +56,38 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (
-      localStorage.getItem("accessToken") &&
-      localStorage.getItem("refreshToken")
-    ) {
-      console.log("accessToken이 로컬에 저장되었습니다.");
-      console.log("refreshToken이 로컬에 저장되었습니다.");
+    if (true) {
+      console.log("(app.js 에서 접근) accessToken이 로컬에 저장되었습니다.");
+      console.log("(app.js 에서 접근) refreshToken이 쿠키에 저장되었습니다.");
       var accessToken = localStorage.getItem("accessToken");
-      var refreshToken = localStorage.getItem("refreshToken");
-      console.log("access 토큰은??????" + accessToken);
-      console.log("refresh 토큰은?????" + refreshToken);
-      getNewAccess();
+      var refreshToken = getCookieToken();
+      console.log(
+        "(app.js 에서 접근) localStorage에 저장한 access 토큰은??????" +
+          accessToken
+      );
+      console.log(
+        "(app.js 에서 접근)쿠키에 저장한 refresh 토큰은?????" + refreshToken
+      );
+      // if (isTokenExpired(accessToken)) {
+      //   console.log("아직 accessToken 유효함 !!");
+      // } else {
+      //   console.log("accssToken 만료됨 ㅠㅠ");
+      //   console.log("refreshToken : ", refreshToken);
+      //   if (refreshToken && !isTokenExpired(refreshToken)) {
+      //     console.log("refreshToken 유효");
+      //     getAccess({
+      //       accessToken: accessToken,
+      //       refreshToken: refreshToken,
+      //     });
+      //   } else {
+      //     console.log("refreshToken 만료");
+      //     localStorage.removeItem("accessToken");
+      //     localStorage.removeItem("isLogged");
+      //     setIsLogged(false);
+      //     removeCookieToken();
+      //   }
+      // }
+      // getNewAccess();
       // isTokenExpired(accessToken);
       if (localStorage.getItem("isLogged")) {
         setIsLogged(true);
@@ -77,11 +97,11 @@ const App = () => {
     } else {
       console.log("JWT 발급 실패");
     }
-  }, [isLogged]);
+  }, []);
 
   return (
     <Routes>
-      <Route path="/" element={<MainPage />} />
+      <Route path="/" element={<LoginPage />} />
       <Route path="/oauth2/redirect" element={<TokenProcess />} />
       <Route
         path="/interview"

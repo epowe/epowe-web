@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header.js";
 import { API } from "../API";
+import {
+  removeCookieToken,
+  getCookieToken,
+  setRefreshTokenToCookie,
+} from "../Auth";
 const Register = () => {
   const navigate = useNavigate();
   const addressRef = useRef();
@@ -16,6 +21,7 @@ const Register = () => {
       navigate("/interview");
       console.log(addressRef.current.value);
       giveAddress();
+      console.log("리프레쉬 토큰은???" + getCookieToken());
     } else {
       alert("사는 지역을 입력해주세요."); //-> modal로 바꾸기
     }
