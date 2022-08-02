@@ -1,21 +1,50 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import HeaderLogoI from "../images/HeaderLogo.png";
 import "../App.css";
-
+import { removeCookieToken } from "../Auth";
+import { API } from "../API";
 const Header = ({ isLogin }) => {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userProfile, setUserProfile] = useState("");
+
   const onClickLogo = () => {
-    navigate("/");
-    localStorage.clear();
-    console.log("localstorage에 토큰, address 없어짐");
+    if (localStorage.getItem("isLogged")) {
+      navigate("/interview");
+    } else {
+      navigate("/");
+      localStorage.clear();
+      console.log("로그인된 상태가 아니여서 로그인 페이지로 이동.");
+    }
   };
 
   const onLogout = () => {
     //로그아웃 처리하기
+    removeCookieToken();
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("isLogged");
+    console.log("로그아웃 되었습니다.");
     navigate("/");
   };
+
+  const getUserInfo = async () => {
+    var result = await API.authAfterLogin();
+    if (result) {
+      console.log("헤더에 사용자 데이터 잘 들어옴");
+      setUserEmail(result.email);
+      setUserProfile(result.picture);
+      setUserName(result.username);
+    } else {
+      console.log("사용자 데이터 잘 들어오지 않음");
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   return (
     <>
@@ -24,12 +53,12 @@ const Header = ({ isLogin }) => {
           <HeaderLogoImage src={HeaderLogoI} onClick={onClickLogo} />
           <HeaderLogo onClick={onClickLogo}>2-POW</HeaderLogo>
         </LogoContainer>
-        {isLogin ? (
+        {localStorage.getItem("isLogged") ? (
           <SmallContainer>
             <SmallButton onClick={onLogout}>로그아웃</SmallButton>
             <ProfileContainer onClick={() => navigate("/feedback")}>
-              <Image src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" />
-              <Span>홍길동</Span>
+              <Image src={userProfile} />
+              <Span>{userName}</Span>
             </ProfileContainer>
           </SmallContainer>
         ) : (
