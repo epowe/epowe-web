@@ -61,19 +61,13 @@ const App = () => {
       removeCookieToken();
       console.log("로그인 페이지로 와서 localStorage와 쿠키 사라짐");
     }
-    if (
-      localStorage.getItem("accessToken") &&
-      localStorage.getItem("refreshToken")
-    ) {
-      console.log(window.location.pathname !== "/");
+    if (localStorage.getItem("accessToken")) {
       console.log("accessToken이 로컬에 저장되었습니다.");
       console.log("refreshToken이 로컬에 저장되었습니다.");
       var accessToken = localStorage.getItem("accessToken");
       var refreshToken = localStorage.getItem("refreshToken");
       console.log("localStorage에 저장한 access 토큰은??????" + accessToken);
       console.log("localStorage에 저장한 refresh 토큰은?????" + refreshToken);
-      // getNewAccess();
-      // isTokenExpired(accessToken);
       if (localStorage.getItem("isLogged")) {
         setIsLogged(true);
         console.log("login이 localstorage에 저장되었습니다.");

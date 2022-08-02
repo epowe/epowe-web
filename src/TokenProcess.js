@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
 import { API } from "./API";
-
+import { setRefreshTokenToCookie } from "./Auth";
 export const TokenProcess = ({ location }) => {
   //url 에서 토큰 가져오는 부분
 
@@ -46,7 +46,7 @@ export const TokenProcess = ({ location }) => {
     if (result) {
       if (result.refreshToken) {
         console.log("새로 받아온 리프레쉬 토큰은?:" + result.refreshToken);
-        localStorage.setItem("refreshToken", result.refreshToken);
+        setRefreshTokenToCookie(result.refreshToken);
       }
     } else {
       console.log("사용자 리프레쉬 토큰 데이터 잘 들어오지 않음");
