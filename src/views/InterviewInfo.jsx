@@ -4,28 +4,6 @@ import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
 import Header from "./Header.js";
 
-const Styles = {
-  Video: { width: "100%", height: "100%" },
-  None: { display: 'none' },
-};
-
-const getWebcam = (callback) => {
-  try {
-    const constraints = {
-      audio: true,
-      video: {
-        width: { min: 1280 },
-        height: { min: 720 }
-      }
-    };
-    navigator.mediaDevices.getUserMedia(constraints)
-      .then(callback);
-  } catch (err) {
-    console.log(err);
-    return undefined;
-  }
-};
-
 const InterviewInfo = () => {
   const navigate = useNavigate();
   const [started, setStarted] = useState(false);
@@ -63,6 +41,22 @@ const InterviewInfo = () => {
     setQuestions(list);
   };
 
+  const getWebcam = (callback) => {
+      const constraints = {
+        audio: true,
+        video: {
+          width: { min: 1280 },
+          height: { min: 720 }
+        }
+      };
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(callback)
+        .catch(e => {
+          alert("카메라와 마이크 엑세스를 허용해주세요");
+          setStarted(false);
+        });
+  };
+
   const handleStart = () => {
     if (title === "") {
       alert("면접 제목을 입력해주세요");
@@ -73,7 +67,7 @@ const InterviewInfo = () => {
         setIsNext(false);
       }
       setStarted(true);
-      
+
       // 녹화 시작
       getWebcam((stream => {
         console.log(stream);
@@ -84,10 +78,10 @@ const InterviewInfo = () => {
 
   const handleNext = () => {
     setCurrent(current + 1);
-    const s = videoRef.current.srcObject;
-    
+    const stream = videoRef.current.srcObject;
+
     // 녹화 멈추기
-    s.getTracks().forEach((track) => {
+    stream.getTracks().forEach((track) => {
       track.stop();
     });
 
@@ -117,7 +111,7 @@ const InterviewInfo = () => {
           <Question>질문{current+1} {questions.at(current).question}</Question>
           <Video>
             <div>
-              <video ref={videoRef} autoPlay style={Styles.Video} />
+              <video ref={videoRef} autoPlay style={{width: "100%", height: "100%"}} />
             </div>
           </Video>
           <Button onClick={handleNext}>{isNext?"다음":"면접 끝내기"}</Button>
@@ -135,6 +129,7 @@ const InterviewInfo = () => {
               <input
                 type="text"
                 onChange={(event) => setTitle(event.target.value)}
+                value={title}
                 name="title"
                 className="form-control shadow-none"
                 placeholder="면접 제목"
