@@ -68,6 +68,7 @@ const App = () => {
       console.log(
         "(app.js 에서 접근)쿠키에 저장한 refresh 토큰은?????" + refreshToken
       );
+      console.log("skldlskdksl");
       // if (isTokenExpired(accessToken)) {
       //   console.log("아직 accessToken 유효함 !!");
       // } else {
@@ -109,7 +110,15 @@ const App = () => {
       />
       <Route
         path="/register"
-        element={!isLogged ? <Navigate replace to="/" /> : <Register />}
+        element={
+          !isLogged ? (
+            <Navigate replace to="/" />
+          ) : localStorage.getItem("address") === false ? (
+            <Interview />
+          ) : (
+            <Register />
+          )
+        }
       />
       <Route
         path="/interview/info"

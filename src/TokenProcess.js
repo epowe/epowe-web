@@ -35,8 +35,10 @@ export const TokenProcess = ({ location }) => {
         console.log(
           "사용자 존재, 서버로부터 주소 받아옴 주소는:" + result.address
         );
+        localStorage.setItem("address", true);
         navInterview();
       } else {
+        localStorage.setItem("address", false);
         navRegister();
       }
     } else {
