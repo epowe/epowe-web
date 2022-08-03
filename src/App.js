@@ -22,7 +22,9 @@ import jwt_decode from "jwt-decode";
 import { API } from "./API";
 import { removeCookieToken, getCookieToken } from "./Auth";
 const App = () => {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(
+    localStorage.getItem("isLogged") === "true" ? true : false
+  );
   const [addressExist, setAddressExist] = useState(false);
   // 토큰 만료일 계산해주는 함수
   const isTokenExpired = (token) => {
@@ -43,8 +45,8 @@ const App = () => {
     if (result) {
       console.log("서버에 만료된 토큰 전송 완료.");
       console.log(result);
-      console.log("새로발급받은 리프레쉬 토큰은????" + result.refreshToken);
-      console.log("새로발급받은 엑세스 토큰은????" + result.accessToken);
+      console.log("새로 발급 받은 리프레쉬 토큰은????" + result.refreshToken);
+      console.log("새로 발급 받은 엑세스 토큰은????" + result.accessToken);
     } else {
       console.log("서버에 만료된 토큰 전송 실패.");
       console.log(result);
@@ -58,28 +60,25 @@ const App = () => {
       console.log("로그인 페이지로 와서 localStorage와 쿠키 사라짐");
     }
     if (localStorage.getItem("isLogged")) {
-      setIsLogged(true);
       console.log("jwt 발급 완료");
 
       if (localStorage.getItem("address") === true) {
         setAddressExist(true);
         console.log("주소 존재한다.");
       }
-      // console.log("accessToken이 로컬에 저장되었습니다.");
-      // console.log("refreshToken이 로컬에 저장되었습니다.");
-      // var accessToken = localStorage.getItem("accessToken");
-      // var refreshToken = localStorage.getItem("refreshToken");
-      // console.log("localStorage에 저장한 access 토큰은??????" + accessToken);
-      // console.log("localStorage에 저장한 refresh 토큰은?????" + refreshToken);
     } else {
       console.log("JWT 발급 실패");
     }
-    console.log("sdkjfnbksdjf" + isLogged);
-  }, [isLogged]);
+  }, []);
 
   return (
     <Routes>
-      <Route path="/" element={<LoginPage />} />
+      <Route
+        path="/"
+        element={
+          !isLogged ? <LoginPage /> : <Navigate replace to="/register" />
+        }
+      />
       {/* <Route
         path="/"
         element={
@@ -95,7 +94,7 @@ const App = () => {
         path="/interview"
         element={!isLogged ? <Navigate replace to="/" /> : <Interview />}
       />
-      <Route
+      {/* <Route
         path="/register"
         element={
           !isLogged ? (
@@ -106,7 +105,8 @@ const App = () => {
             <Register />
           )
         }
-      />
+      /> */}
+      <Route path="/register" element={<Register />} />
       <Route
         path="/interview/info"
         element={!isLogged ? <Navigate replace to="/" /> : <InterviewInfo />}

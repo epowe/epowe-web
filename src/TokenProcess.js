@@ -63,16 +63,16 @@ export const TokenProcess = ({ location }) => {
       console.log("TokenProcess에서 엑세스 토큰을 localStorage에 저장했다.");
       if (bringRefreshToken() && localStorage.getItem("accessToken")) {
         localStorage.setItem("isLogged", true);
-        console.log("islogged 들어옴");
+        console.log("리프레쉬 엑세스 토큰 가져오기 성공, isLogged true로 들어옴");
       } else {
-        console.log("islogged 안들어옴");
+        console.log("리프레쉬 엑세스 토큰 가져오기 실패, islogged 안들어옴");
       }
       console.log(
         "TokenProcess에서 islogged를 true로 localStorage에 저장했다."
       );
       getUserAddress();
     } else {
-      console.log("토큰을 못 받아옴");
+      console.log("엑세스 토큰을 못 받아옴");
     }
   }, []);
 
