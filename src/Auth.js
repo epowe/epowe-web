@@ -22,5 +22,5 @@ export const getCookieToken = () => {
 
 export const removeCookieToken = () => {
   console.log("auth 에서 쿠키 삭제됨");
-  cookies.remove("refreshToken", { sameSite: "strict" });
+  return cookies.remove("refreshToken", { sameSite: "strict" });
 };

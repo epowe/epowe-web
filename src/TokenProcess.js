@@ -77,13 +77,12 @@ export const TokenProcess = () => {
       console.log("TokenProcess에서 엑세스 토큰을 localStorage에 저장했다.");
       if (bringRefreshToken() && localStorage.getItem("accessToken")) {
         localStorage.setItem("isLogged", true);
+        myContext.setIsLogged(true);
         console.log(
           "리프레쉬 엑세스 토큰 가져오기 성공, isLogged true로 들어옴"
         );
         getUserInfo();
-        console.log(
-          "유저 정보 가져오기 성공"
-        );
+        console.log("유저 정보 가져오기 성공");
       } else {
         console.log("리프레쉬 엑세스 토큰 가져오기 실패, islogged 안들어옴");
       }
