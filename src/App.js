@@ -33,12 +33,27 @@ const App = () => {
         : false
       : false
   );
-  const [addressExist, setAddressExist] = useState(false);
+  const [addressExist, setAddressExist] = useState(
+    localStorage.getItem("address")
+      ? localStorage.getItem("address") === "true"
+        ? true
+        : false
+      : false
+  );
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userProfile, setUserProfile] = useState("");
   const value = {
     isLogged,
     setIsLogged,
     addressExist,
     setAddressExist,
+    userName,
+    setUserName,
+    userEmail,
+    setUserEmail,
+    userProfile,
+    setUserProfile,
   };
   // 토큰 만료일 계산해주는 함수
   const isTokenExpired = (token) => {
@@ -66,6 +81,18 @@ const App = () => {
       console.log(result);
     }
   };
+  //유저 정보 가져오는 함수
+  const getUserInfo = async () => {
+    var result = await API.authAfterLogin();
+    if (result) {
+      console.log("사용자 데이터 잘 들어옴");
+      setUserEmail(result.email);
+      setUserProfile(result.picture);
+      setUserName(result.username);
+    } else {
+      console.log("사용자 데이터 잘 들어오지 않음");
+    }
+  };
 
   useEffect(() => {
     // if (window.location.pathname === "/") {
@@ -75,11 +102,7 @@ const App = () => {
     // }
     if (localStorage.getItem("isLogged")) {
       console.log("jwt 발급 완료");
-      console.log("addressExist: " + addressExist);
-      if (localStorage.getItem("address") === true) {
-        setAddressExist(true);
-        console.log("주소 존재한다.");
-      }
+      getUserInfo();
     } else {
       console.log("JWT 발급 실패");
     }

@@ -9,9 +9,6 @@ import AppContext from "../AppContext";
 
 const Header = ({ isLogin }) => {
   const navigate = useNavigate();
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userProfile, setUserProfile] = useState("");
   const myContext = useContext(AppContext);
 
   const onClickLogo = () => {
@@ -38,21 +35,19 @@ const Header = ({ isLogin }) => {
     navigate("/");
   };
 
-  const getUserInfo = async () => {
-    var result = await API.authAfterLogin();
-    if (result) {
-      console.log("헤더에 사용자 데이터 잘 들어옴");
-      setUserEmail(result.email);
-      setUserProfile(result.picture);
-      setUserName(result.username);
-    } else {
-      console.log("사용자 데이터 잘 들어오지 않음");
-    }
-  };
+  // const getUserInfo = async () => {
+  //   var result = await API.authAfterLogin();
+  //   if (result) {
+  //     console.log("헤더에 사용자 데이터 잘 들어옴");
+  //     setUserEmail(result.email);
+  //     setUserProfile(result.picture);
+  //     setUserName(result.username);
+  //   } else {
+  //     console.log("사용자 데이터 잘 들어오지 않음");
+  //   }
+  // };
 
-  useEffect(() => {
-    getUserInfo();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -72,8 +67,8 @@ const Header = ({ isLogin }) => {
                   : () => navigate("/feedback")
               }
             >
-              <Image src={userProfile} />
-              <Span>{userName}</Span>
+              <Image src={myContext.userProfile} />
+              <Span>{myContext.userName}</Span>
             </ProfileContainer>
           </SmallContainer>
         ) : (

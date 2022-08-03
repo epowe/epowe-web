@@ -31,14 +31,10 @@ export const TokenProcess = () => {
         console.log(
           "사용자 존재, 서버로부터 주소 받아옴 주소는:" + result.address
         );
-        // localStorage.setItem("address", true);
-        myContext.setAddressExist(true);
-        console.log("로그인시 주소 존재: " + myContext.addressExist);
+        localStorage.setItem("address", true);
         navInterview();
       } else {
-        // localStorage.setItem("address", false);
-        myContext.setAddressExist(false);
-        console.log("로그인시 주소 존재하지 않음: " + myContext.addressExist);
+        localStorage.setItem("address", false);
         navRegister();
       }
     } else {
@@ -61,6 +57,19 @@ export const TokenProcess = () => {
     }
   };
 
+  //유저 정보 가져오는 함수
+  const getUserInfo = async () => {
+    var result = await API.authAfterLogin();
+    if (result) {
+      console.log("헤더에 사용자 데이터 잘 들어옴");
+      myContext.setUserEmail(result.email);
+      myContext.setUserProfile(result.picture);
+      myContext.setUserName(result.username);
+    } else {
+      console.log("사용자 데이터 잘 들어오지 않음");
+    }
+  };
+
   useEffect(() => {
     if (accessToken) {
       console.log("서버로부터 발급 받은 엑세스 토큰: " + accessToken);
@@ -70,6 +79,10 @@ export const TokenProcess = () => {
         localStorage.setItem("isLogged", true);
         console.log(
           "리프레쉬 엑세스 토큰 가져오기 성공, isLogged true로 들어옴"
+        );
+        getUserInfo();
+        console.log(
+          "유저 정보 가져오기 성공"
         );
       } else {
         console.log("리프레쉬 엑세스 토큰 가져오기 실패, islogged 안들어옴");
