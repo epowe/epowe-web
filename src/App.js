@@ -58,7 +58,7 @@ const App = () => {
   // 토큰 만료일 계산해주는 함수
   const isTokenExpired = (token) => {
     var decoded = jwt_decode(token);
-    if (decoded.exp < Date.now() * 1000) {
+    if (decoded.exp * 1000 < Date.now()) {
       return true;
     } else {
       return false;
@@ -100,11 +100,34 @@ const App = () => {
     //   removeCookieToken();
     //   console.log("로그인 페이지로 와서 localStorage와 쿠키 사라짐");
     // }
-    if (localStorage.getItem("isLogged")) {
-      console.log("jwt 발급 완료");
+    //웹 내 cookie refresh token 확인
+    var accessToken = localStorage.getItem("accessToken");
+    var refreshToken = getCookieToken();
+    if (!accessToken) return;
+    // console.log("accessToken : ", accessToken);
+    if (!isTokenExpired(accessToken)) {
       getUserInfo();
+      console.log("accessToken 유효");
     } else {
-      console.log("JWT 발급 실패");
+      console.log("accssToken 만료");
+      console.log("refreshToken : ", refreshToken);
+      if (refreshToken && !isTokenExpired(refreshToken)) {
+        console.log("refreshToken 유효");
+        console.log(
+          "엑세스 토큰이 만료되어 새로운 엑세스 토큰과 리프레쉬 토큰을 재발급합니다."
+        );
+        getNewAccess({
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        });
+      } else {
+        console.log("refreshToken 만료");
+        console.log("엑세스 토큰과 리프레쉬 토큰이 만료되어 재 로그인 합니다.");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("isLogged");
+        setIsLogged(false);
+        removeCookieToken();
+      }
     }
   }, []);
 

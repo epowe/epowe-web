@@ -1,3 +1,4 @@
+//리프레쉬 토큰 쿠키와 연결해서 다루는 페이지 입니다.
 import Cookies from "universal-cookie";
 import jwt_decode from "jwt-decode";
 const cookies = new Cookies();
