@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from "styled-components"
 import Header from './Header'
 import FeedbackDetailTable from './FeedbackDetailTable'
+import VideoPlayer from './VideoPlayer'
 
 const FeedbackDetail = () => {
+  const playerRef = useRef();
+
+  const handleClick = (time) => {
+    let s = time.split(':');
+    let seconds = (+s[0])*60+(+s[1]);
+    playerRef.current.seekTo(seconds);
+  };
+
   return (
     <>
       <Header isLogin="true"/>
@@ -14,10 +23,10 @@ const FeedbackDetail = () => {
       </Title>
         <Container>
           <VideoContainer>
-            <Video />
+            <VideoPlayer playerRef={playerRef}/>
           </VideoContainer>
           <TableContainer>
-            <FeedbackDetailTable />
+            <FeedbackDetailTable handleClick={handleClick} />
           </TableContainer>
         </Container>
       </BodyContainer>
