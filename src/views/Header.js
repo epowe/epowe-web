@@ -61,7 +61,7 @@ const Header = ({ isLogin }) => {
         (window.location.pathname === "/") !== true ? (
           <SmallContainer>
             <SmallButton onClick={onLogout}>로그아웃</SmallButton>
-            <ProfileContainer onClick={(window.location.pathname === "/register" ? "" : navigate("/feedback"))}>
+            <ProfileContainer onClick={(window.location.pathname === "/register" ? "" : () => navigate("/feedback"))}>
               <Image src={userProfile} />
               <Span>{userName}</Span>
             </ProfileContainer>
