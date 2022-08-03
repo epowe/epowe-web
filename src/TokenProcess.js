@@ -1,19 +1,20 @@
-import { useLocation, Navigate, useNavigate } from "react-router-dom";
-import queryString from "query-string";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import ApiBaseURL from "./ApiBaseURL";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
 import { API } from "./API";
 import { setRefreshTokenToCookie, getCookieToken } from "./Auth";
-export const TokenProcess = ({ location }) => {
+import AppContext from "./AppContext";
+
+export const TokenProcess = () => {
   //redirect url에서 토큰을 뽑아오는 부분
   let getParameter = (key) => {
     return new URLSearchParams(window.location.search).get(key);
   };
   let accessToken = getParameter("accessToken");
 
-  //주소 여부에 따라서 페이지 바뀌게해주는 함수
   const navigate = useNavigate();
+  const myContext = useContext(AppContext);
+
+  //주소 여부에 따라서 페이지 바뀌게해주는 함수
   const navInterview = () => {
     return navigate("/interview");
   };
@@ -30,10 +31,14 @@ export const TokenProcess = ({ location }) => {
         console.log(
           "사용자 존재, 서버로부터 주소 받아옴 주소는:" + result.address
         );
-        localStorage.setItem("address", true);
+        // localStorage.setItem("address", true);
+        myContext.setAddressExist(true);
+        console.log("로그인시 주소 존재: " + myContext.addressExist);
         navInterview();
       } else {
-        localStorage.setItem("address", false);
+        // localStorage.setItem("address", false);
+        myContext.setAddressExist(false);
+        console.log("로그인시 주소 존재하지 않음: " + myContext.addressExist);
         navRegister();
       }
     } else {
@@ -63,7 +68,9 @@ export const TokenProcess = ({ location }) => {
       console.log("TokenProcess에서 엑세스 토큰을 localStorage에 저장했다.");
       if (bringRefreshToken() && localStorage.getItem("accessToken")) {
         localStorage.setItem("isLogged", true);
-        console.log("리프레쉬 엑세스 토큰 가져오기 성공, isLogged true로 들어옴");
+        console.log(
+          "리프레쉬 엑세스 토큰 가져오기 성공, isLogged true로 들어옴"
+        );
       } else {
         console.log("리프레쉬 엑세스 토큰 가져오기 실패, islogged 안들어옴");
       }

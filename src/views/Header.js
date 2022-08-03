@@ -5,24 +5,27 @@ import HeaderLogoI from "../images/HeaderLogo.png";
 import "../App.css";
 import { removeCookieToken } from "../Auth";
 import { API } from "../API";
+import AppContext from "../AppContext";
+
 const Header = ({ isLogin }) => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userProfile, setUserProfile] = useState("");
+  const myContext = useContext(AppContext);
 
   const onClickLogo = () => {
-    if (localStorage.getItem("isLogged")) {
+    if (myContext.isLogged) {
       if (window.location.pathname === "/register") {
         navigate("/register");
       } else {
         navigate("/interview");
       }
     } else {
-      navigate("/");
       localStorage.clear();
       removeCookieToken();
       console.log("로그인된 상태가 아니여서 로그인 페이지로 이동.");
+      navigate("/");
     }
   };
 
@@ -30,6 +33,7 @@ const Header = ({ isLogin }) => {
     //로그아웃 처리하기
     removeCookieToken();
     localStorage.clear();
+    myContext.setIsLogged(false);
     console.log("로그아웃 되었습니다.");
     navigate("/");
   };
