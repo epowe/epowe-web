@@ -59,6 +59,10 @@ const Button = styled.button`
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
+  &:hover {
+    background: #5850e6;
+    transition: 0.3s;
+  }
 `;
 
 export default Interview

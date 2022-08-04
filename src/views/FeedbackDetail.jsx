@@ -94,6 +94,11 @@ const SmallButton = styled.button`
   position: relative;
   left: 80%;
   width: 100px;
+  background: ##f2f2f2;
+  &:hover {
+    background: #e3e3e3;
+    transition: 0.3s;
+  }
 `;
 
 export default FeedbackDetail
