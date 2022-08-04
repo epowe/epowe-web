@@ -22,7 +22,7 @@ const FeedbackDetailTable = ({handleClick}) => {
         <tr>
           {
             column.map((v) => {
-              if (v === "time") return <td value={data[v]} onClick={()=>handleClick(data[v])}><div style={{fontWeight: 'bolder', textDecoration: 'underline' , cursor: 'pointer'}}>{data[v]}</div></td>
+              if (v === "time") return <td value={data[v]} onClick={()=>handleClick(data[v])}><div style={{textDecoration: 'underline' , cursor: 'pointer', color: '#6c63ff'}}>{data[v]}</div></td>
               return <td>{data[v]}</td>
             })
           }

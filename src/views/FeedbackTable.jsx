@@ -24,7 +24,7 @@ const FeedbackTable = () => {
         <tr>
           {
             column.map((v) => {
-              if (v === "title") return <td><Link to="/feedback/list/questions">{data[v]}</Link></td>
+              if (v === "title") return <td><Link to="/feedback/list/questions" style={{color: '#6c63ff'}}>{data[v]}</Link></td>
               return <td>{data[v]}</td>
             })
           }
