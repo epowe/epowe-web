@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
 import Header from "./Header.js";
+import toast, { Toaster } from 'react-hot-toast';
 
 const InterviewInfo = () => {
   const navigate = useNavigate();
@@ -18,6 +19,13 @@ const InterviewInfo = () => {
   const videoRef = React.useRef(null);
 
   useBeforeunload((event) => event.preventDefault());
+
+  const notify = (msg) => toast(msg, {
+    duration: 2500,
+    style: {
+      borderRadius: '50px',
+    },
+  });
 
   const addInputField = () => {
     setQuestions([
@@ -51,17 +59,17 @@ const InterviewInfo = () => {
       };
       navigator.mediaDevices.getUserMedia(constraints)
         .then(callback)
-        .catch(e => {
-          alert("카메라와 마이크 엑세스를 허용해주세요");
+        .catch(() => {
+          notify("카메라와 마이크 엑세스를 허용해주세요");
           setStarted(false);
         });
   };
 
   const handleStart = () => {
     if (title === "") {
-      alert("면접 제목을 입력해주세요");
+      notify("면접 제목을 입력해주세요");
     } else if (!questions.every((q) => q.question !== "")) {
-      alert("면접 질문을 입력해주세요");
+      notify("면접 질문을 입력해주세요");
     } else {
       if (questions.length === 1) {
         setIsNext(false);
@@ -189,6 +197,7 @@ const InterviewInfo = () => {
             </div>
           </div>
           <Button onClick={handleStart}>면접 시작</Button>
+          <Toaster containerStyle={{top: '5.1rem'}} />
         </Container>
       </BodyContainer>
     </>
