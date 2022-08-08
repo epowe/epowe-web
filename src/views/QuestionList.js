@@ -69,6 +69,10 @@ const Question = styled.div`
   width: 100%;
   cursor: pointer;
   margin: 0.5rem;
+  &:hover {
+    font-family: SCDream-Regular;
+    transition: 0.3s ease-in;
+  }
 `;
 
 export default QuestionList

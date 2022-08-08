@@ -135,6 +135,10 @@ const SmallButton = styled.button`
   font-family: SCDream-Regular;
   font-size: 0.7rem;
   padding: 0.5rem;
+  &:hover {
+    background: #5850e6;
+    transition: 0.3s;
+  }
 `;
 
 const ProfileContainer = styled.div`

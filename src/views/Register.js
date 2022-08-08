@@ -8,12 +8,22 @@ import {
   getCookieToken,
   setRefreshTokenToCookie,
 } from "../Auth";
+
 import AppContext from "../AppContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
   const navigate = useNavigate();
   const addressRef = useRef();
   const myContext = useContext(AppContext);
+
+  const notify = (msg) =>
+    toast(msg, {
+      duration: 2500,
+      style: {
+        borderRadius: "50px",
+      },
+    });
 
   const onRegister = () => {
     if (addressRef.current.value !== "") {
@@ -24,7 +34,7 @@ const Register = () => {
       navigate("/interview");
       console.log("리프레쉬 토큰은???" + getCookieToken());
     } else {
-      alert("사는 지역을 입력해주세요."); //-> modal로 바꾸기
+      notify("사는 지역을 입력해주세요");
     }
   };
 
@@ -69,8 +79,9 @@ const Register = () => {
             <Span>{myContext.userName}</Span>
             <Span>{myContext.userEmail}</Span>
           </ProfileContainer>
-          <Input ref={addressRef} placeholder="사는 지역을 입력해주세요." />
+          <Input ref={addressRef} placeholder="사는 지역을 입력해주세요" />
           <Button onClick={onRegister}>회원가입하기</Button>
+          <Toaster containerStyle={{ top: "5.1rem" }} />
         </ButtonContainer>
       </BodyContainer>
     </>
@@ -137,6 +148,10 @@ const Button = styled.button`
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
+  &:hover {
+    background: #5850e6;
+    transition: 0.3s;
+  }
 `;
 
 const Input = styled.input`

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import FeedbackDetailData from './FeedbackDetailData'
 
-const FeedbackDetailTable = () => {
+const FeedbackDetailTable = ({handleClick}) => {
 
   const column = Object.keys(FeedbackDetailData[0]);
 
@@ -22,7 +22,7 @@ const FeedbackDetailTable = () => {
         <tr>
           {
             column.map((v) => {
-              if (v === "time") return <td><Link to="/feedback/list/questions/detail">{data[v]}</Link></td>
+              if (v === "time") return <td value={data[v]} onClick={()=>handleClick(data[v])}><div style={{textDecoration: 'underline' , cursor: 'pointer', color: '#6c63ff'}}>{data[v]}</div></td>
               return <td>{data[v]}</td>
             })
           }

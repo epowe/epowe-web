@@ -105,6 +105,10 @@ const Button = styled.button`
   font-size: 0.8rem;
   cursor: pointer;
   text-align: center;
+  &:hover {
+    background: #5850e6;
+    transition: 0.3s;
+  }
 `;
 
 export default MyFeedback
