@@ -46,8 +46,6 @@ const App = () => {
   const value = {
     isLogged,
     setIsLogged,
-    addressExist,
-    setAddressExist,
     userName,
     setUserName,
     userEmail,
