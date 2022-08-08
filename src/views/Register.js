@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header.js";
@@ -8,12 +8,12 @@ import {
   getCookieToken,
   setRefreshTokenToCookie,
 } from "../Auth";
+import AppContext from "../AppContext";
+
 const Register = () => {
   const navigate = useNavigate();
   const addressRef = useRef();
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userProfile, setUserProfile] = useState("");
+  const myContext = useContext(AppContext);
 
   const onRegister = () => {
     if (addressRef.current.value !== "") {
@@ -29,16 +29,15 @@ const Register = () => {
   };
 
   //클라이언트 API를 통해 유저의 정보를 가져오는 단계 입니다.
-  const getUserInfo = async () => {
-    var result = await API.authAfterLogin();
-    if (result) {
-      setUserEmail(result.email);
-      setUserProfile(result.picture);
-      setUserName(result.username);
-    } else {
-      console.log("사용자 데이터 잘 들어오지 않음");
-    }
-  };
+  // const getUserInfo = async () => {
+  //   var result = await API.authAfterLogin();
+  //   if (result) {
+  //     myContext.setUserEmail(result.email);
+  //     setUserProfile(result.picture);
+  //     setUserName(result.username);
+  //   } else {
+  //     console.log("사용자 데이터 잘 들어오지 않음");
+  //   }
 
   //회원가입하기 버튼 클릭시 클라이언트 API를 사용해서 백엔드로 데이터 옮기기
   const giveAddress = async () => {
@@ -53,9 +52,9 @@ const Register = () => {
     }
   };
 
-  useEffect(() => {
-    getUserInfo();
-  }, []);
+  // useEffect(() => {
+  //   getUserInfo();
+  // }, []);
 
   return (
     <>
@@ -65,10 +64,10 @@ const Register = () => {
           <Title>회원가입</Title>
           <ProfileContainer>
             <Span>
-              <Image src={userProfile} />
+              <Image src={myContext.userProfile} />
             </Span>
-            <Span>{userName}</Span>
-            <Span>{userEmail}</Span>
+            <Span>{myContext.userName}</Span>
+            <Span>{myContext.userEmail}</Span>
           </ProfileContainer>
           <Input ref={addressRef} placeholder="사는 지역을 입력해주세요." />
           <Button onClick={onRegister}>회원가입하기</Button>

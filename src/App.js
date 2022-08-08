@@ -57,50 +57,6 @@ const App = () => {
     userProfile,
     setUserProfile,
   };
-  //유저 정보 가져오는 함수
-  const getUserInfo = async () => {
-    var result = await API.authAfterLogin();
-    if (result) {
-      console.log("사용자 데이터 잘 들어옴");
-      setUserEmail(result.email);
-      setUserProfile(result.picture);
-      setUserName(result.username);
-    } else {
-      console.log("사용자 데이터 잘 들어오지 않음");
-    }
-  };
-  // 토큰 만료일 계산해주는 함수
-  const isTokenExpired = (token) => {
-    var decoded = jwt_decode(token);
-    if (decoded.exp * 1000 < Date.now()) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  // 새로운 토큰 재발급 함수
-  const getNewAccess = async ({ accessToken, refreshToken }) => {
-    console.log("엑세스: " + accessToken);
-    console.log("리프레쉬 : " + refreshToken);
-    var result = await API.getAccessUsingRefresh({
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    });
-    if (result) {
-      console.log("서버에 만료된 토큰 전송 완료.");
-      console.log(result);
-      console.log("새로 발급 받은 리프레쉬 토큰은????" + result.refreshToken);
-      console.log("새로 발급 받은 엑세스 토큰은????" + result.accessToken);
-      localStorage.setItem("accessToken", result.accessToken);
-      localStorage.setItem("isLogged", true);
-      setRefreshTokenToCookie(result.refreshToken);
-      getUserInfo();
-    } else {
-      console.log("서버에 만료된 토큰 전송 실패.");
-      console.log(result);
-    }
-  };
 
   useEffect(() => {
     // if (window.location.pathname === "/") {
@@ -111,13 +67,8 @@ const App = () => {
     //웹 내 cookie refresh token 확인
     var accessToken = localStorage.getItem("accessToken");
     var refreshToken = getCookieToken();
-    getNewAccess({
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    });
     console.log("리프레쉬 토큰은:???:", refreshToken);
     if (!accessToken) return;
-    // console.log("accessToken : ", accessToken);
     if (!isTokenExpired(accessToken)) {
       getUserInfo();
       console.log("accessToken 유효");
@@ -144,6 +95,50 @@ const App = () => {
       }
     }
   }, []);
+
+  //유저 정보 가져오는 함수
+  const getUserInfo = async () => {
+    var result = await API.authAfterLogin();
+    if (result) {
+      console.log("사용자 데이터 잘 들어옴");
+      setUserEmail(result.email);
+      setUserProfile(result.picture);
+      setUserName(result.username);
+    } else {
+      console.log("사용자 데이터 잘 들어오지 않음");
+    }
+  };
+  // 새로운 토큰 재발급 함수
+  const getNewAccess = async ({ accessToken, refreshToken }) => {
+    console.log("엑세스: " + accessToken);
+    console.log("리프레쉬 : " + refreshToken);
+    var result = await API.getAccessUsingRefresh({
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
+    if (result) {
+      console.log("서버에 만료된 토큰 전송 완료.");
+      console.log(result);
+      console.log("새로 발급 받은 리프레쉬 토큰은????" + result.refreshToken);
+      console.log("새로 발급 받은 엑세스 토큰은????" + result.accessToken);
+      localStorage.setItem("accessToken", result.accessToken);
+      localStorage.setItem("isLogged", true);
+      setRefreshTokenToCookie(result.refreshToken);
+      getUserInfo();
+    } else {
+      console.log("서버에 만료된 토큰 전송 실패.");
+      console.log(result);
+    }
+  };
+  // 토큰 만료일 계산해주는 함수
+  const isTokenExpired = (token) => {
+    var decoded = jwt_decode(token);
+    if (decoded.exp * 1000 < Date.now()) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -60,14 +60,13 @@ export const API = {
     try {
       const response = await axios.post(
         `/auth/reissue`,
-        console.log("리프레쉬의 타입은?" + refreshToken),
         JSON.stringify({
           accessToken: accessToken,
+          refreshToken: refreshToken,
         }),
         {
           headers: {
-            Cookie: `refreshToken=${refreshToken}`,
-            // "Content-Type": "application/json",
+            "Content-Type": "application/json",
           },
         }
       );
