@@ -159,7 +159,15 @@ const App = () => {
           <Route path="/oauth2/redirect" element={<TokenProcess />} />
           <Route
             path="/register"
-            element={!isLogged ? <Navigate replace to="/" /> : <Register />}
+            element={
+              !isLogged ? (
+                <Navigate replace to="/" />
+              ) : !addressExist ? (
+                <Register />
+              ) : (
+                <Navigate replace to="/interview" />
+              )
+            }
           />
           <Route
             path="/interview"
