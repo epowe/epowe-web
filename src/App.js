@@ -10,6 +10,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import InterviewInfo from "./views/InterviewInfo.jsx";
+import Feedback from "./views/Feedback";
 import MyFeedback from "./views/MyFeedback";
 import FeedbackList from "./views/FeedbackList";
 import QuestionList from "./views/QuestionList";
@@ -181,7 +182,7 @@ const App = () => {
           />
           <Route
             path="/interview/feedback"
-            element={!isLogged ? <Navigate replace to="/" /> : <TokenProcess />}
+            element={!isLogged ? <Navigate replace to="/" /> : <Feedback />}
           />
           <Route
             path="/feedback"
