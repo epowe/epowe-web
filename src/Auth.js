@@ -8,6 +8,7 @@ export function setRefreshTokenToCookie(refreshToken) {
   const expireDate = new Date(decoded.exp * 1000);
   console.log("리프레쉬 토큰의 만료일: " + expireDate);
   cookies.set("refreshToken", refreshToken, {
+    path: "/",
     sameSite: "Lax",
     expires: new Date(expireDate),
     httpOnly: false,
