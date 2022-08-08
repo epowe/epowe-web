@@ -18,9 +18,10 @@ const Register = () => {
   const onRegister = () => {
     if (addressRef.current.value !== "") {
       //회원가입 처리하기
-      navigate("/interview");
-      console.log(addressRef.current.value);
       giveAddress();
+      localStorage.setItem("address", true);
+      console.log(addressRef.current.value);
+      navigate("/interview");
       console.log("리프레쉬 토큰은???" + getCookieToken());
     } else {
       alert("사는 지역을 입력해주세요."); //-> modal로 바꾸기

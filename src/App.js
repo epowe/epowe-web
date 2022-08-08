@@ -46,8 +46,6 @@ const App = () => {
   const value = {
     isLogged,
     setIsLogged,
-    addressExist,
-    setAddressExist,
     userName,
     setUserName,
     userEmail,
@@ -66,10 +64,11 @@ const App = () => {
   };
 
   // 새로운 토큰 재발급 함수
-  const getNewAccess = async () => {
+  const getNewAccess = async (accessToken, refreshToken) => {
+    console.log("sdsd:" + accessToken);
     var result = await API.getAccessUsingRefresh({
-      accessToken: localStorage.getItem("accessToken"),
-      refreshToken: localStorage.getItem("refreshToken"),
+      accessToken: accessToken,
+      refreshToken: refreshToken,
     });
     if (result) {
       console.log("서버에 만료된 토큰 전송 완료.");
@@ -103,6 +102,7 @@ const App = () => {
     //웹 내 cookie refresh token 확인
     var accessToken = localStorage.getItem("accessToken");
     var refreshToken = getCookieToken();
+    console.log("리프레쉬 토큰은:???:", refreshToken);
     if (!accessToken) return;
     // console.log("accessToken : ", accessToken);
     if (!isTokenExpired(accessToken)) {
@@ -125,6 +125,7 @@ const App = () => {
         console.log("엑세스 토큰과 리프레쉬 토큰이 만료되어 재 로그인 합니다.");
         localStorage.removeItem("accessToken");
         localStorage.removeItem("isLogged");
+        localStorage.removeItem("address");
         setIsLogged(false);
         removeCookieToken();
       }
