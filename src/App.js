@@ -60,11 +60,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    // if (window.location.pathname === "/") {
-    //   localStorage.clear();
-    //   removeCookieToken();
-    //   console.log("로그인 페이지로 와서 localStorage와 쿠키 사라짐");
-    // }
     //웹 내 cookie refresh token 확인
     var accessToken = localStorage.getItem("accessToken");
     var refreshToken = getCookieToken();

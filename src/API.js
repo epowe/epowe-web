@@ -114,4 +114,31 @@ export const API = {
     }
     return false;
   },
+  //Flask 테스트용 api
+  useFlaskTest: async () => {
+    try {
+      const response = await axios.get(
+        `/model/data/score`,
+        {
+          headers: {
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjoxLCJleHAiOjE2NTk5ODAxNjV9.cG6OaErUlHkosl1p4X7efHkTIaifxq9Dm-gjUBf214g`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("Flask에 정상적으로 연결되어 데이터를 보냈습니다.");
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("Flask에 연결 실패");
+        console.log(response);
+        return false;
+      }
+    } catch (error) {
+      console.log("accessToken과 refreshToken을 재발급 받지 못하였습니다.");
+      console.error(error);
+    }
+    return false;
+  },
 };
