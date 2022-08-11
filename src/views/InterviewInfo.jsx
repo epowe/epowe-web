@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
@@ -16,10 +16,12 @@ const InterviewInfo = () => {
       question: "",
     },
   ]);
-  const videoRef = React.useRef(null);
+  const videoRef = useRef(null);
   const [data, setData] = useState([]);
   const [src, setSrc] = useState(null);
-  var mediaRecorder;
+  const mediaRecorder = useRef(null);
+  const recordedMediaUrl = useRef(null);
+
   useBeforeunload((event) => event.preventDefault());
 
   const notify = (msg) =>
@@ -70,7 +72,7 @@ const InterviewInfo = () => {
   };
 
   const handleStart = () => {
-    let a = [];
+    let mediaData = [];
     if (title === "") {
       notify("면접 제목을 입력해주세요");
     } else if (!questions.every((q) => q.question !== "")) {
@@ -84,12 +86,11 @@ const InterviewInfo = () => {
       // 녹화 시작
       getWebcam((stream) => {
         console.log(stream);
-        const videoRecorder = new MediaRecorder(stream, {
-          mimeType: "video/webm;codecs=vp8",
+        mediaRecorder = new MediaRecorder(stream, {
+          mimeType: "video/webm;codecs=vp9",
         });
-        videoRecorder.start(); // 시작
         videoRef.current.srcObject = stream;
-        videoRecorder.ondataavailable = (e) => {
+        mediaRecorder.ondataavailable = (e) => {
           // blob 데이터 저장
           console.log(JSON.stringify(e.data.size));
           console.log(e.data);
@@ -97,6 +98,14 @@ const InterviewInfo = () => {
             setData(e.data);
           }
         };
+        // 녹화 중지 이벤트 핸들러 등록
+        mediaRecorder.onstop = function() {
+          const blob = new Blob(mediaData, {
+            type: "video/webm",
+          });
+          recordMediaUrl = new URL.createObjectURL(blob);
+        };
+        mediaRecorder.start();
       });
     }
   };
@@ -121,33 +130,18 @@ const InterviewInfo = () => {
         videoRef.current.srcObject = stream;
       });
     } else {
-      videoDownload(data);
+      videoDownload();
       navigate("/interview/feedback");
-      if (data) {
-        console.log(data.length);
-      }
     }
   };
 
   //녹화 멈추기
   const stopRecord = (stream) => {
-    stream.getTracks().forEach((track) => {
-      console.log(track);
-      track.stop();
-    });
-
-    this.mediaRecorder.onstop = (event) => {
-      console.log("Recorder stopped: ", event);
-      console.log("Recorded Blobs: ", data);
-    };
-
-    this.mediaRecorder.ondataavailable = (event) => {
-      console.log(event);
-      console.log(JSON.stringify(event.data.size));
-      if (event.data && event.data.size > 0) {
-        setData(event.data);
-      }
-    };
+    if (mediaRecorder) {
+      // 5. 녹화 중지
+      mediaRecorder.stop();
+      mediaRecorder = null;
+    }
   };
 
   //녹화 시작
@@ -161,38 +155,23 @@ const InterviewInfo = () => {
     console.log(mediaRecorder);
   };
 
-  //src로 변경 된 것
-  const srcChangeFunc = useCallback(() => {
-    let arr = [];
-    data.map((el) => arr.push(window.URL.createObjectURL(new Blob([el]))));
-    return arr;
-  }, [data]);
-
   //녹화된 영상 로컬에 다운로드
-  const videoDownload = (recordedBlobs) => {
-    const blob = new Blob(recordedBlobs, {
-      type: "video/webm",
-    });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = url;
-    a.download = "test.webm";
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => {
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    }, 100);
+  const videoDownload = () => {
+    if (recordedMediaUrl) {
+      const link = document.createElement("a");
+      document.body.appendChild(link);
+      // 녹화된 영상의 URL을 href 속성으로 설정
+      link.href = recordedMediaUrl;
+      // 저장할 파일명 설정
+      link.download = "video.webm";
+      link.click();
+      document.body.removeChild(link);
+    }
   };
-  useEffect(() => {
-    if (started && data.length !== 0) {
-      setSrc(window.URL.createObjectURL(new Blob([data])), {
-        type: "video/webm;codecs=vp8",
-      });
-    } // 쌓인 blob형태의 data 스트림을 URL로 바꿔서 src에 전달
-  }, [data, started]);
 
+  useEffect(() => {
+    setrecordMediaUrl(null);
+  }, [recordedMediaUrl]);
   return started ? (
     <>
       <Header />
