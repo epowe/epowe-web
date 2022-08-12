@@ -30,8 +30,8 @@ const FeedbackDetail = () => {
           <TableContainer>
             <FeedbackDetailTable handleClick={handleClick} />
           </TableContainer>
-        </Container>
         <SmallButton onClick={()=>navigate("/feedback/list/questions")}>질문 목록</SmallButton>
+        </Container>
       </BodyContainer>
     </>
   )
@@ -91,10 +91,11 @@ const SmallButton = styled.button`
   border: 0;
   border-radius: 50px;
   padding: 8px;
-  position: relative;
+  position: fixed;
+  top: 90%;
   left: 80%;
   width: 100px;
-  background: ##f2f2f2;
+  background: #f2f2f2;
   &:hover {
     background: #e3e3e3;
     transition: 0.3s;

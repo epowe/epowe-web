@@ -10,6 +10,7 @@ const MyFeedback = () => {
     <>
       <Header isLogin="true"/>
       <BodyContainer>
+        <Text>마이페이지</Text>
         <Title>전체 피드백 평균 점수</Title>
         <Container>
           <FeedbackPurple>
@@ -29,7 +30,10 @@ const MyFeedback = () => {
             <span>30</span>
           </Feedback>
         </Container>
-        <Button onClick={() => navigate("/feedback/list")}>전체 피드백 목록</Button>
+        <ButtonContainer>
+          <Button onClick={() => navigate("/feedback/list")}>전체 피드백 목록</Button>
+          <Button onClick={() => navigate("/interview/info")}>모의면접 시작하기</Button>
+        </ButtonContainer>
       </BodyContainer>
     </>
   )
@@ -54,7 +58,15 @@ const Title = styled.div`
   font-family: SCDream-Regular;
   font-size: 1.5rem;
   text-align: center;
-  margin: 1.5rem;
+  margin: 0 0 1.5rem 0;
+`;
+
+const Text = styled.div`
+  width: 100%;
+  font-family: SCDream-Regular;
+  font-size: 1.2rem;
+  text-align: start;
+  padding: 0 12rem;
 `;
 
 const Container = styled.div`
@@ -73,8 +85,7 @@ const FeedbackPurple = styled.div`
   font-size: 0.85rem;
   color: white;
   background: #4F46BA;
-  box-shadow: 0px 50.7352px 78.5187px rgba(20, 34, 244, 0.14), 0px 32.8839px 45.9844px rgba(20, 34, 244, 0.106296), 0px 19.5424px 25.0097px rgba(20, 34, 244, 0.085037), 0px 10.147px 12.7593px rgba(20, 34, 244, 0.07), 0px 4.13398px 6.39782px rgba(20, 34, 244, 0.054963), 0px 0.939541px 3.08986px rgba(20, 34, 244, 0.0337037);
-  border-radius: 60.399px;  
+  border-radius: 60.399px;
 `;
 
 const Feedback = styled.div`
@@ -88,8 +99,12 @@ const Feedback = styled.div`
   text-align: center;
   font-size: 0.85rem;
   border: 1px solid #E2E2E2;
-  box-shadow: 0px 120.798px 96.6385px rgba(0, 0, 0, 0.01), 0px 78.295px 56.5961px rgba(0, 0, 0, 0.00759259), 0px 46.5296px 30.7811px rgba(0, 0, 0, 0.00607407), 0px 24.1596px 15.7037px rgba(0, 0, 0, 0.005), 0px 9.84281px 7.87424px rgba(0, 0, 0, 0.00392593), 0px 2.237px 3.8029px rgba(0, 0, 0, 0.00240741);
   border-radius: 60.399px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const Button = styled.button`
@@ -98,7 +113,7 @@ const Button = styled.button`
   color: white;
   width: 18rem;
   padding: 0.8rem;
-  margin: 1rem 0;
+  margin: 0.3rem 0;
   border: none;
   border-radius: 50px;
   font-family: SCDream-Regular;

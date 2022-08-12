@@ -19,9 +19,12 @@ const QuestionList = () => {
       <Header isLogin="true"/>
       <BodyContainer>
         <Title>{'면접제목 >'} 질문 목록</Title>
+        <Container>
         <QuestionContainer>
           {questions.map((question) => { return (<Question onClick={() => navigate("/feedback/list/questions/detail")}>{question.q}</Question>); })}
         </QuestionContainer>
+        <SmallButton onClick={()=>navigate("/feedback/list")}>면접 목록</SmallButton>
+        </Container>
       </BodyContainer>
     </>
   )
@@ -66,12 +69,33 @@ const Question = styled.div`
   border-radius: 50px;
   padding: 0.8rem 1rem;
   text-align: center;
-  width: 100%;
+  width: 20%;
   cursor: pointer;
   margin: 0.5rem;
   &:hover {
     font-family: SCDream-Regular;
     transition: 0.3s ease-in;
+  }
+`;
+
+const Container = styled.div`
+  margin: 0 10rem;
+  padding-top: 3rem;
+  width: 100%;
+`;
+
+const SmallButton = styled.button`
+  border: 0;
+  border-radius: 50px;
+  padding: 8px;
+  position: fixed;
+  top: 90%;
+  left: 80%;
+  width: 100px;
+  background: #f2f2f2;
+  &:hover {
+    background: #e3e3e3;
+    transition: 0.3s;
   }
 `;
 
