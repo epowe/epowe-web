@@ -23,7 +23,7 @@ const LoginPage = () => {
               options={{
                 strings: [
                   "이에이승은 면접에서 어려움을 겪고 있는 사람들에게",
-                  "날개를 달아주는 서비스입니다!",
+                  "날개를 달아주는 서비스입니다.",
                 ],
                 speed: 90,
                 waitUntilVisible: true,
