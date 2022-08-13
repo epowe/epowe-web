@@ -21,6 +21,17 @@ jobs: # Job 설정
         env:
           CI: false
 
+      - name: Delete Privious Build Folder
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PEM_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            rm -r /home/${{secrets.USERNAME}}/epowe-web/build
+            ls -al
+
       - name: Deploy build outputs
         uses: appleboy/scp-action@master
         with:
