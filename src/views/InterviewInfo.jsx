@@ -17,11 +17,11 @@ const InterviewInfo = () => {
     },
   ]);
   const videoRef = useRef(null);
+
   const [data, setData] = useState([]);
   const [src, setSrc] = useState(null);
-  const mediaRecorder = useRef(null);
-  const recordMediaUrl = useRef(null);
-
+  let mediaRecorder = useRef(null);
+  let recordMediaUrl = useRef(null);
   useBeforeunload((event) => event.preventDefault());
 
   const notify = (msg) =>
@@ -72,7 +72,6 @@ const InterviewInfo = () => {
   };
 
   const handleStart = () => {
-    let mediaData = [];
     if (title === "") {
       notify("면접 제목을 입력해주세요");
     } else if (!questions.every((q) => q.question !== "")) {
@@ -83,42 +82,20 @@ const InterviewInfo = () => {
       }
       setStarted(true);
 
-      // 녹화 시작
       getWebcam((stream) => {
-        console.log(stream);
-        mediaRecorder.current = new MediaRecorder(stream, {
-          mimeType: "video/webm;codecs=vp9",
-        });
+        // console.log(stream);
         videoRef.current.srcObject = stream;
-
-        mediaRecorder.current.ondataavailable = (e) => {
-          // blob 데이터 저장
-          console.log(JSON.stringify(e.data.size));
-          console.log(e.data);
-          if (e.data && e.data.size > 0) {
-            setData(e.data);
-          }
-        };
-
-        // 녹화 중지 이벤트 핸들러 등록
-        mediaRecorder.current.onstop = function() {
-          const blob = new Blob(mediaData, {
-            type: "video/webm",
-          });
-          recordMediaUrl.current = new URL.createObjectURL(blob);
-        };
+        startRecording(stream);
         mediaRecorder.current.start();
+        // console.log("어떤 데이터가 들어감?" + data.current[0]);
+        // console.log(mediaRecorder.current);
       });
     }
   };
 
   const handleNext = () => {
     setCurrent(current + 1);
-    const stream = videoRef.current.srcObject;
-    stream.getTracks().forEach((track) => {
-      console.log(track);
-      track.stop();
-    });
+    stopRecording();
     if (isNext) {
       if (current < questions.length - 2) {
         setIsNext(true);
@@ -132,24 +109,66 @@ const InterviewInfo = () => {
         videoRef.current.srcObject = stream;
       });
     } else {
-      videoDownload();
+      const blob = new Blob(data, {
+        type: "video/webm",
+      });
+      console.log(blob);
+      recordMediaUrl.current = URL.createObjectURL(blob);
+      // videoDownload();
       navigate("/interview/feedback");
     }
   };
-  
+
+  const startRecording = (stream) => {
+    mediaRecorder.current = new MediaRecorder(stream, {
+      mimeType: "video/webm;codecs=vp9",
+    });
+    mediaRecorder.current.ondataavailable = (e) => {
+      // blob 데이터 저장
+      if (e.data && e.data.size > 0) {
+        console.log(e.data);
+        setData(e.data);
+        console.log(data);
+      }
+    };
+  };
+
+  const stopRecording = () => {
+    const stream = videoRef.current.srcObject;
+    stream.getTracks().forEach((track) => {
+      track.stop();
+    });
+    mediaRecorder.current.stop();
+  };
+
   //녹화된 영상 로컬에 다운로드
   const videoDownload = () => {
-    if (recordMediaUrl) {
+    if (recordMediaUrl.current) {
       const link = document.createElement("a");
-      document.body.appendChild(link);
+      link.style.display = "none";
       // 녹화된 영상의 URL을 href 속성으로 설정
-      link.href = recordMediaUrl;
+      link.href = recordMediaUrl.current;
       // 저장할 파일명 설정
       link.download = "video.webm";
+      document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
+      setTimeout(() => {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(recordMediaUrl.current);
+      }, 100);
+    } else {
+      console.log("존재 xx");
     }
   };
+  useEffect(() => {
+    if (data.length !== 0) {
+      // setSrc(window.URL.createObjectURL(new Blob([data.current[0]])), {
+      //   type: "video/webm;codecs=vp9",
+      // });
+      // recordMediaUrl.current = src;
+      console.log("src는? " + src);
+    } // 쌓인 blob형태의 data 스트림을 URL로 바꿔서 src에 전달
+  }, [data]);
 
   return started ? (
     <>

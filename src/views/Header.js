@@ -7,7 +7,7 @@ import { removeCookieToken } from "../Auth";
 import { API } from "../API";
 import AppContext from "../AppContext";
 
-const Header = ({ isLogin }) => {
+const Header = () => {
   const navigate = useNavigate();
   const myContext = useContext(AppContext);
 
@@ -34,20 +34,6 @@ const Header = ({ isLogin }) => {
     console.log("로그아웃 되었습니다.");
     navigate("/");
   };
-
-  // const getUserInfo = async () => {
-  //   var result = await API.authAfterLogin();
-  //   if (result) {
-  //     console.log("헤더에 사용자 데이터 잘 들어옴");
-  //     setUserEmail(result.email);
-  //     setUserProfile(result.picture);
-  //     setUserName(result.username);
-  //   } else {
-  //     console.log("사용자 데이터 잘 들어오지 않음");
-  //   }
-  // };
-
-  useEffect(() => {}, []);
 
   return (
     <>
