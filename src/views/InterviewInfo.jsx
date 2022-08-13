@@ -20,7 +20,7 @@ const InterviewInfo = () => {
   const [data, setData] = useState([]);
   const [src, setSrc] = useState(null);
   const mediaRecorder = useRef(null);
-  const recordedMediaUrl = useRef(null);
+  const recordMediaUrl = useRef(null);
 
   useBeforeunload((event) => event.preventDefault());
 
@@ -86,11 +86,12 @@ const InterviewInfo = () => {
       // 녹화 시작
       getWebcam((stream) => {
         console.log(stream);
-        mediaRecorder = new MediaRecorder(stream, {
+        mediaRecorder.current = new MediaRecorder(stream, {
           mimeType: "video/webm;codecs=vp9",
         });
         videoRef.current.srcObject = stream;
-        mediaRecorder.ondataavailable = (e) => {
+
+        mediaRecorder.current.ondataavailable = (e) => {
           // blob 데이터 저장
           console.log(JSON.stringify(e.data.size));
           console.log(e.data);
@@ -98,14 +99,15 @@ const InterviewInfo = () => {
             setData(e.data);
           }
         };
+
         // 녹화 중지 이벤트 핸들러 등록
-        mediaRecorder.onstop = function() {
+        mediaRecorder.current.onstop = function() {
           const blob = new Blob(mediaData, {
             type: "video/webm",
           });
-          recordMediaUrl = new URL.createObjectURL(blob);
+          recordMediaUrl.current = new URL.createObjectURL(blob);
         };
-        mediaRecorder.start();
+        mediaRecorder.current.start();
       });
     }
   };
@@ -134,34 +136,14 @@ const InterviewInfo = () => {
       navigate("/interview/feedback");
     }
   };
-
-  //녹화 멈추기
-  const stopRecord = (stream) => {
-    if (mediaRecorder) {
-      // 5. 녹화 중지
-      mediaRecorder.stop();
-      mediaRecorder = null;
-    }
-  };
-
-  //녹화 시작
-  const startRecord = (stream) => {
-    //영상 녹화 생성자 생성
-    const mediaRecorder = new MediaRecorder(stream, {
-      mimeType: "video/webm;codecs=vp8",
-    });
-    console.log(mediaRecorder);
-    mediaRecorder.start();
-    console.log(mediaRecorder);
-  };
-
+  
   //녹화된 영상 로컬에 다운로드
   const videoDownload = () => {
-    if (recordedMediaUrl) {
+    if (recordMediaUrl) {
       const link = document.createElement("a");
       document.body.appendChild(link);
       // 녹화된 영상의 URL을 href 속성으로 설정
-      link.href = recordedMediaUrl;
+      link.href = recordMediaUrl;
       // 저장할 파일명 설정
       link.download = "video.webm";
       link.click();
@@ -169,9 +151,6 @@ const InterviewInfo = () => {
     }
   };
 
-  useEffect(() => {
-    setrecordMediaUrl(null);
-  }, [recordedMediaUrl]);
   return started ? (
     <>
       <Header />
@@ -186,7 +165,6 @@ const InterviewInfo = () => {
                 ref={videoRef}
                 autoPlay
                 muted
-                poster="../images/loading.gif"
                 style={{
                   width: "100%",
                   height: "100%",
