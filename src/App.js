@@ -16,8 +16,7 @@ import FeedbackList from "./views/FeedbackList";
 import QuestionList from "./views/QuestionList";
 import FeedbackDetail from "./views/FeedbackDetail.jsx";
 import VideoRecordTest from "./views/VideoRecordTest.jsx";
-import axios from "axios";
-import ApiBaseURL from "./ApiBaseURL";
+import S3UploadTest from "./views/S3UploadTest";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
 import { API } from "./API";
@@ -140,6 +139,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AppContext.Provider value={value}>
         <Routes>
+          <Route path="/uploadTest" element={<S3UploadTest />} />
           <Route
             path="/"
             element={
