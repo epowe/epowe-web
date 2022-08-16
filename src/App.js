@@ -16,7 +16,7 @@ import FeedbackList from "./views/FeedbackList";
 import QuestionList from "./views/QuestionList";
 import FeedbackDetail from "./views/FeedbackDetail.jsx";
 import VideoRecordTest from "./views/VideoRecordTest.jsx";
-import S3UploadTest from "./views/S3UploadTest.jsx";
+import S3UploadTest from "./views/S3UploadTest.js";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
 import { API } from "./API";
