@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import * as Api from "../../api";
+import * as Api from "../API";
 import AWS from "aws-sdk";
 
-function S3UploadTest({ ownerData, setOwnerData }) {
+const S3UploadTest = ({ ownerData, setOwnerData }) => {
   const region = "ap-northeast-2";
-  const bucket = "elice-boardgame-project";
+  const bucket = "2-pow-bucket";
 
   AWS.config.update({
     region: region,
@@ -32,7 +32,7 @@ function S3UploadTest({ ownerData, setOwnerData }) {
       function() {
         // 이미지 업로드 성공
         window.setTimeout(function() {
-          location.reload();
+          window.location.reload();
         }, 2000);
       },
       function(err) {
@@ -43,9 +43,9 @@ function S3UploadTest({ ownerData, setOwnerData }) {
 
   return (
     <>
-      <Input type="file" onChange={handleFileInput} />
+      <input type="file" onChange={handleFileInput} />
     </>
   );
-}
+};
 
 export default S3UploadTest;

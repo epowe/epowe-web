@@ -3019,10 +3019,10 @@
   "resolved" "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz"
   "version" "1.0.5"
 
-"aws-sdk@^2.1194.0":
-  "integrity" "sha512-wbgib7r7sHPkZIhqSMduueKYqe+DrFyxsKnUKHj6hdNcRKqEeqzvKp4olWmFs/3z3qU8+g78kBXr9rujvko1ug=="
-  "resolved" "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1194.0.tgz"
-  "version" "2.1194.0"
+"aws-sdk@^2.1195.0":
+  "integrity" "sha512-xU7177JhKM+4SsLnoA6/r3qGzSXmbLgw/YC1KRHvZyJCbuTY+vdAGLaldbtNXjjwmE3a6EeoCREANv8GY62VdQ=="
+  "resolved" "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1195.0.tgz"
+  "version" "2.1195.0"
   dependencies:
     "buffer" "4.9.2"
     "events" "1.1.1"
