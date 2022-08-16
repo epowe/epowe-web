@@ -1,64 +1,51 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
+import * as Api from "../../api";
+import AWS from "aws-sdk";
 
-const ImgPreview = styled.img`
-  border-style: solid;
-  border-color: black;
-  width: 250px;
-  height: 250px;
-  margin: 30px;
-  position: absolute;
-  left: 41%;
-  right: 50%;
-`;
+function S3UploadTest({ ownerData, setOwnerData }) {
+  const region = "ap-northeast-2";
+  const bucket = "elice-boardgame-project";
 
-const UploadImage = styled.input`
-  height: 30px;
-  position: absolute;
-  left: 50%;
-  right: 30%;
-  margin-top: 300px;
-`;
+  AWS.config.update({
+    region: region,
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  });
 
-const ViewImage = styled.button`
-  height: 30px;
-  position: absolute;
-  left: 50%;
-  right: 35%;
-  margin-top: 350px;
-`;
+  const handleFileInput = async (e) => {
+    const file = e.target.files[0];
 
-export default function Main() {
-  const [img, setImg] = useState("");
+    await Api.put(`user/${ownerData._id}`, {
+      image: ownerData._id,
+    });
 
-  const formSubmit = (e) => {
-    const img = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", img);
+    const upload = new AWS.S3.ManagedUpload({
+      params: {
+        Bucket: bucket, // 버킷 이름
+        Key: ownerData._id + ".png", // 유저 아이디
+        Body: file, // 파일 객체
+      },
+    });
 
-    axios
-      .post("이미지 요청 주소", formData)
-      .then((res) => {
-        setImg(res.data.location);
-        alert("성공");
-      })
-      .catch((err) => {
-        alert("실패");
-      });
+    const promise = upload.promise();
+    promise.then(
+      function() {
+        // 이미지 업로드 성공
+        window.setTimeout(function() {
+          location.reload();
+        }, 2000);
+      },
+      function(err) {
+        // 이미지 업로드 실패
+      }
+    );
   };
 
   return (
-    <div>
-      <div className="img-preview">
-        <ImgPreview id="img-preview" src={img} />
-        <UploadImage
-          type="file"
-          accept="image/*"
-          id="img"
-          onChange={formSubmit}
-        ></UploadImage>
-      </div>
-    </div>
+    <>
+      <Input type="file" onChange={handleFileInput} />
+    </>
   );
 }
+
+export default S3UploadTest;
