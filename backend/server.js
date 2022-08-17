@@ -13,5 +13,5 @@ app.use(express.urlencoded({ limit: "50mb", extended: false }));
 // 루트를 정의
 app.use("/api/gallery", require("./routes/galleryRoutes"));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

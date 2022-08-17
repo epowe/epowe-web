@@ -3,9 +3,9 @@ import CreateFormData from "../CreateFormData.js";
 import AWS from "aws-sdk";
 
 const S3UploadTest = () => {
-  const albumBucketName = process.env.AWS_BUCKET_NAME;
-  const bucketRegion = process.env.AWS_REGION;
-  const IdentityPoolId = process.env.IDENTITY_POOL_ID;
+  const albumBucketName = "2-pow-bucket";
+  const bucketRegion = "ap-northeast-2";
+  const IdentityPoolId = "IoyNd+UJO+9G4tvcohl/4DKoNAOj7ZWTbAbrhmyW";
 
   AWS.config.update({
     region: bucketRegion,
