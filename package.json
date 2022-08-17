@@ -38,7 +38,7 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://${{secrets.SPRING_SERVER_HOST}}:8080",
+  "proxy": "http://ec2-3-34-204-121.ap-northeast-2.compute.amazonaws.com:8080",
   "browserslist": {
     "production": [
       ">0.2%",
