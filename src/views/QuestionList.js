@@ -23,7 +23,7 @@ const QuestionList = () => {
         <QuestionContainer>
           {questions.map((question) => { return (<Question onClick={() => navigate("/feedback/list/questions/detail")}>{question.q}</Question>); })}
         </QuestionContainer>
-        <SmallButton onClick={()=>navigate("/feedback/list")}>면접 목록</SmallButton>
+        <SmallButton onClick={()=>navigate(-1)}>면접 목록</SmallButton>
         </Container>
       </BodyContainer>
     </>
