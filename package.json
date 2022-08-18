@@ -38,7 +38,7 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "http://www.2-pow.com",
   "browserslist": {
     "production": [
       ">0.2%",

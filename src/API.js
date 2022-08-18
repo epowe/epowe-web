@@ -2,7 +2,7 @@ import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
 const BASE_URL = ApiBaseURL;
 
-axios.defaults.baseURL = BASE_URL;
+// axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = false;
 
 export const API = {
@@ -114,21 +114,53 @@ export const API = {
     }
     return false;
   },
-  //Flask 테스트용 api
-  useFlaskTest: async () => {
+  //Flask 테스트용 api Get
+  useFlaskTestGet: async () => {
     try {
-      const response = await axios.get(`/model/data/score`, {
+      const response = await axios.get(`www.2-pow.com/model/data/score`, {
         headers: {
           Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjA4NDUxMzd9.8HuslT1oXljHDEA8CIEzLAHk7MqynDrcsnDA7EU70yc`,
           "Content-Type": "application/json",
         },
       });
       if (response.status === 200) {
+        console.log("Flask에서 정상적으로 데이터를 받았습니다.");
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("Flask에 get 연결 실패");
+        console.log(response);
+        return false;
+      }
+    } catch (error) {
+      console.log("accessToken과 refreshToken을 재발급 받지 못하였습니다.");
+      console.error(error);
+    }
+    return false;
+  },
+  //Flask 테스트용 api Post
+  useFlaskTestPost: async ({ title, question, videoURL }) => {
+    try {
+      const response = await axios.post(
+        `www.2-pow.com/model/video`,
+        JSON.stringify({
+          title: title,
+          question: question,
+          videoURL: videoURL,
+        }),
+        {
+          headers: {
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjA4NDUxMzd9.8HuslT1oXljHDEA8CIEzLAHk7MqynDrcsnDA7EU70yc`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
         console.log("Flask에 정상적으로 연결되어 데이터를 보냈습니다.");
         console.log(response.data);
         return response.data;
       } else {
-        console.log("Flask에 연결 실패");
+        console.log("Flask에 Post 연결 실패");
         console.log(response);
         return false;
       }
