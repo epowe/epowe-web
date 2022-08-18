@@ -114,4 +114,109 @@ export const API = {
     }
     return false;
   },
+  //Flask 테스트용 api Get
+  useFlaskTestGet: async () => {
+    try {
+      const response = await axios.get(
+        `/model/data/score?title=카카오 면접 준비`,
+        {
+          headers: {
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjA4NDUxMzd9.8HuslT1oXljHDEA8CIEzLAHk7MqynDrcsnDA7EU70yc`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("Flask에서 정상적으로 데이터를 받았습니다.");
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("Flask에 get 연결 실패");
+        console.log(response);
+        return false;
+      }
+    } catch (error) {
+      console.log("accessToken과 refreshToken을 재발급 받지 못하였습니다.");
+      console.error(error);
+    }
+    return false;
+  },
+
+  //유저 인터뷰 정보들 보내주는 api
+  sendUserInterviewInfo: async ({ title, question, videoURL }) => {
+    try {
+      const response = await axios.post(
+        `/model/video`,
+        JSON.stringify({
+          title: title,
+          question: question,
+          videoURL: videoURL,
+        }),
+        {
+          headers: {
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjA4NDUxMzd9.8HuslT1oXljHDEA8CIEzLAHk7MqynDrcsnDA7EU70yc`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("Flask에 정상적으로 연결되어 데이터를 보냈습니다.");
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("Flask에 Post 연결 실패");
+        console.log(response);
+        return false;
+      }
+    } catch (error) {
+      console.log("accessToken과 refreshToken을 재발급 받지 못하였습니다.");
+      console.error(error);
+    }
+    return false;
+  },
 };
+
+//Flask 연결 예시
+// const onClickFlaskPostTest = async () => {
+//   var result = await API.useFlaskTestPost({
+//     title: "제목입니다.",
+//     question: ["질문입니다."],
+//     videoURL: ["동영상 주소입니다."],
+//   });
+//   if (result) {
+//     console.log("flask에 Post 완료");
+//   } else {
+//     console.log("flask Post 실패");
+//     console.log(result);
+//   }
+// };
+
+// const onClickFlaskGetTest = async () => {
+//   var result = await API.useFlaskTestGet();
+//   if (result) {
+//     console.log("flask get 성공");
+//     console.log(result);
+//     if (result.dialectCount) {
+//       console.log("사투리 사용횟수:" + result.dialectCount);
+//     } else {
+//       console.log("사용횟수 존재x");
+//     }
+//     if (result.intonation) {
+//       console.log("억양 점수:" + result.intonation);
+//     } else {
+//       console.log("억양 점수 존재x");
+//     }
+//     if (result.speechRate) {
+//       console.log("말의 빠르기 점수:" + result.speechRate);
+//     } else {
+//       console.log("말의 빠르기 존재x");
+//     }
+//     if (result.word) {
+//       console.log("가장 많이 사용하는 단어:" + result.word);
+//     } else {
+//       console.log("가장 많이 사용하는 단어 존재x");
+//     }
+//   } else {
+//     console.log("Flask get 실패");
+//   }
+// };
