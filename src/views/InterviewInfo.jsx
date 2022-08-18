@@ -16,7 +16,7 @@ const InterviewInfo = () => {
       question: "",
     },
   ]);
-  // const [sendQuestionData, setSendQuestionData] = useState([]);
+
   const videoRef = React.useRef(null);
   const [videoURL, setVideoURL] = useState([]);
 
@@ -110,11 +110,16 @@ const InterviewInfo = () => {
         videoRef.current.srcObject = stream;
       });
       setVideoURL([...videoURL, "www.naver.com"]);
-
     } else {
       let sendQuestionData = [];
       sendQuestionData.push(questions.map((a) => a.question));
-      sendUserInterviewInfo(title, sendQuestionData, videoURL);
+      let videoURL1 = [];
+      videoURL1.push("dd");
+      sendUserInterviewInfo({
+        title: title,
+        question: sendQuestionData,
+        videoURL: videoURL1,
+      });
       navigate("/interview/feedback");
     }
   };
@@ -122,9 +127,9 @@ const InterviewInfo = () => {
   //서버로 제목, 동영상 URL, title 보내는 함수
   const sendUserInterviewInfo = async ({ title, question, videoURL }) => {
     var result = await API.sendUserInterviewInfo({
-      title: title,
-      question: question,
-      videoURL: videoURL,
+      title: "d",
+      question: ["d"],
+      videoURL: ["d"],
     });
     if (result) {
       console.log("flask에 유저의 면접 정보 보내기 완료");
