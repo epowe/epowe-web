@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import LoginPage from "./views/LoginPage.jsx";
 import Interview from "./views/Interview";
-import Register from "./views/Register";
+import Register from "./views/Register.jsx";
 import {
   BrowserRouter as Router,
   Route,
@@ -16,7 +16,8 @@ import FeedbackList from "./views/FeedbackList";
 import QuestionList from "./views/QuestionList";
 import FeedbackDetail from "./views/FeedbackDetail.jsx";
 import VideoRecordTest from "./views/VideoRecordTest.jsx";
-import S3UploadTest from "./views/S3UploadTest.js";
+import axios from "axios";
+import ApiBaseURL from "./ApiBaseURL";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
 import { API } from "./API";
@@ -59,6 +60,11 @@ const App = () => {
   };
 
   useEffect(() => {
+    // if (window.location.pathname === "/") {
+    //   localStorage.clear();
+    //   removeCookieToken();
+    //   console.log("로그인 페이지로 와서 localStorage와 쿠키 사라짐");
+    // }
     //웹 내 cookie refresh token 확인
     var accessToken = localStorage.getItem("accessToken");
     var refreshToken = getCookieToken();
@@ -139,7 +145,6 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AppContext.Provider value={value}>
         <Routes>
-          <Route path="/uploadTest" element={<S3UploadTest />} />
           <Route
             path="/"
             element={

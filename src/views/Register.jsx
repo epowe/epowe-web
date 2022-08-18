@@ -26,7 +26,15 @@ const Register = () => {
     });
 
   const onRegister = () => {
+    let checkBox = document.getElementById('checkBox');
+    let text = document.getElementById('text');
+    
     if (addressRef.current.value !== "") {
+      //개인정보처리 동의 확인
+      if (checkBox.checked !== true) {
+        text.style.display = 'block';
+        return;
+      }
       //회원가입 처리하기
       giveAddress();
       localStorage.setItem("address", true);
@@ -62,6 +70,17 @@ const Register = () => {
     }
   };
 
+  const onCheck = () => {
+    let checkBox = document.getElementById('checkBox');
+    let text = document.getElementById('text');
+
+    if(checkBox.checked === true) {
+      text.style.display = "none";
+    } else {
+      text.style.display = "block";
+    }
+  };
+
   // useEffect(() => {
   //   getUserInfo();
   // }, []);
@@ -80,6 +99,12 @@ const Register = () => {
             <Span>{myContext.userEmail}</Span>
           </ProfileContainer>
           <Input ref={addressRef} placeholder="사는 지역을 입력해주세요" />
+          <br />
+          <p id="text" style={{display: 'none', fontSize: '0.8rem', color: '#6c63ff'}}>회원가입을 진행하려면 동의해주세요.</p>
+          <label>
+            <input id="checkBox" type="checkbox" onClick={onCheck} style={{marginRight: '0.5rem'}}/>
+            <font style={{fontSize: '0.8rem'}}>본인은 <a href='terms' target='_blank' style={{color: '#6c63ff'}}>개인정보처리방침</a>을 읽었으며 이에 동의합니다.</font>
+          </label>
           <Button onClick={onRegister}>회원가입하기</Button>
           <Toaster containerStyle={{ top: "5.1rem" }} />
         </ButtonContainer>

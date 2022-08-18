@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
 import Header from "./Header.js";
-import toast, { Toaster } from "react-hot-toast";
+import toast, { Toaster } from 'react-hot-toast';
 
 const InterviewInfo = () => {
   const navigate = useNavigate();
@@ -16,21 +16,16 @@ const InterviewInfo = () => {
       question: "",
     },
   ]);
-  const videoRef = useRef(null);
+  const videoRef = React.useRef(null);
 
-  const [data, setData] = useState([]);
-  const [src, setSrc] = useState(null);
-  let mediaRecorder = useRef(null);
-  let recordMediaUrl = useRef(null);
   useBeforeunload((event) => event.preventDefault());
 
-  const notify = (msg) =>
-    toast(msg, {
-      duration: 2500,
-      style: {
-        borderRadius: "50px",
-      },
-    });
+  const notify = (msg) => toast(msg, {
+    duration: 2500,
+    style: {
+      borderRadius: '50px',
+    },
+  });
 
   const addInputField = () => {
     setQuestions([
@@ -55,20 +50,19 @@ const InterviewInfo = () => {
   };
 
   const getWebcam = (callback) => {
-    const constraints = {
-      audio: { echoCancellation: true },
-      video: {
-        width: { min: 1280 },
-        height: { min: 720 },
-      },
-    };
-    navigator.mediaDevices
-      .getUserMedia(constraints)
-      .then(callback)
-      .catch(() => {
-        notify("카메라와 마이크 엑세스를 허용해주세요");
-        setStarted(false);
-      });
+      const constraints = {
+        audio: true,
+        video: {
+          width: { min: 1280 },
+          height: { min: 720 }
+        }
+      };
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(callback)
+        .catch(() => {
+          notify("카메라와 마이크 엑세스를 허용해주세요");
+          setStarted(false);
+        });
   };
 
   const handleStart = () => {
@@ -82,20 +76,23 @@ const InterviewInfo = () => {
       }
       setStarted(true);
 
-      getWebcam((stream) => {
-        // console.log(stream);
+      // 녹화 시작
+      getWebcam((stream => {
+        console.log(stream);
         videoRef.current.srcObject = stream;
-        startRecording(stream);
-        mediaRecorder.current.start();
-        // console.log("어떤 데이터가 들어감?" + data.current[0]);
-        // console.log(mediaRecorder.current);
-      });
-    }
+      }));
+    };
   };
 
   const handleNext = () => {
     setCurrent(current + 1);
-    stopRecording();
+    const stream = videoRef.current.srcObject;
+
+    // 녹화 멈추기
+    stream.getTracks().forEach((track) => {
+      track.stop();
+    });
+
     if (isNext) {
       if (current < questions.length - 2) {
         setIsNext(true);
@@ -103,97 +100,28 @@ const InterviewInfo = () => {
         setIsNext(false);
       }
 
-      // 영상 출력 시작
-      getWebcam((stream) => {
+      // 녹화 시작
+      getWebcam((stream => {
         console.log(stream);
         videoRef.current.srcObject = stream;
-      });
+      }));
     } else {
-      const blob = new Blob(data, {
-        type: "video/webm",
-      });
-      console.log(blob);
-      recordMediaUrl.current = URL.createObjectURL(blob);
-      // videoDownload();
       navigate("/interview/feedback");
     }
   };
-
-  const startRecording = (stream) => {
-    mediaRecorder.current = new MediaRecorder(stream, {
-      mimeType: "video/webm;codecs=vp9",
-    });
-    mediaRecorder.current.ondataavailable = (e) => {
-      // blob 데이터 저장
-      if (e.data && e.data.size > 0) {
-        console.log(e.data);
-        setData(e.data);
-        console.log(data);
-      }
-    };
-  };
-
-  const stopRecording = () => {
-    const stream = videoRef.current.srcObject;
-    stream.getTracks().forEach((track) => {
-      track.stop();
-    });
-    mediaRecorder.current.stop();
-  };
-
-  //녹화된 영상 로컬에 다운로드
-  const videoDownload = () => {
-    if (recordMediaUrl.current) {
-      const link = document.createElement("a");
-      link.style.display = "none";
-      // 녹화된 영상의 URL을 href 속성으로 설정
-      link.href = recordMediaUrl.current;
-      // 저장할 파일명 설정
-      link.download = "video.webm";
-      document.body.appendChild(link);
-      link.click();
-      setTimeout(() => {
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(recordMediaUrl.current);
-      }, 100);
-    } else {
-      console.log("존재 xx");
-    }
-  };
-  useEffect(() => {
-    if (data.length !== 0) {
-      // setSrc(window.URL.createObjectURL(new Blob([data.current[0]])), {
-      //   type: "video/webm;codecs=vp9",
-      // });
-      // recordMediaUrl.current = src;
-      console.log("src는? " + src);
-    } // 쌓인 blob형태의 data 스트림을 URL로 바꿔서 src에 전달
-  }, [data]);
 
   return started ? (
     <>
       <Header />
       <BodyContainer>
         <Container>
-          <Question>
-            질문{current + 1} {questions.at(current).question}
-          </Question>
+          <Question>질문{current+1} {questions.at(current).question}</Question>
           <Video>
             <div>
-              <video
-                ref={videoRef}
-                autoPlay
-                muted
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-              />
+              <video ref={videoRef} autoPlay style={{width: "100%", height: "100%"}} />
             </div>
           </Video>
-          <Button onClick={handleNext}>
-            {isNext ? "다음" : "면접 끝내기"}
-          </Button>
+          <Button onClick={handleNext}>{isNext?"다음":"면접 끝내기"}</Button>
         </Container>
       </BodyContainer>
     </>
@@ -212,7 +140,7 @@ const InterviewInfo = () => {
                 name="title"
                 className="form-control shadow-none"
                 placeholder="면접 제목"
-                autoComplete="off"
+                autocomplete="off"
               />
             </div>
           </div>
@@ -232,7 +160,7 @@ const InterviewInfo = () => {
                             name="question"
                             className="form-control shadow-none"
                             placeholder="질문"
-                            autoComplete="off"
+                            autocomplete="off"
                           />
                         </div>
                       </div>
@@ -269,7 +197,7 @@ const InterviewInfo = () => {
             </div>
           </div>
           <Button onClick={handleStart}>면접 시작</Button>
-          <Toaster containerStyle={{ top: "5.1rem" }} />
+          <Toaster containerStyle={{top: '5.1rem'}} />
         </Container>
       </BodyContainer>
     </>
