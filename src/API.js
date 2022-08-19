@@ -121,7 +121,7 @@ export const API = {
         `/model/data/score?title=카카오 면접 준비`,
         {
           headers: {
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjA4NDUxMzd9.8HuslT1oXljHDEA8CIEzLAHk7MqynDrcsnDA7EU70yc`,
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjQ0ODY0NzF9.6JGknDtNSzjpO0OUNiJgA8FyKstYipX-yun70svqmKE`,
             "Content-Type": "application/json",
           },
         }
@@ -154,7 +154,7 @@ export const API = {
         }),
         {
           headers: {
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjA4NDUxMzd9.8HuslT1oXljHDEA8CIEzLAHk7MqynDrcsnDA7EU70yc`,
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjQ0ODY0NzF9.6JGknDtNSzjpO0OUNiJgA8FyKstYipX-yun70svqmKE`,
             "Content-Type": "application/json",
           },
         }

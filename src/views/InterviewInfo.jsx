@@ -19,7 +19,7 @@ const InterviewInfo = () => {
 
   const videoRef = React.useRef(null);
   const [videoURL, setVideoURL] = useState([]);
-
+  const [sendQuestions, setSendQuestions] = useState();
   useBeforeunload((event) => event.preventDefault());
 
   const notify = (msg) =>
@@ -29,6 +29,10 @@ const InterviewInfo = () => {
         borderRadius: "50px",
       },
     });
+
+  const addVideoURL = (event) => {
+    setVideoURL([...videoURL, event]);
+  };
 
   const addInputField = () => {
     setQuestions([
@@ -109,12 +113,11 @@ const InterviewInfo = () => {
         console.log(stream);
         videoRef.current.srcObject = stream;
       });
-      setVideoURL([...videoURL, "www.naver.com"]);
     } else {
       let sendQuestionData = [];
       sendQuestionData.push(questions.map((a) => a.question));
       let videoURL1 = [];
-      videoURL1.push("dd");
+      videoURL1.push("google.com");
       sendUserInterviewInfo({
         title: title,
         question: sendQuestionData,
@@ -127,9 +130,9 @@ const InterviewInfo = () => {
   //서버로 제목, 동영상 URL, title 보내는 함수
   const sendUserInterviewInfo = async ({ title, question, videoURL }) => {
     var result = await API.sendUserInterviewInfo({
-      title: "d",
-      question: ["d"],
-      videoURL: ["d"],
+      title: title,
+      question: question,
+      videoURL: videoURL,
     });
     if (result) {
       console.log("flask에 유저의 면접 정보 보내기 완료");
@@ -139,10 +142,7 @@ const InterviewInfo = () => {
     }
   };
 
-  useEffect(() => {
-    // setVideoURL([...videoURL, "www.naver.com"]);
-    // console.log(videoURL);
-  }, []);
+  useEffect(() => {}, []);
 
   return started ? (
     <>
@@ -158,7 +158,10 @@ const InterviewInfo = () => {
                 ref={videoRef}
                 autoPlay
                 muted
-                style={{ width: "100%", height: "100%" }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
               />
             </div>
           </Video>
