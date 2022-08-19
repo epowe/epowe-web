@@ -16,7 +16,7 @@ const QuestionList = () => {
   ]);
 
   const getUserQuestionList = async ({ question }) => {
-    var result = await API.getUserAverageScore({ question });
+    var result = await API.getUserQuestionList({ question });
     if (result) {
       console.log("flask get 성공");
       console.log(result);

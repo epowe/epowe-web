@@ -251,51 +251,30 @@ export const API = {
     }
     return false;
   },
+  //유저 질문별 상세 분석 데이터 가져오는 API
+  getUserInterviewDetail: async ({ question, title }) => {
+    try {
+      const response = await axios.get(
+        `/model/data/detail?title=${title}&question=${question}`,
+        {
+          headers: {
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjQ0ODY0NzF9.6JGknDtNSzjpO0OUNiJgA8FyKstYipX-yun70svqmKE`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("유저의 질문별 상세 데이터를 가져오는데 성공했습니다. ");
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("유저의 질문별 상세 데이터를 가져오는데 실패했습니다. ");
+        console.log(response);
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    return false;
+  },
 };
-
-//Flask 연결 함수 예시
-//GET
-// const onClickFlaskPostTest = async () => {
-//   var result = await API.useFlaskTestPost({
-//     title: "제목입니다.",
-//     question: ["질문입니다."],
-//     videoURL: ["동영상 주소입니다."],
-//   });
-//   if (result) {
-//     console.log("flask에 Post 완료");
-//   } else {
-//     console.log("flask Post 실패");
-//     console.log(result);
-//   }
-// };
-
-//POST
-// const onClickFlaskGetTest = async () => {
-//   var result = await API.useFlaskTestGet();
-//   if (result) {
-//     console.log("flask get 성공");
-//     console.log(result);
-//     if (result.dialectCount) {
-//       console.log("사투리 사용횟수:" + result.dialectCount);
-//     } else {
-//       console.log("사용횟수 존재x");
-//     }
-//     if (result.intonation) {
-//       console.log("억양 점수:" + result.intonation);
-//     } else {
-//       console.log("억양 점수 존재x");
-//     }
-//     if (result.speechRate) {
-//       console.log("말의 빠르기 점수:" + result.speechRate);
-//     } else {
-//       console.log("말의 빠르기 존재x");
-//     }
-//     if (result.word) {
-//       console.log("가장 많이 사용하는 단어:" + result.word);
-//     } else {
-//       console.log("가장 많이 사용하는 단어 존재x");
-//     }
-//   } else {
-//     console.log("Flask get 실패");
-//   }
-// };
