@@ -142,7 +142,7 @@ export const API = {
     return false;
   },
 
-  //유저 인터뷰 정보들 보내주는 api
+  //유저 인터뷰 정보들 서버에 보내주는 api
   sendUserInterviewInfo: async ({ title, question, videoURL }) => {
     try {
       const response = await axios.post(
@@ -160,16 +160,39 @@ export const API = {
         }
       );
       if (response.status === 200) {
-        console.log("Flask에 정상적으로 연결되어 데이터를 보냈습니다.");
+        console.log("유저의 면접 정보가 정상적으로 제출되었습니다.");
         console.log(response.data);
         return response.data;
       } else {
-        console.log("Flask에 Post 연결 실패");
+        console.log("유저의 면접 정보가 정상적으로 제출되지 못하였습니다");
         console.log(response);
         return false;
       }
     } catch (error) {
-      console.log("accessToken과 refreshToken을 재발급 받지 못하였습니다.");
+      console.error(error);
+    }
+    return false;
+  },
+
+  //유저의 전체 피드백 목록을 가져오는 API
+  getUserInterviewList: async () => {
+    try {
+      const response = await axios.get(`/model/data/list`, {
+        headers: {
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjQ0ODY0NzF9.6JGknDtNSzjpO0OUNiJgA8FyKstYipX-yun70svqmKE`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        console.log("유저의 전체 면접 데이터를 받았습니다.");
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("유저의 전체 면접 데이터를 받지 못했습니다.");
+        console.log(response);
+        return false;
+      }
+    } catch (error) {
       console.error(error);
     }
     return false;
