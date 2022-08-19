@@ -213,11 +213,13 @@ export const API = {
         }
       );
       if (response.status === 200) {
-        console.log("유저의 전체 면접 데이터를 받았습니다.");
+        console.log(`유저의 ${question} 면접에 대한 질문 리스트를 받았습니다.`);
         console.log(response.data);
         return response.data;
       } else {
-        console.log("유저의 전체 면접 데이터를 받지 못했습니다.");
+        console.log(
+          `유저의 ${question}면접에 대한 질문 리스트를 받지 못했습니다.`
+        );
         console.log(response);
         return false;
       }
@@ -228,7 +230,8 @@ export const API = {
   },
 };
 
-//Flask 연결 예시
+//Flask 연결 함수 예시
+//GET
 // const onClickFlaskPostTest = async () => {
 //   var result = await API.useFlaskTestPost({
 //     title: "제목입니다.",
@@ -243,6 +246,7 @@ export const API = {
 //   }
 // };
 
+//POST
 // const onClickFlaskGetTest = async () => {
 //   var result = await API.useFlaskTestGet();
 //   if (result) {
