@@ -116,7 +116,7 @@ export const API = {
     return false;
   },
 
-  //해당 면접 제목에 있는 하나의 결과 데이터, 배열 행식 x, 하나의 질문에 있는 것들
+  //해당 면접 제목에 있는 단일 결과 데이터, 배열 행식 x, 하나의 질문에 있는 것들
   getOneUserInterviewData: async ({ title }) => {
     try {
       const response = await axios.get(`/model/data/score?title=${title}`, {
