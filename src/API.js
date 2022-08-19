@@ -116,18 +116,15 @@ export const API = {
     return false;
   },
 
-  //Flask 테스트용 api Get
-  useFlaskTestGet: async () => {
+  //해당 면접 제목에 있는 하나의 결과 데이터, 배열 행식 x, 하나의 질문에 있는 것들
+  getOneUserInterviewData: async ({ title }) => {
     try {
-      const response = await axios.get(
-        `/model/data/score?title=카카오 면접 준비`,
-        {
-          headers: {
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjQ0ODY0NzF9.6JGknDtNSzjpO0OUNiJgA8FyKstYipX-yun70svqmKE`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.get(`/model/data/score?title=${title}`, {
+        headers: {
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjQ0ODY0NzF9.6JGknDtNSzjpO0OUNiJgA8FyKstYipX-yun70svqmKE`,
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 200) {
         console.log("Flask에서 정상적으로 데이터를 받았습니다.");
         console.log(response.data);
@@ -176,7 +173,7 @@ export const API = {
     return false;
   },
 
-  //유저의 전체 피드백 목록을 가져오는 API
+  //유저의 전체 피드백 목록을 배열 형식으로 가져오는 API
   getUserInterviewList: async () => {
     try {
       const response = await axios.get(`/model/data/list`, {
@@ -251,6 +248,7 @@ export const API = {
     }
     return false;
   },
+
   //유저 질문별 상세 분석 데이터 가져오는 API
   getUserInterviewDetail: async ({ question, title }) => {
     try {
