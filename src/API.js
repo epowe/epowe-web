@@ -228,6 +228,29 @@ export const API = {
     }
     return false;
   },
+  //전체 피드백 평균 점수 데이터 가져오는 API
+  getUserAverageScore: async () => {
+    try {
+      const response = await axios.get(`/model/score/average`, {
+        headers: {
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjQ0ODY0NzF9.6JGknDtNSzjpO0OUNiJgA8FyKstYipX-yun70svqmKE`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        console.log("유저의 전체 면접 점수 평균을 가져오는데 성공했습니다.");
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("유저의 전체 면접 점수 평균을 가져오는데 실패했습니다.");
+        console.log(response);
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    return false;
+  },
 };
 
 //Flask 연결 함수 예시

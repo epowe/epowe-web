@@ -118,11 +118,11 @@ const InterviewInfo = () => {
       sendQuestionData.push(questions.map((a) => a.question));
       let videoURL1 = [];
       videoURL1.push("google.com");
-      sendUserInterviewInfo({
-        title: title,
-        question: sendQuestionData,
-        videoURL: videoURL1,
-      });
+      // sendUserInterviewInfo({
+      //   title: title,
+      //   question: sendQuestionData,
+      //   videoURL: videoURL1,
+      // });
       navigate("/interview/feedback");
     }
   };

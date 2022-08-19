@@ -16,7 +16,7 @@ const QuestionList = () => {
   ]);
 
   const getUserQuestionList = async ({ question }) => {
-    var result = await API.getUserQuestionList({ question });
+    var result = await API.getUserAverageScore({ question });
     if (result) {
       console.log("flask get 성공");
       console.log(result);
@@ -26,7 +26,7 @@ const QuestionList = () => {
   };
 
   useEffect(() => {
-    getUserQuestionList({question: "카카오 면접 준비"});
+    getUserQuestionList({ question: "카카오 면접 준비" });
   }, []);
 
   return (
