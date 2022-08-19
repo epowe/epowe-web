@@ -4,6 +4,12 @@ import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
 import Header from "./Header.js";
 import toast, { Toaster } from 'react-hot-toast';
+import {
+  beginRecord,
+  download,
+  playStream,
+  stopPlaying,
+} from './Record';
 
 const InterviewInfo = () => {
   const navigate = useNavigate();
@@ -16,6 +22,8 @@ const InterviewInfo = () => {
       question: "",
     },
   ]);
+  const [data, setData] = useState([]);
+  const [recorder, setRecorder] = useState(undefined);
   const videoRef = React.useRef(null);
 
   useBeforeunload((event) => event.preventDefault());
@@ -65,7 +73,7 @@ const InterviewInfo = () => {
         });
   };
 
-  const handleStart = () => {
+  const handleStart = async () => {
     if (title === "") {
       notify("면접 제목을 입력해주세요");
     } else if (!questions.every((q) => q.question !== "")) {
@@ -76,22 +84,34 @@ const InterviewInfo = () => {
       }
       setStarted(true);
 
-      // 녹화 시작
-      getWebcam((stream => {
-        console.log(stream);
-        videoRef.current.srcObject = stream;
-      }));
+      //녹화 시작
+      try {
+        const mediaRecorder = await beginRecord(
+          (stream) =>
+            playStream(videoRef.current, stream),
+          (recordedBlobs) => setData(recordedBlobs),
+        );
+        setRecorder(mediaRecorder);
+      } catch (err) {
+        console.error(err);
+      }
     };
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     setCurrent(current + 1);
-    const stream = videoRef.current.srcObject;
 
     // 녹화 멈추기
-    stream.getTracks().forEach((track) => {
-      track.stop();
-    });
+    recorder.stop();
+    stopPlaying(videoRef.current);
+    setRecorder(undefined);
+
+    // 녹화된 영상 다운로드
+    try {
+      download(data);
+    } catch (err) {
+      console.error(err);
+    }
 
     if (isNext) {
       if (current < questions.length - 2) {
@@ -101,10 +121,16 @@ const InterviewInfo = () => {
       }
 
       // 녹화 시작
-      getWebcam((stream => {
-        console.log(stream);
-        videoRef.current.srcObject = stream;
-      }));
+      try {
+        const mediaRecorder = await beginRecord(
+          (stream) =>
+            playStream(videoRef.current, stream),
+          (recordedBlobs) => setData(recordedBlobs),
+        );
+        setRecorder(mediaRecorder);
+      } catch (err) {
+        console.error(err);
+      }
     } else {
       navigate("/interview/feedback");
     }
