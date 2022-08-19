@@ -87,6 +87,7 @@ export const API = {
     }
     return false;
   },
+
   //유저의 주소 정보를 보내주는 api
   userPostAddress: async ({ address }) => {
     try {
@@ -114,6 +115,7 @@ export const API = {
     }
     return false;
   },
+
   //Flask 테스트용 api Get
   useFlaskTestGet: async () => {
     try {
@@ -183,6 +185,33 @@ export const API = {
           "Content-Type": "application/json",
         },
       });
+      if (response.status === 200) {
+        console.log("유저의 전체 면접 데이터를 받았습니다.");
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("유저의 전체 면접 데이터를 받지 못했습니다.");
+        console.log(response);
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    return false;
+  },
+
+  //유저의 특정 면접에서 질문 목록을 가져오는 API
+  getUserQuestionList: async ({ question }) => {
+    try {
+      const response = await axios.get(
+        `/model/data/list/question?title=${question}`,
+        {
+          headers: {
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjQ0ODY0NzF9.6JGknDtNSzjpO0OUNiJgA8FyKstYipX-yun70svqmKE`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
         console.log("유저의 전체 면접 데이터를 받았습니다.");
         console.log(response.data);
