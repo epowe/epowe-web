@@ -92,7 +92,7 @@ export const API = {
   userPostAddress: async ({ address }) => {
     try {
       const response = await axios.post(
-        `/register`,
+        `/auth/register`,
         JSON.stringify({
           address: address,
         }),
