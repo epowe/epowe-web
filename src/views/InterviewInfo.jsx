@@ -56,23 +56,6 @@ const InterviewInfo = () => {
     setQuestions(list);
   };
 
-  const getWebcam = (callback) => {
-    const constraints = {
-      audio: true,
-      video: {
-        width: { min: 1280 },
-        height: { min: 720 },
-      },
-    };
-    navigator.mediaDevices
-      .getUserMedia(constraints)
-      .then(callback)
-      .catch(() => {
-        notify("카메라와 마이크 엑세스를 허용해주세요");
-        setStarted(false);
-      });
-  };
-
   const handleStart = async () => {
     if (title === "") {
       notify("면접 제목을 입력해주세요");
@@ -92,7 +75,11 @@ const InterviewInfo = () => {
         );
         setRecorder(mediaRecorder);
       } catch (err) {
+        if (err.toString().includes("Permission denied")) {
+          notify("카메라와 마이크 엑세스를 허용해주세요");
+        }
         console.error(err);
+        setStarted(false);
       }
     }
   };
