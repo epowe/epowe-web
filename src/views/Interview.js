@@ -1,30 +1,28 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header.js";
+import { API } from "../API.js";
 
 const Interview = () => {
   const navigate = useNavigate();
+
   const onClickStart = () => {
     navigate("/interview/info");
   };
 
   return (
     <>
-      <Header isLogin="true"/>
+      <Header isLogin="true" />
       <BodyContainer>
         <ButtonContainer>
-          <Button onClick={onClickStart}>
-            모의면접 시작하기
-          </Button>
-          <Button onClick={() => navigate("/feedback")}>
-            내 피드백 보기
-          </Button>   
+          <Button onClick={onClickStart}>모의면접 시작하기</Button>
+          <Button onClick={() => navigate("/feedback")}>내 피드백 보기</Button>
         </ButtonContainer>
       </BodyContainer>
     </>
-  )
-}
+  );
+};
 
 const BodyContainer = styled.div`
   position: fixed;
@@ -48,7 +46,7 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button`
   box-sizing: border-box;
-  background: #6C63FF;
+  background: #6c63ff;
   color: white;
   width: 100%;
   padding: 0.8rem;
@@ -65,4 +63,4 @@ const Button = styled.button`
   }
 `;
 
-export default Interview
+export default Interview;
