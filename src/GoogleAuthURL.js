@@ -1,4 +1,4 @@
-import Oauth2BaseURL from "./oauth2BaseURL";
+import Oauth2BaseURL from "./Oauth2BaseURL";
 import Oauth2RedirectURL from "./Oauth2RedirectURI";
 
 const GoogleAuthURL =
