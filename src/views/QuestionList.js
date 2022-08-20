@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
@@ -46,9 +46,7 @@ const QuestionList = () => {
               );
             })}
           </QuestionContainer>
-          <SmallButton onClick={() => navigate("/feedback/list")}>
-            면접 목록
-          </SmallButton>
+          <SmallButton onClick={() => navigate(-1)}>면접 목록</SmallButton>
         </Container>
       </BodyContainer>
     </>

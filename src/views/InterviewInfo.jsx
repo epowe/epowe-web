@@ -4,7 +4,8 @@ import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
 import Header from "./Header.js";
 import toast, { Toaster } from "react-hot-toast";
-import { API } from "../API";
+import { beginRecord, download, playStream, stopPlaying } from "./Record";
+
 const InterviewInfo = () => {
   const navigate = useNavigate();
   const [started, setStarted] = useState(false);
@@ -16,10 +17,12 @@ const InterviewInfo = () => {
       question: "",
     },
   ]);
-
+  const [data, setData] = useState([]);
+  const [recorder, setRecorder] = useState(undefined);
   const videoRef = React.useRef(null);
-  const [videoURL, setVideoURL] = useState([]);
   const [sendQuestions, setSendQuestions] = useState();
+  const [videoURL, setVideoURL] = useState([]);
+
   useBeforeunload((event) => event.preventDefault());
 
   const notify = (msg) =>
@@ -29,10 +32,6 @@ const InterviewInfo = () => {
         borderRadius: "50px",
       },
     });
-
-  const addVideoURL = (event) => {
-    setVideoURL([...videoURL, event]);
-  };
 
   const addInputField = () => {
     setQuestions([
@@ -73,7 +72,7 @@ const InterviewInfo = () => {
       });
   };
 
-  const handleStart = () => {
+  const handleStart = async () => {
     if (title === "") {
       notify("면접 제목을 입력해주세요");
     } else if (!questions.every((q) => q.question !== "")) {
@@ -84,22 +83,33 @@ const InterviewInfo = () => {
       }
       setStarted(true);
 
-      // 녹화 시작
-      getWebcam((stream) => {
-        console.log(stream);
-        videoRef.current.srcObject = stream;
-      });
+      //녹화 시작
+      try {
+        const mediaRecorder = await beginRecord(
+          (stream) => playStream(videoRef.current, stream),
+          (recordedBlobs) => setData(recordedBlobs)
+        );
+        setRecorder(mediaRecorder);
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     setCurrent(current + 1);
-    const stream = videoRef.current.srcObject;
 
     // 녹화 멈추기
-    stream.getTracks().forEach((track) => {
-      track.stop();
-    });
+    recorder.stop();
+    stopPlaying(videoRef.current);
+    setRecorder(undefined);
+
+    // 녹화된 영상 다운로드
+    try {
+      download(data);
+    } catch (err) {
+      console.error(err);
+    }
 
     if (isNext) {
       if (current < questions.length - 2) {
@@ -109,15 +119,23 @@ const InterviewInfo = () => {
       }
 
       // 녹화 시작
-      getWebcam((stream) => {
-        console.log(stream);
-        videoRef.current.srcObject = stream;
-      });
+      try {
+        const mediaRecorder = await beginRecord(
+          (stream) => playStream(videoRef.current, stream),
+          (recordedBlobs) => setData(recordedBlobs)
+        );
+        setRecorder(mediaRecorder);
+      } catch (err) {
+        console.error(err);
+      }
     } else {
+      //questions에서 값만 꺼내서 배열로 저장하는 부분 (서버로 보내기 위함)
       let sendQuestionData = [];
       sendQuestionData.push(questions.map((a) => a.question));
+      //비디오 url 서버로 보내기 위해 저장하는 예시 (추후에 S3로 저장후 바로 url 값 가져오게 만든 후 저장해서 서버로 보낼예정)
       let videoURL1 = [];
       videoURL1.push("google.com");
+      // 면접 정보 서버로 보내는 부분
       // sendUserInterviewInfo({
       //   title: title,
       //   question: sendQuestionData,
@@ -126,7 +144,6 @@ const InterviewInfo = () => {
       navigate("/interview/feedback");
     }
   };
-
   //서버로 제목, 동영상 URL, title 보내는 함수
   const sendUserInterviewInfo = async ({ title, question, videoURL }) => {
     var result = await API.sendUserInterviewInfo({
@@ -142,8 +159,6 @@ const InterviewInfo = () => {
     }
   };
 
-  useEffect(() => {}, []);
-
   return started ? (
     <>
       <Header />
@@ -157,7 +172,6 @@ const InterviewInfo = () => {
               <video
                 ref={videoRef}
                 autoPlay
-                muted
                 style={{
                   width: "100%",
                   height: "100%",
