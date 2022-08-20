@@ -1,34 +1,57 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import styled from "styled-components"
-import Header from './Header';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Header from "./Header";
+import { API } from "../API";
 
 const QuestionList = () => {
   const navigate = useNavigate();
-  
+
   const [questions, setQuestions] = useState([
-    {q: "자기소개"},
-    {q: "성격의 장단점"},
-    {q: "지원한 계기"},
-    {q: "질문"},
-    {q: "질문"},
+    { q: "자기소개" },
+    { q: "성격의 장단점" },
+    { q: "지원한 계기" },
+    { q: "질문" },
+    { q: "질문" },
   ]);
+
+  const getUserQuestionList = async ({ question }) => {
+    var result = await API.getUserQuestionList({ question });
+    if (result) {
+      console.log("flask get 성공");
+      console.log(result);
+    } else {
+      console.log("Flask get 실패");
+    }
+  };
+
+  useEffect(() => {
+    getUserQuestionList({ question: "카카오 면접 준비" });
+  }, []);
 
   return (
     <>
-      <Header isLogin="true"/>
+      <Header isLogin="true" />
       <BodyContainer>
-        <Title>{'면접제목 >'} 질문 목록</Title>
+        <Title>{"면접제목 >"} 질문 목록</Title>
         <Container>
-        <QuestionContainer>
-          {questions.map((question) => { return (<Question onClick={() => navigate("/feedback/list/questions/detail")}>{question.q}</Question>); })}
-        </QuestionContainer>
-        <SmallButton onClick={()=>navigate(-1)}>면접 목록</SmallButton>
+          <QuestionContainer>
+            {questions.map((question) => {
+              return (
+                <Question
+                  onClick={() => navigate("/feedback/list/questions/detail")}
+                >
+                  {question.q}
+                </Question>
+              );
+            })}
+          </QuestionContainer>
+          <SmallButton onClick={() => navigate(-1)}>면접 목록</SmallButton>
         </Container>
       </BodyContainer>
     </>
-  )
-}
+  );
+};
 
 const BodyContainer = styled.div`
   position: fixed;
@@ -99,4 +122,4 @@ const SmallButton = styled.button`
   }
 `;
 
-export default QuestionList
+export default QuestionList;

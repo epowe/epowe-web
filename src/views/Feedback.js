@@ -1,21 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from 'react-router-dom';
-import Header from './Header';
-import FeedbackField from './FeedbackField';
+import { useNavigate } from "react-router-dom";
+import Header from "./Header";
+import FeedbackField from "./FeedbackField";
+import { API } from "../API";
 
 const Feedback = () => {
   const navigate = useNavigate();
   const onClickHome = () => {
     navigate("/interview");
-  }
+  };
 
   const [feedback, setFeedback] = useState({
     count: 0,
     speed: 0,
-    word: '저기',
+    word: "저기",
     accent: 0,
   });
+
+  const getUserAverageScore = async () => {
+    var result = await API.getUserAverageScore();
+    if (result) {
+      console.log("flask get 성공");
+      console.log(result);
+    } else {
+      console.log("Flask get 실패");
+    }
+  };
+
+  useEffect(() => {
+    getUserAverageScore();
+  }, []);
 
   return (
     <>
@@ -26,15 +41,13 @@ const Feedback = () => {
         <ButtonContainer>
           <Button onClick={() => navigate("/feedback/list/questions")}>
             상세 피드백 보기
-          </Button>   
-          <Button onClick={onClickHome}>
-            홈으로
-          </Button>   
+          </Button>
+          <Button onClick={onClickHome}>홈으로</Button>
         </ButtonContainer>
       </BodyContainer>
     </>
-  )
-}
+  );
+};
 
 const BodyContainer = styled.div`
   position: fixed;
@@ -66,7 +79,7 @@ const Title = styled.div`
 
 const Button = styled.button`
   box-sizing: border-box;
-  background: #6C63FF;
+  background: #6c63ff;
   color: white;
   width: 100%;
   padding: 0.8rem;
@@ -83,4 +96,4 @@ const Button = styled.button`
   }
 `;
 
-export default Feedback
+export default Feedback;
