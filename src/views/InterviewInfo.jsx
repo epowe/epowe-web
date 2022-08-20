@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "./Header.js";
 import toast, { Toaster } from "react-hot-toast";
 import { beginRecord, download, playStream, stopPlaying } from "./Record";
+import { API } from "../API";
 
 const InterviewInfo = () => {
   const navigate = useNavigate();
