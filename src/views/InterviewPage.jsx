@@ -26,30 +26,7 @@ const InterviewPage = () => {
       setIsNext(false);
     }
 
-    console.log(questions);
-
-    try {
-      const mediaRecorder = await beginRecord(
-        (stream) => playStream(videoRef.current, stream),
-        (recordedBlobs) => setData(recordedBlobs)
-      );
-      setRecorder(mediaRecorder);
-    } catch (err) {
-      if (err.toString().includes("Permission denied")) {
-        notify("카메라와 마이크 엑세스를 허용해주세요");
-      }
-      console.error(err);
-    }
-
-    // 녹화 멈추기
-    try {
-      recorder.stop();
-      stopPlaying(videoRef.current);
-      setRecorder(undefined);
-    } catch (err) {
-      console.log(err);
-    }
-
+    // 녹화 시작
     try {
       const mediaRecorder = await beginRecord(
         (stream) => playStream(videoRef.current, stream),
