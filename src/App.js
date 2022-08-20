@@ -28,7 +28,7 @@ import {
 } from "./Auth";
 import { QueryClient, QueryClientProvider } from "react-query";
 import AppContext from "./AppContext";
-import InterviewPage from './views/InterviewPage';
+import InterviewPage from './views/InterviewPage.jsx';
 
 const queryClient = new QueryClient();
 
