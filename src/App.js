@@ -28,6 +28,8 @@ import {
 } from "./Auth";
 import { QueryClient, QueryClientProvider } from "react-query";
 import AppContext from "./AppContext";
+import InterviewPage from './views/InterviewPage';
+
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -178,6 +180,12 @@ const App = () => {
             path="/interview/info"
             element={
               !isLogged ? <Navigate replace to="/" /> : <InterviewInfo />
+            }
+          />
+          <Route
+            path="/interview/ing"
+            element={
+              !isLogged ? <Navigate replace to="/" /> : <InterviewPage />
             }
           />
           <Route
