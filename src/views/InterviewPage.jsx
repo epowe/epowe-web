@@ -22,6 +22,12 @@ const InterviewPage = () => {
   
   useBeforeunload((event) => event.preventDefault());
 
+  // 뒤로가기 했을 때
+  window.onpopstate = () => {
+    navigate("/interview/info");
+    notify("면접이 저장되지 않았습니다.");
+  };
+
   const beginOrStopRecording = async () => {
     try {
       if (!recorder) {
