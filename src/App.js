@@ -4,7 +4,6 @@ import LoginPage from "./views/LoginPage.jsx";
 import Interview from "./views/Interview";
 import Register from "./views/Register.jsx";
 import {
-  BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
@@ -15,9 +14,6 @@ import MyFeedback from "./views/MyFeedback";
 import FeedbackList from "./views/FeedbackList";
 import QuestionList from "./views/QuestionList";
 import FeedbackDetail from "./views/FeedbackDetail.jsx";
-import VideoRecordTest from "./views/VideoRecordTest.jsx";
-import axios from "axios";
-import ApiBaseURL from "./ApiBaseURL";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
 import { API } from "./API";
@@ -210,8 +206,6 @@ const App = () => {
               !isLogged ? <Navigate replace to="/" /> : <FeedbackDetail />
             }
           />
-          {/* 비디오 레코드 테스트 페이지 */}
-          <Route path="/videotest" element={<VideoRecordTest />} />
         </Routes>
       </AppContext.Provider>
     </QueryClientProvider>

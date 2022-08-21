@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { API } from "./API";
 import { setRefreshTokenToCookie, getCookieToken } from "./Auth";
 import AppContext from "./AppContext";

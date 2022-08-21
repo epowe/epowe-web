@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import FeedbackDetailData from "./FeedbackDetailData";
 import { API } from "../API";
 
