@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
@@ -46,7 +46,7 @@ const InterviewInfo = () => {
     setQuestions(list);
   };
 
-  const handleStart = async () => {
+  const handleStart = () => {
     if (title === "") {
       notify("면접 제목을 입력해주세요");
     } else if (!questions.every((q) => q.question !== "")) {
