@@ -96,5 +96,6 @@ export const download = (
   fileName = 'RecordedVideo.webm',
 ) => {
   const blob = combineBlobs(recordedBlobs);
-  return FileSaver.saveAs(blob, fileName);
+  console.log(blob);
+  // return FileSaver.saveAs(blob, fileName);
 };
