@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useBeforeunload } from 'react-beforeunload';
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -16,29 +16,41 @@ const InterviewPage = () => {
   const [current, setCurrent] = useState(0);
   const [data, setData] = useState([]);
   const [recorder, setRecorder] = useState(undefined);
-  const videoRef = React.useRef(null);
-
+  const videoRef = useRef(null);
+  const [recorded, setRecorded] = useState(false);
+  const [done, setDone] = useState(false);
+  
   useBeforeunload((event) => event.preventDefault());
 
-  useEffect(async () => {
-
-    if (questions.length === 1) {
-      setIsNext(false);
-    }
-
-    // 녹화 시작
+  const beginOrStopRecording = async () => {
     try {
-      const mediaRecorder = await beginRecord(
-        (stream) => playStream(videoRef.current, stream),
-        (recordedBlobs) => setData(recordedBlobs)
-      );
-      setRecorder(mediaRecorder);
+      if (!recorder) {
+        const mediaRecorder = await beginRecord(
+          (stream) =>
+            playStream(videoRef.current, stream),
+          (recordedBlobs) => setData(recordedBlobs),
+        );
+        setRecorder(mediaRecorder);
+      } else {
+        recorder.stop();
+        stopPlaying(videoRef.current);
+        setRecorder(undefined);
+        setRecorded(true);
+        setDone(true);
+      }
     } catch (err) {
       if (err.toString().includes("Permission denied")) {
         notify("카메라와 마이크 엑세스를 허용해주세요");
       }
       console.error(err);
     }
+  };
+
+  useEffect(() => {
+    if (questions.length === 1) {
+      setIsNext(false);
+    }
+    // startRecording();
   }, []);
 
   const notify = (msg) =>
@@ -51,19 +63,13 @@ const InterviewPage = () => {
 
   const handleNext = async () => {
     setCurrent(current + 1);
-
-    // 녹화 멈추기
-    try {
-      recorder.stop();
-      stopPlaying(videoRef.current);
-      setRecorder(undefined);
-    } catch (err) {
-      console.log(err);
-    }
+    setRecorded(false);
+    setDone(false);
 
     // 녹화된 영상 다운로드
     try {
-      download(data);
+      console.log(`질문${current + 1}: ${questions.at(current).question}`);
+      download(data); // 콘솔에 녹화된 영상 blob 뜸
     } catch (err) {
       console.error(err);
     }
@@ -73,17 +79,6 @@ const InterviewPage = () => {
         setIsNext(true);
       } else {
         setIsNext(false);
-      }
-
-      // 녹화 시작
-      try {
-        const mediaRecorder = await beginRecord(
-          (stream) => playStream(videoRef.current, stream),
-          (recordedBlobs) => setData(recordedBlobs)
-        );
-        setRecorder(mediaRecorder);
-      } catch (err) {
-        console.error(err);
       }
     } else {
       //questions에서 값만 꺼내서 배열로 저장하는 부분 (서버로 보내기 위함)
@@ -138,7 +133,17 @@ const InterviewPage = () => {
             />
           </div>
         </Video>
-        <Button onClick={handleNext}>
+        <Button
+          id="record"
+          onClick={beginOrStopRecording}
+          disabled={done}
+        >
+          {recorder ? '답변 그만하기' : '답변 시작하기'}
+        </Button>
+        <Button
+          disabled={!recorded}
+          onClick={handleNext}
+        >
           {isNext ? "다음" : "면접 끝내기"}
         </Button>
       </Container>
@@ -196,6 +201,9 @@ const Button = styled.button`
   &:hover {
     background: #5850e6;
     transition: 0.3s;
+  }
+  &:disabled {
+    display: none;
   }
 `;
 
