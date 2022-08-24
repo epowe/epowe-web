@@ -26,6 +26,30 @@ const S3Upload = () => {
   const handleFileInput = (e) => {
     const file = e.target.files[0];
     console.log(file);
+    let today = new Date();
+    let year = today.getFullYear(); // 년도
+    let month = today.getMonth() + 1; // 월
+    let date = today.getDate(); // 날짜
+    let hours = today.getHours(); // 시
+    let minutes = today.getMinutes(); // 분
+    let seconds = today.getSeconds(); // 초
+    let milliseconds = today.getMilliseconds(); // 밀리초
+    console.log(
+      year +
+        "/" +
+        month +
+        "/" +
+        date +
+        "/" +
+        hours +
+        ":" +
+        minutes +
+        ":" +
+        seconds +
+        ":" +
+        milliseconds
+    );
+
     const fileExt = file.name.split(".").pop();
     if (file.type !== "video/webm" || fileExt !== "webm") {
       alert("Webm 확장자의 동영상 파일만 Upload 가능합니다.");
