@@ -1,10 +1,10 @@
-import FileSaver from 'file-saver';
+import FileSaver from "file-saver";
 
 const detectMimeType = () => {
   const mimeTypes = [
-    'video/webm;codecs=vp9,opus',
-    'video/webm;codecs=vp8,opus',
-    'video/webm',
+    "video/webm;codecs=vp9,opus",
+    "video/webm;codecs=vp8,opus",
+    "video/webm",
   ];
 
   for (let mimeType of mimeTypes) {
@@ -13,7 +13,7 @@ const detectMimeType = () => {
     }
   }
 
-  return '';
+  return "";
 };
 
 const initMediaStream = async () => {
@@ -26,9 +26,7 @@ const initMediaStream = async () => {
       height: 720,
     },
   };
-  const stream = await navigator.mediaDevices.getUserMedia(
-    constraints,
-  );
+  const stream = await navigator.mediaDevices.getUserMedia(constraints);
   return stream;
 };
 
@@ -37,7 +35,7 @@ const stopMediaStream = async (stream) => {
 };
 
 const combineBlobs = (recordedBlobs) => {
-  return new Blob(recordedBlobs, { type: 'video/webm' });
+  return new Blob(recordedBlobs, { type: "video/webm" });
 };
 
 const createBlobURL = (blob) => {
@@ -91,11 +89,8 @@ export const playStream = (videoElement, stream) => {
   videoElement.play();
 };
 
-export const download = (
-  recordedBlobs,
-  fileName = 'RecordedVideo.webm',
-) => {
+export const download = (recordedBlobs, fileName = "RecordedVideo.webm") => {
   const blob = combineBlobs(recordedBlobs);
   console.log(blob);
-  // return FileSaver.saveAs(blob, fileName);
+  return FileSaver.saveAs(blob, fileName);
 };

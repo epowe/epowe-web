@@ -25,9 +25,10 @@ const S3Upload = () => {
 
   const handleFileInput = (e) => {
     const file = e.target.files[0];
+    console.log(file);
     const fileExt = file.name.split(".").pop();
-    if (file.type !== "image/jpeg" || fileExt !== "jpg") {
-      alert("jpg 파일만 Upload 가능합니다.");
+    if (file.type !== "video/webm" || fileExt !== "webm") {
+      alert("Webm 확장자의 동영상 파일만 Upload 가능합니다.");
       return;
     }
     setProgress(0);
