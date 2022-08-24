@@ -72,19 +72,30 @@ const S3Upload = () => {
       Key: "upload/" + finalFileName,
     };
 
-    myBucket
-      .putObject(params)
-      .on("httpUploadProgress", (evt) => {
-        setProgress(Math.round((evt.loaded / evt.total) * 100));
-        setShowAlert(true);
-        setTimeout(() => {
-          setShowAlert(false);
-          setSelectedFile(null);
-        }, 3000);
-      })
-      .send((err) => {
-        if (err) console.log(err);
-      });
+    const params2 = {
+      Bucket: S3_BUCKET,
+      Key: "upload/" + finalFileName,
+    };
+
+    // myBucket
+    //   .putObject(params)
+    //   .on("httpUploadProgress", (evt) => {
+    //     setProgress(Math.round((evt.loaded / evt.total) * 100));
+    //     setShowAlert(true);
+    //     setTimeout(() => {
+    //       setShowAlert(false);
+    //       setSelectedFile(null);
+    //     }, 3000);
+    //   })
+    //   .send((err) => {
+    //     if (err) console.log(err);
+    //   });
+
+    const encodeFileName = encodeURIComponent(finalFileName);
+    const url =
+      "https://epowe-bucket.s3.ap-northeast-2.amazonaws.com/upload/" +
+      encodeFileName;
+    console.log(url);
   };
 
   return (
