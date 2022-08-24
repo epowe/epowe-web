@@ -137,11 +137,11 @@ const InterviewInfo = () => {
       let videoURL1 = [];
       videoURL1.push("google.com");
       // 면접 정보 서버로 보내는 부분
-      // sendUserInterviewInfo({
-      //   title: title,
-      //   question: sendQuestionData,
-      //   videoURL: videoURL1,
-      // });
+      sendUserInterviewInfo({
+        title: title,
+        question: sendQuestionData,
+        videoURL: videoURL1,
+      });
       navigate("/interview/feedback");
     }
   };
@@ -177,6 +177,7 @@ const InterviewInfo = () => {
                   width: "100%",
                   height: "100%",
                 }}
+                muted
               />
             </div>
           </Video>

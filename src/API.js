@@ -160,8 +160,8 @@ export const API = {
       );
       if (response.status === 200) {
         console.log("유저의 면접 정보가 정상적으로 제출되었습니다.");
-        console.log(response.data);
-        return response.data;
+        console.log(response);
+        return response;
       } else {
         console.log("유저의 면접 정보가 정상적으로 제출되지 못하였습니다");
         console.log(response);
@@ -225,6 +225,7 @@ export const API = {
     }
     return false;
   },
+
   //전체 피드백 평균 점수 데이터 가져오는 API
   getUserAverageScore: async () => {
     try {
