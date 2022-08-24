@@ -7,6 +7,7 @@ const S3Upload = () => {
   const [progress, setProgress] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
+  const [realFileExt, setRealFileExt] = useState(null);
 
   const ACCESS_KEY = process.env.REACT_APP_AWS_ACCESS_KEY;
   const SECRET_ACCESS_KEY = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY;
@@ -28,6 +29,7 @@ const S3Upload = () => {
     console.log(file);
 
     const fileExt = file.name.split(".").pop();
+    setRealFileExt(fileExt);
     if (file.type !== "video/webm" || fileExt !== "webm") {
       alert("Webm 확장자의 동영상 파일만 Upload 가능합니다.");
       return;
@@ -37,6 +39,7 @@ const S3Upload = () => {
   };
 
   const uploadFile = (file) => {
+    const fileExt = file.name.split(".").pop();
     let today = new Date();
     let year = today.getFullYear(); // 년도
     let month = today.getMonth() + 1; // 월
@@ -58,7 +61,9 @@ const S3Upload = () => {
       ":" +
       seconds +
       ":" +
-      milliseconds;
+      milliseconds +
+      "." +
+      fileExt;
 
     const params = {
       ACL: "public-read",
