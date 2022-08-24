@@ -1,11 +1,9 @@
-import React, { useEffect, useContext, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useNavigate, Link, useParam } from "react-router-dom";
 import GoogleLogoImg from "../images/GoogleLogo.png";
 import NaverLogoImg from "../images/NaverLogo.png";
 import "../App.css";
 import Header from "./Header.js";
-import axios from "axios";
 import GoogleAuthURL from "../GoogleAuthURL";
 import NaverAuthURL from "../NaverAuthURL";
 import TypeIt from "typeit-react";
