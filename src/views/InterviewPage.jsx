@@ -99,7 +99,7 @@ const InterviewPage = () => {
       //   question: sendQuestionData,
       //   videoURL: videoURL1,
       // });
-      navigate("/interview/feedback");
+      navigate("/interview/feedback", {state: {title}});
     }
 
     //서버로 제목, 동영상 URL, title 보내는 함수
