@@ -1,47 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
 import { API } from "../API";
 
 const QuestionList = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const title = location.state.title;
 
-  const [questions, setQuestions] = useState([
-    { q: "자기소개" },
-    { q: "성격의 장단점" },
-    { q: "지원한 계기" },
-    { q: "질문" },
-    { q: "질문" },
-  ]);
+  const [questions, setQuestions] = useState([]);
 
-  const getUserQuestionList = async ({ question }) => {
-    var result = await API.getUserQuestionList({ question });
+  const getUserQuestionList = async ({ title }) => {
+    var result = await API.getUserQuestionList({ title });
     if (result) {
       console.log("flask get 성공");
-      console.log(result);
+      setQuestions(result.questions);
     } else {
       console.log("Flask get 실패");
     }
   };
 
   useEffect(() => {
-    getUserQuestionList({ question: "카카오 면접 준비" });
+    getUserQuestionList({ title });
   }, []);
 
   return (
     <>
       <Header isLogin="true" />
       <BodyContainer>
-        <Title>{"면접제목 >"} 질문 목록</Title>
+        <Title>{`${title} > 질문 목록`}</Title>
         <Container>
           <QuestionContainer>
             {questions.map((question) => {
               return (
                 <Question
-                  onClick={() => navigate("/feedback/list/questions/detail")}
+                  onClick={() => navigate("/feedback/list/questions/detail", {state: {title, question}})}
                 >
-                  {question.q}
+                  {question}
                 </Question>
               );
             })}
