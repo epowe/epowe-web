@@ -32,7 +32,7 @@ const Feedback = () => {
 
   return (
     <>
-      <Header isLogin="true" />
+      <Header />
       <BodyContainer>
         <Title>모의면접 평가 점수</Title>
         <FeedbackField {...feedback} />

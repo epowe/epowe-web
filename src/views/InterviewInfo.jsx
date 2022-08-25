@@ -59,7 +59,7 @@ const InterviewInfo = () => {
 
   return (
     <>
-      <Header isLogin="true" />
+      <Header />
       <BodyContainer>
         <Container>
           <Title>모의면접 정보 입력</Title>

@@ -40,7 +40,7 @@ const FeedbackDetail = () => {
 
   return (
     <>
-      <Header isLogin="true"/>
+      <Header />
       <BodyContainer>
       <Title>{`${title} > 상세 피드백 보기`}
         <br/>

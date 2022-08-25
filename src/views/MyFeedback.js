@@ -39,7 +39,7 @@ const MyFeedback = () => {
 
   return (
     <>
-      <Header isLogin="true"/>
+      <Header />
       <BodyContainer>
         <Text>마이페이지</Text>
         <Title>전체 피드백 평균 점수</Title>

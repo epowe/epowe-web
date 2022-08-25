@@ -27,7 +27,7 @@ const QuestionList = () => {
 
   return (
     <>
-      <Header isLogin="true" />
+      <Header />
       <BodyContainer>
         <Title>{`${title} > 질문 목록`}</Title>
         <Container>

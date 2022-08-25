@@ -9,7 +9,7 @@ const FeedbackList = () => {
 
   return (
     <>
-      <Header isLogin="true"/>
+      <Header />
       <BodyContainer>
         <Title>전체 피드백 목록</Title>
         <TableContainer>
