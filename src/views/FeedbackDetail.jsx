@@ -1,13 +1,20 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from "styled-components"
 import Header from './Header'
 import FeedbackDetailTable from './FeedbackDetailTable'
 import VideoPlayer from './VideoPlayer'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { API } from '../API'
 
 const FeedbackDetail = () => {
   const playerRef = useRef();
   const navigate = useNavigate();
+  const location = useLocation();
+  const title = location.state.title;
+  const question = location.state.question;
+  const [detail, setDetail] = useState([]);
+  const [url, setUrl] = useState("");
 
   const handleClick = (time) => {
     let s = time.split(':');
@@ -15,20 +22,36 @@ const FeedbackDetail = () => {
     playerRef.current.seekTo(seconds);
   };
 
+  const getUserFeedbackDetail = async ({title, question}) => {
+    var result = await API.getUserInterviewDetail(title, question);
+    if (result) {
+      console.log("flask get 성공");
+      console.log(result);
+      setDetail(result.detail);
+      setUrl(result.videoUrl);
+    } else {
+      console.log("Flask get 실패");
+    }
+  }
+
+  useEffect(() => {
+    getUserFeedbackDetail({title, question});
+  }, []);
+
   return (
     <>
       <Header isLogin="true"/>
       <BodyContainer>
-      <Title>{'면접제목 >'} 상세 피드백 보기
+      <Title>{`${title} > 상세 피드백 보기`}
         <br/>
-        <Question>질문 1 자기소개</Question>
+        <Question>{`질문 ) ${question}`}</Question>
       </Title>
         <Container>
           <VideoContainer>
-            <VideoPlayer playerRef={playerRef}/>
+            <VideoPlayer playerRef={playerRef} url={url}/>
           </VideoContainer>
           <TableContainer>
-            <FeedbackDetailTable handleClick={handleClick} />
+            <FeedbackDetailTable handleClick={handleClick} detailData={detail.detail}/>
           </TableContainer>
         <SmallButton onClick={()=>navigate(-1)}>질문 목록</SmallButton>
         </Container>
