@@ -47,7 +47,9 @@ const Header = () => {
   //   }
   // };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(myContext.userProfile);
+  }, []);
 
   return (
     <>
