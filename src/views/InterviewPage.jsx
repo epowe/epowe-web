@@ -31,12 +31,6 @@ const InterviewPage = () => {
 
   useBeforeunload((event) => event.preventDefault());
 
-  // 뒤로가기 했을 때
-  window.onpopstate = () => {
-    navigate("/interview/info");
-    notify("면접이 저장되지 않았습니다.");
-  };
-
   const beginOrStopRecording = async () => {
     try {
       if (!recorder) {
@@ -107,7 +101,7 @@ const InterviewPage = () => {
       //   question: sendQuestionData,
       //   videoURL: videoURL1,
       // });
-      navigate("/interview/feedback");
+      navigate("/interview/feedback", {state: {title}});
     }
 
     //서버로 제목, 동영상 URL, title 보내는 함수

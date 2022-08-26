@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import FeedbackField from "./FeedbackField";
 import { API } from "../API";
@@ -10,31 +10,29 @@ const Feedback = () => {
   const onClickHome = () => {
     navigate("/interview");
   };
+  const location = useLocation();
+  const title = location.state.title;
 
-  const [feedback, setFeedback] = useState({
-    count: 0,
-    speed: 0,
-    word: "저기",
-    accent: 0,
-  });
+  const [feedback, setFeedback] = useState({});
 
-  const getUserAverageScore = async () => {
-    var result = await API.getUserAverageScore();
+  const getUserFeedback = async ({ title }) => {
+    var result = await API.getOneUserInterviewData({ title });
     if (result) {
       console.log("flask get 성공");
       console.log(result);
+      setFeedback(result);
     } else {
       console.log("Flask get 실패");
     }
   };
 
   useEffect(() => {
-    getUserAverageScore();
+    getUserFeedback({ title });
   }, []);
 
   return (
     <>
-      <Header isLogin="true" />
+      <Header />
       <BodyContainer>
         <Title>모의면접 평가 점수</Title>
         <FeedbackField {...feedback} />

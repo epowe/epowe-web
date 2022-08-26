@@ -13,7 +13,7 @@ const Interview = () => {
 
   return (
     <>
-      <Header isLogin="true" />
+      <Header />
       <BodyContainer>
         <ButtonContainer>
           <Button onClick={onClickStart}>모의면접 시작하기</Button>

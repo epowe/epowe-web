@@ -1,33 +1,64 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from "styled-components"
+import { API } from '../API'
 import Header from './Header'
 
 const MyFeedback = () => {
   const navigate = useNavigate();
+  const [dialectCountAvg, setDialectCountAvg] = useState(0);
+  const [intonationAvg, setintonationAvg] = useState(0);
+  const [speechRateAvg, setspeechRateAvg] = useState(0);
+  const [wordArr, setwordArr] = useState([]);
+
+  const mostFrequent = (arr) => 
+    Object.entries(
+      arr.reduce((a, v) => {
+        a[v] = a[v] ? a[v] + 1 : 1;
+        return a;
+      }, {})
+    ).reduce((a, v) => (v[1] >= a[1] ? v : a), [null, 0])[0];
+
+  const getUserFeedbackAvg = async () => {
+    var result = await API.getUserAverageScore();
+    if (result) {
+      console.log("flask get 성공");
+      console.log(result);
+      setDialectCountAvg(Math.round(result.dialectCountAvg));
+      setintonationAvg(Math.round(result.intonationAvg));
+      setspeechRateAvg(Math.round(result.speechRateAvg));
+      setwordArr(mostFrequent(result.wordArr));
+    } else {
+      console.log("Flask get 실패");
+    }
+  };
+
+  useEffect(() => {
+    getUserFeedbackAvg();
+  }, []);
 
   return (
     <>
-      <Header isLogin="true"/>
+      <Header />
       <BodyContainer>
         <Text>마이페이지</Text>
         <Title>전체 피드백 평균 점수</Title>
         <Container>
           <FeedbackPurple>
             <span>사투리 사용 평균 횟수</span>
-            <span>99번</span>
+            <span>{dialectCountAvg}번</span>
           </FeedbackPurple>
           <Feedback>
             <span>억양</span>
-            <span>80</span>
+            <span>{intonationAvg}</span>
           </Feedback>
           <Feedback>
             <span>말의 빠르기</span>
-            <span>90</span>
+            <span>{speechRateAvg}</span>
           </Feedback>
           <Feedback>
             <span>단어</span>
-            <span>30</span>
+            <span>{wordArr}</span>
           </Feedback>
         </Container>
         <ButtonContainer>

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import TableData from "./TableData";
 import { API } from "../API";
 const FeedbackTable = () => {
-  const column = Object.keys(TableData[0]);
+  const [tableData, setTableData] = useState([]);
+  const [column, setColumn] = useState([]);
 
   const ThData = () => {
     return (
@@ -19,7 +19,7 @@ const FeedbackTable = () => {
   };
 
   const tdData = () => {
-    return TableData.map((data) => {
+    return tableData.map((data) => {
       return (
         <tr>
           {column.map((v) => {
@@ -28,6 +28,7 @@ const FeedbackTable = () => {
                 <td>
                   <Link
                     to="/feedback/list/questions"
+                    state={{ title: data.title }}
                     style={{ color: "#6c63ff" }}
                   >
                     {data[v]}
@@ -41,19 +42,22 @@ const FeedbackTable = () => {
     });
   };
 
-  const getUserData = async () => {
+  const getUserFeedbackTable = async () => {
     var result = await API.getUserInterviewList();
     if (result) {
       console.log("flask get 성공");
-      console.log(result);
+      console.log(result.feedbackList);
+      setTableData(result.feedbackList);
+      setColumn(Object.keys(result.feedbackList[0]));
     } else {
       console.log("Flask get 실패");
     }
   };
 
   useEffect(() => {
-    getUserData();
+    getUserFeedbackTable();
   }, []);
+  
   return (
     <table className="table">
       <thead>

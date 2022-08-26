@@ -7,7 +7,7 @@ import { removeCookieToken } from "../Auth";
 import { API } from "../API";
 import AppContext from "../AppContext";
 
-const Header = ({ isLogin }) => {
+const Header = () => {
   const navigate = useNavigate();
   const myContext = useContext(AppContext);
 
