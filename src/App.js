@@ -112,6 +112,7 @@ const App = () => {
       accessToken: accessToken,
       refreshToken: refreshToken,
     });
+
     if (result) {
       console.log("서버에 만료된 토큰 전송 완료.");
       console.log(result);
