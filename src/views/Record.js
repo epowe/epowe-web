@@ -1,5 +1,5 @@
 import FileSaver from "file-saver";
-import React, { useState } from "react";
+import { useState } from "react";
 import AWS from "aws-sdk";
 
 const detectMimeType = () => {
@@ -11,6 +11,7 @@ const detectMimeType = () => {
 
   for (let mimeType of mimeTypes) {
     if (MediaRecorder.isTypeSupported(mimeType)) {
+      console.log("mimeType: " + mimeType);
       return mimeType;
     }
   }
@@ -91,10 +92,16 @@ export const playStream = (videoElement, stream) => {
   videoElement.play();
 };
 
-/// ----------------
-const [selectedFile, setSelectedFile] = useState(null);
-const [showAlert, setShowAlert] = useState(false);
-const [realFileExt, setRealFileExt] = useState(null);
+export const download = (recordedBlobs, fileName = "RecordedVideo.webm") => {
+  const blob = combineBlobs(recordedBlobs);
+  console.log("blob: " + blob);
+  const recordedFile = new File([blob], "recordedVideo.webm", {
+    type: { detectMimeType },
+  });
+  console.log(recordedFile);
+  uploadFile(recordedFile);
+  // return FileSaver.saveAs(blob, fileName);
+};
 
 //엑세스키와 시크릿 키는 각자의 aws 계정에 IAM을 들어가고 내 보안 자격증명에 들어가서 본인만의 엑세스 키를 만들수 있다.
 
@@ -114,22 +121,6 @@ const myBucket = new AWS.S3({
   params: { Bucket: S3_BUCKET },
   region: REGION,
 });
-
-const handleFileInput = (e) => {
-  //파일 정보가 들어간다.
-  const file = e.target.files[0];
-  console.log(file);
-  //파일 확장자 추출 부분.
-  const fileExt = file.name.split(".").pop();
-  setRealFileExt(fileExt);
-  //파일 타입과 확장자가 아래의 형식이 아니면 업로드 자체가 안되게 셋팅!
-  if (file.type !== "video/webm" || fileExt !== "webm") {
-    alert("Webm 확장자의 동영상 파일만 Upload 가능합니다.");
-    return;
-  }
-  //파일을 추가해줌
-  setSelectedFile(e.target.files[0]);
-};
 
 //클릭시 S3에 업로드 되도록 만들어주는 함수
 const uploadFile = (file) => {
@@ -168,37 +159,13 @@ const uploadFile = (file) => {
     Key: "upload/" + finalFileName,
   };
 
-  myBucket
-    .putObject(params)
-    .on("httpUploadProgress", (evt) => {
-      //요 부분은 프로그래스가 수치로 표시되는 부분
-      //alert이 보이게 하는 부분
-      setShowAlert(true);
-      //alert를 발생하고 나서 3초후에 alert를 꺼줌
-      setTimeout(() => {
-        setShowAlert(false);
-        setSelectedFile(null);
-      }, 3000);
-    })
-    //send에서 에러가 발생하면 에러로그가 띄워짐
-    .send((err) => {
-      if (err) console.log(err);
-    });
+  myBucket.putObject(params).send((err) => {
+    if (err) console.log(err);
+  });
 
   const encodeFileName = encodeURIComponent(finalFileName);
   const url =
     "https://epowe-bucket.s3.ap-northeast-2.amazonaws.com/upload/" +
     encodeFileName;
   console.log(url);
-};
-
-export const download = (recordedBlobs, fileName = "RecordedVideo.webm") => {
-  const blob = combineBlobs(recordedBlobs);
-  console.log("blob: " + blob);
-  const recordedFile = new File([blob], "recordedVideo.webm", {
-    type: { detectMimeType },
-  });
-  uploadFile(recordedFile);
-  console.log(recordedFile);
-  // return FileSaver.saveAs(blob, fileName);
 };
