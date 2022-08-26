@@ -13,7 +13,6 @@ import FeedbackDetail from "./views/FeedbackDetail.jsx";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
 import { API } from "./API";
-import S3Upload from "./S3Upload";
 import {
   removeCookieToken,
   getCookieToken,
@@ -154,7 +153,6 @@ const App = () => {
             }
           />
           <Route path="/oauth2/redirect" element={<TokenProcess />} />
-          <Route path="/uploadtest" element={<S3Upload />} />
           <Route
             path="/register"
             element={

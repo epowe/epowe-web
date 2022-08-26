@@ -1,7 +1,7 @@
 import "./App.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import AWS from "aws-sdk";
-import { Row, Col, Button, Input, Alert } from "reactstrap";
+// import { Row, Col, Button, Input, Alert } from "reactstrap";
 
 const S3Upload = () => {
   const [progress, setProgress] = useState(0);
@@ -108,40 +108,40 @@ const S3Upload = () => {
     console.log(url);
   };
 
-  return (
-    <div className="App">
-      <div className="App-header">
-        <Row>
-          <Col>
-            <h1>File Upload</h1>
-          </Col>
-        </Row>
-      </div>
-      <div className="App-body">
-        <Row>
-          <Col>
-            {showAlert ? (
-              <Alert color="primary">업로드 진행률 : {progress}%</Alert>
-            ) : (
-              <Alert color="primary">파일을 선택해 주세요.</Alert>
-            )}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Input color="primary" type="file" onChange={handleFileInput} />
-            {selectedFile ? (
-              //파일이 선택 되었을때 버튼이 보여짐
-              <Button color="primary" onClick={() => uploadFile(selectedFile)}>
-                {" "}
-                Upload to S3
-              </Button>
-            ) : null}
-          </Col>
-        </Row>
-      </div>
-    </div>
-  );
+  // return (
+  //   <div className="App">
+  //     <div className="App-header">
+  //       <Row>
+  //         <Col>
+  //           <h1>File Upload</h1>
+  //         </Col>
+  //       </Row>
+  //     </div>
+  //     <div className="App-body">
+  //       <Row>
+  //         <Col>
+  //           {showAlert ? (
+  //             <Alert color="primary">업로드 진행률 : {progress}%</Alert>
+  //           ) : (
+  //             <Alert color="primary">파일을 선택해 주세요.</Alert>
+  //           )}
+  //         </Col>
+  //       </Row>
+  //       <Row>
+  //         <Col>
+  //           <Input color="primary" type="file" onChange={handleFileInput} />
+  //           {selectedFile ? (
+  //             //파일이 선택 되었을때 버튼이 보여짐
+  //             <Button color="primary" onClick={() => uploadFile(selectedFile)}>
+  //               {" "}
+  //               Upload to S3
+  //             </Button>
+  //           ) : null}
+  //         </Col>
+  //       </Row>
+  //     </div>
+  //   </div>
+  // );
 };
 
 export default S3Upload;

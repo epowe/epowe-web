@@ -1,5 +1,3 @@
-import FileSaver from "file-saver";
-import { useState } from 'react';
 import AWS from "aws-sdk";
 
 const detectMimeType = () => {
@@ -11,7 +9,6 @@ const detectMimeType = () => {
 
   for (let mimeType of mimeTypes) {
     if (MediaRecorder.isTypeSupported(mimeType)) {
-      console.log("mimeType: " + mimeType);
       return mimeType;
     }
   }
@@ -92,15 +89,15 @@ export const playStream = (videoElement, stream) => {
   videoElement.play();
 };
 
-export const download = (recordedBlobs, fileName = "RecordedVideo.webm") => {
+export const uploadVideoAndGetUrl = (recordedBlobs) => {
   const blob = combineBlobs(recordedBlobs);
-  console.log("blob: " + blob);
+  console.log(blob);
   const recordedFile = new File([blob], 'recordedVideo.webm', {
     type: {detectMimeType},
   });
   console.log(recordedFile);
-  uploadFile(recordedFile);
-  // return FileSaver.saveAs(blob, fileName);
+  const getUrl = uploadFile(recordedFile);
+  return getUrl;
 };
 
 //엑세스키와 시크릿 키는 각자의 aws 계정에 IAM을 들어가고 내 보안 자격증명에 들어가서 본인만의 엑세스 키를 만들수 있다.
@@ -170,4 +167,5 @@ const uploadFile = (file) => {
     "https://epowe-bucket.s3.ap-northeast-2.amazonaws.com/upload/" +
     encodeFileName;
   console.log(url);
+  return url;
 };
