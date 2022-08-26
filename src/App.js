@@ -3,11 +3,7 @@ import React, { useEffect, useState } from "react";
 import LoginPage from "./views/LoginPage.jsx";
 import Interview from "./views/Interview";
 import Register from "./views/Register.jsx";
-import {
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import InterviewInfo from "./views/InterviewInfo.jsx";
 import Feedback from "./views/Feedback";
 import MyFeedback from "./views/MyFeedback";
@@ -17,6 +13,7 @@ import FeedbackDetail from "./views/FeedbackDetail.jsx";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
 import { API } from "./API";
+import S3Upload from "./S3Upload";
 import {
   removeCookieToken,
   getCookieToken,
@@ -24,7 +21,7 @@ import {
 } from "./Auth";
 import { QueryClient, QueryClientProvider } from "react-query";
 import AppContext from "./AppContext";
-import InterviewPage from './views/InterviewPage.jsx';
+import InterviewPage from "./views/InterviewPage.jsx";
 
 const queryClient = new QueryClient();
 
@@ -156,6 +153,7 @@ const App = () => {
             }
           />
           <Route path="/oauth2/redirect" element={<TokenProcess />} />
+          <Route path="/uploadtest" element={<S3Upload />} />
           <Route
             path="/register"
             element={
@@ -211,5 +209,5 @@ const App = () => {
     </QueryClientProvider>
   );
 };
-//테스트
+
 export default App;

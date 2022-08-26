@@ -53,7 +53,7 @@ const InterviewInfo = () => {
       notify("면접 질문을 입력해주세요");
     } else {
       // 면접 페이지로 이동
-      navigate('/interview/ing', {state: {title, questions}});
+      navigate("/interview/ing", { state: { title, questions } });
     }
   };
 
