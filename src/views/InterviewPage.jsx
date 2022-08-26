@@ -1,11 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useBeforeunload } from 'react-beforeunload';
-import toast from 'react-hot-toast';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from "react";
+import { useBeforeunload } from "react-beforeunload";
+import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Header from './Header';
+import Header from "./Header";
 import { beginRecord, download, playStream, stopPlaying } from "./Record";
 import { API } from "../API";
+import { Button, Input } from "reactstrap";
+import AWS from "aws-sdk";
 
 const InterviewPage = () => {
   const location = useLocation();
@@ -19,7 +21,14 @@ const InterviewPage = () => {
   const videoRef = useRef(null);
   const [recorded, setRecorded] = useState(false);
   const [done, setDone] = useState(false);
-  
+  //여기부턴 S3 업로드를 위한 변수들입니다.
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [realFileExt, setRealFileExt] = useState(null);
+  const ACCESS_KEY = process.env.REACT_APP_AWS_ACCESS_KEY;
+  const SECRET_ACCESS_KEY = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY;
+  const REGION = process.env.REACT_APP_AWS_REGION;
+  const S3_BUCKET = process.env.REACT_APP_AWS_BUCKET;
+
   useBeforeunload((event) => event.preventDefault());
 
   // 뒤로가기 했을 때
@@ -32,9 +41,8 @@ const InterviewPage = () => {
     try {
       if (!recorder) {
         const mediaRecorder = await beginRecord(
-          (stream) =>
-            playStream(videoRef.current, stream),
-          (recordedBlobs) => setData(recordedBlobs),
+          (stream) => playStream(videoRef.current, stream),
+          (recordedBlobs) => setData(recordedBlobs)
         );
         setRecorder(mediaRecorder);
       } else {
@@ -118,43 +126,113 @@ const InterviewPage = () => {
     };
   };
 
+  //여기부턴 S3 업로드를 구성하는 함수입니다.
+  AWS.config.update({
+    accessKeyId: ACCESS_KEY,
+    secretAccessKey: SECRET_ACCESS_KEY,
+  });
+
+  const myBucket = new AWS.S3({
+    params: { Bucket: S3_BUCKET },
+    region: REGION,
+  });
+
+  const handleFileInput = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+
+    const fileExt = file.name.split(".").pop();
+    setRealFileExt(fileExt);
+    if (file.type !== "video/webm" || fileExt !== "webm") {
+      alert("Webm 확장자의 동영상 파일만 Upload 가능합니다.");
+      return;
+    }
+    setSelectedFile(e.target.files[0]);
+    console.log(typeof e.target.files[0]);
+  };
+
+  const uploadFile = (file) => {
+    const fileExt = file.name.split(".").pop();
+    let today = new Date();
+    let year = today.getFullYear(); // 년도
+    let month = today.getMonth() + 1; // 월
+    let date = today.getDate(); // 날짜
+    let hours = today.getHours(); // 시
+    let minutes = today.getMinutes(); // 분
+    let seconds = today.getSeconds(); // 초
+    let milliseconds = today.getMilliseconds(); // 밀리초
+    let finalFileName =
+      year +
+      ":" +
+      month +
+      ":" +
+      date +
+      ":" +
+      hours +
+      ":" +
+      minutes +
+      ":" +
+      seconds +
+      ":" +
+      milliseconds +
+      "." +
+      fileExt;
+
+    const params = {
+      ACL: "public-read",
+      Body: file,
+      Bucket: S3_BUCKET,
+      Key: "upload/" + finalFileName,
+    };
+
+    myBucket
+      .putObject(params)
+      .on("httpUploadProgress", (evt) => {
+        setTimeout(() => {
+          setSelectedFile(null);
+        }, 3000);
+      })
+      .send((err) => {
+        if (err) console.log(err);
+      });
+
+    const encodeFileName = encodeURIComponent(finalFileName);
+    const url =
+      "https://epowe-bucket.s3.ap-northeast-2.amazonaws.com/upload/" +
+      encodeFileName;
+    console.log(url);
+  };
+
   return (
-  <>
-    <Header />
-    <BodyContainer>
-      <Container>
-        <Question>
-          질문{current + 1} {questions.at(current).question}
-        </Question>
-        <Video>
-          <div>
-            <video
-              ref={videoRef}
-              autoPlay
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-              muted
-            />
-          </div>
-        </Video>
-        <Button
-          id="record"
-          onClick={beginOrStopRecording}
-          disabled={done}
-        >
-          {recorder ? '답변 그만하기' : '답변 시작하기'}
-        </Button>
-        <Button
-          disabled={!recorded}
-          onClick={handleNext}
-        >
-          {isNext ? "다음" : "면접 끝내기"}
-        </Button>
-      </Container>
-    </BodyContainer>
-  </>
+    <>
+      <Header />
+      <BodyContainer>
+        <Container>
+          <Question>
+            질문{current + 1} {questions.at(current).question}
+          </Question>
+          <Video>
+            <div>
+              <video
+                ref={videoRef}
+                autoPlay
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+                muted
+              />
+            </div>
+          </Video>
+          <ButtonM id="record" onClick={beginOrStopRecording} disabled={done}>
+            {recorder ? "답변 그만하기" : "답변 시작하기"}
+          </ButtonM>
+          <ButtonM disabled={!recorded} onClick={handleNext}>
+            {isNext ? "다음" : "면접 끝내기"}
+          </ButtonM>
+        </Container>
+      </BodyContainer>
+    </>
   );
 };
 
@@ -189,7 +267,7 @@ const Question = styled.div`
   padding: 2rem;
 `;
 
-const Button = styled.button`
+const ButtonM = styled.button`
   box-sizing: border-box;
   position: sticky;
   top: 100%;
@@ -218,4 +296,4 @@ const Video = styled.div`
   width: 640px;
 `;
 
-export default InterviewPage
+export default InterviewPage;
