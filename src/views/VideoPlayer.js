@@ -7,8 +7,8 @@ const VideoPlayer = ({ playerRef, url }) => {
       <ReactPlayer 
         ref={playerRef}
         url={url}
-        playing={true}
-        muted={true}
+        playing={false}
+        muted={false}
         controls={true}
         width="100%"
         height="100%"
