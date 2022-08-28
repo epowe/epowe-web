@@ -56,11 +56,13 @@ export const beginRecord = async (onStreamReady, onFinished) => {
     }
   };
   mediaRecorder.onstop = () => {
+    clearTimeout(timeout);
     onFinished(recordedBlobs);
     stopMediaStream(stream);
   };
 
   mediaRecorder.start();
+  let timeout = setTimeout(() => mediaRecorder.stop(), 300000);
 
   return mediaRecorder;
 };

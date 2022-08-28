@@ -33,11 +33,18 @@ const InterviewPage = () => {
         );
         setRecorder(mediaRecorder);
       } else {
-        recorder.stop();
-        stopPlaying(videoRef.current);
-        setRecorder(undefined);
-        setRecorded(true);
-        setDone(true);
+        if (recorder.state === 'inactive') {
+          stopPlaying(videoRef.current);
+          setRecorder(undefined);
+          setRecorded(true);
+          setDone(true);
+        } else {
+          recorder.stop();
+          stopPlaying(videoRef.current);
+          setRecorder(undefined);
+          setRecorded(true);
+          setDone(true);
+        }
       }
     } catch (err) {
       if (err.toString().includes("Permission denied")) {
