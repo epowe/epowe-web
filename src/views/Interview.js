@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header.js";
-import { API } from "../API.js";
 
 const Interview = () => {
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ const Interview = () => {
 
   return (
     <>
-      <Header isLogin="true" />
+      <Header />
       <BodyContainer>
         <ButtonContainer>
           <Button onClick={onClickStart}>모의면접 시작하기</Button>

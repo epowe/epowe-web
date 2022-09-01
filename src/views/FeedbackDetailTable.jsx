@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import FeedbackDetailData from "./FeedbackDetailData";
-import { API } from "../API";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
-const FeedbackDetailTable = ({ handleClick }) => {
-  const column = Object.keys(FeedbackDetailData[0]);
+const FeedbackDetailTable = ({ handleClick, detailData }) => {
+  const [column, setColumn] = useState([]);
+  const navigate = useNavigate();
 
   const ThData = () => {
     return (
@@ -15,21 +15,11 @@ const FeedbackDetailTable = ({ handleClick }) => {
     );
   };
 
-  const getUserInterviewDetail = async ({ question, title }) => {
-    var result = await API.getUserInterviewDetail({
-      question: question,
-      title: title,
-    });
-    if (result) {
-      console.log("flask get 성공");
-      console.log(result);
-    } else {
-      console.log("Flask get 실패");
-    }
-  };
-
   const tdData = () => {
-    return FeedbackDetailData.map((data) => {
+    if (detailData === undefined) {
+      return;
+    }
+    return detailData.map((data) => {
       return (
         <tr>
           {column.map((v) => {
@@ -55,10 +45,12 @@ const FeedbackDetailTable = ({ handleClick }) => {
   };
 
   useEffect(() => {
-    getUserInterviewDetail({
-      title: "카카오 면접 준비",
-      question: "자기소개",
-    });
+    console.log(detailData);
+    if (detailData !== undefined) {
+      setColumn(Object.keys(detailData[0]));
+    } else {
+      navigate(-1);
+    } 
   }, []);
 
   return (

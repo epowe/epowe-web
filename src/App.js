@@ -3,11 +3,7 @@ import React, { useEffect, useState } from "react";
 import LoginPage from "./views/LoginPage.jsx";
 import Interview from "./views/Interview";
 import Register from "./views/Register.jsx";
-import {
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import InterviewInfo from "./views/InterviewInfo.jsx";
 import Feedback from "./views/Feedback";
 import MyFeedback from "./views/MyFeedback";
@@ -24,7 +20,7 @@ import {
 } from "./Auth";
 import { QueryClient, QueryClientProvider } from "react-query";
 import AppContext from "./AppContext";
-import InterviewPage from './views/InterviewPage.jsx';
+import InterviewPage from "./views/InterviewPage.jsx";
 
 const queryClient = new QueryClient();
 
@@ -115,6 +111,7 @@ const App = () => {
       accessToken: accessToken,
       refreshToken: refreshToken,
     });
+
     if (result) {
       console.log("서버에 만료된 토큰 전송 완료.");
       console.log(result);
@@ -211,5 +208,5 @@ const App = () => {
     </QueryClientProvider>
   );
 };
-//테스트
+
 export default App;

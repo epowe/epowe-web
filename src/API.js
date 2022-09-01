@@ -160,8 +160,8 @@ export const API = {
       );
       if (response.status === 200) {
         console.log("유저의 면접 정보가 정상적으로 제출되었습니다.");
-        console.log(response.data);
-        return response.data;
+        console.log(response);
+        return response;
       } else {
         console.log("유저의 면접 정보가 정상적으로 제출되지 못하였습니다");
         console.log(response);
@@ -198,10 +198,10 @@ export const API = {
   },
 
   //유저의 특정 면접에서 질문 목록을 가져오는 API
-  getUserQuestionList: async ({ question }) => {
+  getUserQuestionList: async ({ title }) => {
     try {
       const response = await axios.get(
-        `/model/data/list/question?title=${question}`,
+        `/model/data/list/question?title=${title}`,
         {
           headers: {
             Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWR4IjozLCJleHAiOjE2NjQ0ODY0NzF9.6JGknDtNSzjpO0OUNiJgA8FyKstYipX-yun70svqmKE`,
@@ -210,12 +210,12 @@ export const API = {
         }
       );
       if (response.status === 200) {
-        console.log(`유저의 ${question} 면접에 대한 질문 리스트를 받았습니다.`);
+        console.log(`유저의 ${title} 면접에 대한 질문 리스트를 받았습니다.`);
         console.log(response.data);
         return response.data;
       } else {
         console.log(
-          `유저의 ${question}면접에 대한 질문 리스트를 받지 못했습니다.`
+          `유저의 ${title}면접에 대한 질문 리스트를 받지 못했습니다.`
         );
         console.log(response);
         return false;
@@ -225,6 +225,7 @@ export const API = {
     }
     return false;
   },
+
   //전체 피드백 평균 점수 데이터 가져오는 API
   getUserAverageScore: async () => {
     try {
@@ -250,7 +251,7 @@ export const API = {
   },
 
   //유저 질문별 상세 분석 데이터 가져오는 API
-  getUserInterviewDetail: async ({ question, title }) => {
+  getUserInterviewDetail: async ({ title, question }) => {
     try {
       const response = await axios.get(
         `/model/data/detail?title=${title}&question=${question}`,

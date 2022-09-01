@@ -53,13 +53,13 @@ const InterviewInfo = () => {
       notify("면접 질문을 입력해주세요");
     } else {
       // 면접 페이지로 이동
-      navigate('/interview/ing', {state: {title, questions}});
+      navigate("/interview/ing", { state: { title, questions } });
     }
   };
 
   return (
     <>
-      <Header isLogin="true" />
+      <Header />
       <BodyContainer>
         <Container>
           <Title>모의면접 정보 입력</Title>
