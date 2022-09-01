@@ -32,10 +32,11 @@ const QuestionList = () => {
         <Title>{`${title} > 질문 목록`}</Title>
         <Container>
           <QuestionContainer>
-            {questions.map((question) => {
+            {questions.map((question, index) => {
               return (
                 <Question
-                  onClick={() => navigate("/feedback/list/questions/detail", {state: {title, question}})}
+                  key={index}
+                  onClick={() => navigate("/feedback/list/questions/detail", {state: {index, title, question}})}
                 >
                   {question}
                 </Question>
