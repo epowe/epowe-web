@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext, useState } from "react";
+import React, { useRef, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header.js";
@@ -11,7 +11,7 @@ import {
 
 import AppContext from "../AppContext";
 import toast, { Toaster } from "react-hot-toast";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -108,9 +108,9 @@ const Register = () => {
           <p id="text" style={{display: 'none', fontSize: '0.8rem', color: '#6c63ff'}}>회원가입을 진행하려면 동의해주세요.</p>
           <label>
             <input id="checkBox" type="checkbox" onClick={onCheck} style={{marginRight: '0.5rem'}}/>
-            <font style={{fontSize: '0.8rem'}}>본인은 <a onClick={handleShow} style={{color: '#6c63ff', textDecoration: 'underline', cursor: 'pointer'}} data-toggle="modal" data-target="#exampleModal">개인정보처리방침</a>을 읽었으며 이에 동의합니다.</font>
+            <font style={{fontSize: '0.8rem'}}>본인은 <button onClick={handleShow} style={{border: '0', color: '#6c63ff', background: 'none', padding: '0', textDecoration: 'underline', cursor: 'pointer'}} data-toggle="modal" data-target="#exampleModal">개인정보처리방침</button>을 읽었으며 이에 동의합니다.</font>
           </label>
-          <Button_ onClick={onRegister}>회원가입하기</Button_>
+          <Button onClick={onRegister}>회원가입하기</Button>
           <Modal size="lg" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>개인정보처리방침</Modal.Title>
@@ -193,7 +193,7 @@ const Title = styled.div`
   margin: 0;
 `;
 
-const Button_ = styled.button`
+const Button = styled.button`
   box-sizing: border-box;
   background: #6c63ff;
   color: white;
