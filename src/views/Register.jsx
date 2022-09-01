@@ -92,7 +92,7 @@ const Register = () => {
             <font style={{fontSize: '0.8rem'}}>본인은 <button onClick={handleShow} style={{border: '0', color: '#6c63ff', background: 'none', padding: '0', textDecoration: 'underline', cursor: 'pointer'}} data-toggle="modal" data-target="#exampleModal">개인정보처리방침</button>을 읽었으며 이에 동의합니다.</font>
           </label>
           <Button onClick={onRegister}>회원가입하기</Button>
-          <Modal size="lg" show={show} onHide={handleClose}>
+          <Modal scrollable={true} size="lg" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>개인정보처리방침</Modal.Title>
             </Modal.Header>
