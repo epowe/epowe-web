@@ -51,7 +51,7 @@ const FeedbackDetail = () => {
             <VideoPlayer playerRef={playerRef} url={url}/>
           </VideoContainer>
           <TableContainer>
-            <FeedbackDetailTable handleClick={handleClick} detailData={detail.detail}/>
+            <FeedbackDetailTable handleClick={handleClick} detailData={detail}/>
           </TableContainer>
         <SmallButton onClick={()=>navigate(-1)}>질문 목록</SmallButton>
         </Container>

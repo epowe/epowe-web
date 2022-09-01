@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
 
 const FeedbackDetailTable = ({ handleClick, detailData }) => {
-  const [column, setColumn] = useState([]);
-  const navigate = useNavigate();
 
   const ThData = () => {
     return (
@@ -16,29 +13,22 @@ const FeedbackDetailTable = ({ handleClick, detailData }) => {
   };
 
   const tdData = () => {
-    if (detailData === undefined) {
-      return;
-    }
     return detailData.map((data) => {
       return (
         <tr>
-          {column.map((v) => {
-            if (v === "time")
-              return (
-                <td value={data[v]} onClick={() => handleClick(data[v])}>
-                  <div
-                    style={{
-                      textDecoration: "underline",
-                      cursor: "pointer",
-                      color: "#6c63ff",
-                    }}
-                  >
-                    {data[v]}
-                  </div>
-                </td>
-              );
-            return <td>{data[v]}</td>;
-          })}
+          <td value={data["dialectTime"]} onClick={() => handleClick(data["dialectTime"])}>
+            <div
+              style={{
+                textDecoration: "underline",
+                cursor: "pointer",
+                color: "#6c63ff",
+              }}
+            >
+              {data["dialectTime"]}
+            </div>
+          </td>
+          <td>{data["dialectString"]}</td>
+          <td>{data["feedback"]}</td>
         </tr>
       );
     });
@@ -46,11 +36,6 @@ const FeedbackDetailTable = ({ handleClick, detailData }) => {
 
   useEffect(() => {
     console.log(detailData);
-    if (detailData !== undefined) {
-      setColumn(Object.keys(detailData[0]));
-    } else {
-      navigate(-1);
-    } 
   }, []);
 
   return (
