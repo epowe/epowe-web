@@ -18,9 +18,11 @@ const FeedbackTable = () => {
   };
 
   const tdData = () => {
-    return tableData.map((data) => {
+    return tableData.map((data, index) => {
       return (
-        <tr>
+        <tr
+          key={index}
+        >
           <td>
             <Link
               to="/feedback/list/questions"
