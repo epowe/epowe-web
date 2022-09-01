@@ -1,7 +1,8 @@
-import { useNavigate } from "react-router-dom";
+// eslint-disable-next-line
 import React, { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { API } from "./API";
-import { setRefreshTokenToCookie, getCookieToken } from "./Auth";
+import { setRefreshTokenToCookie } from "./Auth";
 import AppContext from "./AppContext";
 
 export const TokenProcess = () => {

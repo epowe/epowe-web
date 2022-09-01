@@ -3,11 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header.js";
 import { API } from "../API";
-import {
-  removeCookieToken,
-  getCookieToken,
-  setRefreshTokenToCookie,
-} from "../Auth";
+import { getCookieToken } from "../Auth";
 
 import AppContext from "../AppContext";
 import toast, { Toaster } from "react-hot-toast";
@@ -51,17 +47,6 @@ const Register = () => {
     }
   };
 
-  //클라이언트 API를 통해 유저의 정보를 가져오는 단계 입니다.
-  // const getUserInfo = async () => {
-  //   var result = await API.authAfterLogin();
-  //   if (result) {
-  //     myContext.setUserEmail(result.email);
-  //     setUserProfile(result.picture);
-  //     setUserName(result.username);
-  //   } else {
-  //     console.log("사용자 데이터 잘 들어오지 않음");
-  //   }
-
   //회원가입하기 버튼 클릭시 클라이언트 API를 사용해서 백엔드로 데이터 옮기기
   const giveAddress = async () => {
     var result = await API.userPostAddress({
@@ -85,10 +70,6 @@ const Register = () => {
       text.style.display = "block";
     }
   };
-
-  // useEffect(() => {
-  //   getUserInfo();
-  // }, []);
 
   return (
     <>
