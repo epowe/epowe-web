@@ -22,21 +22,19 @@ const FeedbackTable = () => {
     return tableData.map((data) => {
       return (
         <tr>
-          {column.map((v) => {
-            if (v === "title")
-              return (
-                <td>
-                  <Link
-                    to="/feedback/list/questions"
-                    state={{ title: data.title }}
-                    style={{ color: "#6c63ff" }}
-                  >
-                    {data[v]}
-                  </Link>
-                </td>
-              );
-            return <td>{data[v]}</td>;
-          })}
+          <td>
+            <Link
+              to="/feedback/list/questions"
+              state={{ title: data.title }}
+              style={{ color: "#6c63ff" }}
+            >
+              {data["title"]}
+            </Link>
+          </td>
+          <td>{data["intonation"]}</td>
+          <td>{data["speechRate"]}</td>
+          <td>{data["word"]}</td>
+          <td>{data["dialectCount"]}</td>
         </tr>
       );
     });
