@@ -11,6 +11,7 @@ const FeedbackDetail = () => {
   const playerRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
+  const index = location.state.index;
   const title = location.state.title;
   const question = location.state.question;
   const [detail, setDetail] = useState([]);
@@ -44,7 +45,7 @@ const FeedbackDetail = () => {
       <BodyContainer>
       <Title>{`${title} > 상세 피드백 보기`}
         <br/>
-        <Question>{`질문 ) ${question}`}</Question>
+        <Question>{`질문${index+1} ${question}`}</Question>
       </Title>
         <Container>
           <VideoContainer>
