@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { API } from "../API";
 const FeedbackTable = () => {
   const [tableData, setTableData] = useState([]);
-  const [column, setColumn] = useState([]);
 
   const ThData = () => {
     return (
@@ -46,7 +45,6 @@ const FeedbackTable = () => {
       console.log("flask get 성공");
       console.log(result.feedbackList);
       setTableData(result.feedbackList);
-      setColumn(Object.keys(result.feedbackList[0]));
     } else {
       console.log("Flask get 실패");
     }
