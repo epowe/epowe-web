@@ -62,8 +62,9 @@ const InterviewPage = () => {
 
   useEffect(() => {
       if (!isNext) {
-        let sendQuestionData = [];
-        sendQuestionData.push(questions.map((a) => a.question));
+        let questionData = [];
+        questionData.push(questions.map((a) => a.question));
+        let sendQuestionData = questionData[0];
         console.log(sendQuestionData);
         console.log(urls);
         // 면접 정보 서버로 보내는 부분
