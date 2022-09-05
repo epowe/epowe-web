@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import LoginPage from "./views/LoginPage.jsx";
-import Interview from "./views/Interview";
+import Interview from "./views/Interview.jsx";
 import Register from "./views/Register.jsx";
 import { Route, Routes, Navigate } from "react-router-dom";
 import InterviewInfo from "./views/InterviewInfo.jsx";
