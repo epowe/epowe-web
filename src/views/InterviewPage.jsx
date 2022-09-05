@@ -72,9 +72,12 @@ const InterviewPage = () => {
           title: title,
           question: sendQuestionData,
           videoURL: urls,
-        });
-      // 피드백 페이지로 이동
-        navigate("/interview/feedback", {state: {title}});
+        }).then((result) => {
+          // 페이지 이동
+          if (result.status === 200) {
+            navigate("/interview/feedback", {state: {title}});
+          }
+        })
       }
   }, [sendable]);
 
@@ -96,9 +99,11 @@ const InterviewPage = () => {
 
     if (result) {
       console.log("flask에 유저의 면접 정보 보내기 완료");
+      return result;
     } else {
       console.log("flask에 유저의 면접 정보 보내기 실패");
       console.log(result);
+      return result;
     }
   };
 
