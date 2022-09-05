@@ -45,7 +45,7 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button`
   box-sizing: border-box;
-  background: #6c63ff;
+  background: #6754cb;
   color: white;
   width: 100%;
   padding: 0.8rem;

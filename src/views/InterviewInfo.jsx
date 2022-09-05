@@ -170,7 +170,7 @@ const Button = styled.button`
   box-sizing: border-box;
   position: sticky;
   top: 100%;
-  background: #6c63ff;
+  background: #6754cb;
   color: white;
   width: 90%;
   padding: 0.8rem;

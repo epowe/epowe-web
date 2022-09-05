@@ -101,7 +101,7 @@ const HeaderLogo = styled.div`
   font-family: Montserrat-Bold;
   display: inline-block;
   font-size: 1.4rem;
-  color: #6c63ff;
+  color: #6754cb;
   cursor: pointer;
 `;
 
@@ -114,7 +114,7 @@ const SmallButton = styled.button`
   border: none;
   border-radius: 50px;
   color: #ffffff;
-  background: #6c63ff;
+  background: #6754cb;
   height: 2rem;
   width: 5rem;
   font-family: SCDream-Regular;

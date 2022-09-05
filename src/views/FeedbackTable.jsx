@@ -27,7 +27,7 @@ const FeedbackTable = () => {
             <Link
               to="/feedback/list/questions"
               state={{ title: data.title }}
-              style={{ color: "#6c63ff" }}
+              style={{ color: "#6754cb" }}
             >
               {data["title"]}
             </Link>

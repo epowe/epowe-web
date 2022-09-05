@@ -21,7 +21,7 @@ const FeedbackDetailTable = ({ handleClick, detailData }) => {
               style={{
                 textDecoration: "underline",
                 cursor: "pointer",
-                color: "#6c63ff",
+                color: "#6754cb",
               }}
             >
               {data["dialectTime"]}

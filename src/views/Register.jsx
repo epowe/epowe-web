@@ -86,10 +86,10 @@ const Register = () => {
           </ProfileContainer>
           <Input ref={addressRef} placeholder="사는 지역을 입력해주세요" />
           <br />
-          <p id="text" style={{display: 'none', fontSize: '0.8rem', color: '#6c63ff'}}>회원가입을 진행하려면 동의해주세요.</p>
+          <p id="text" style={{display: 'none', fontSize: '0.8rem', color: '#6754cb'}}>회원가입을 진행하려면 동의해주세요.</p>
           <label>
             <input id="checkBox" type="checkbox" onClick={onCheck} style={{marginRight: '0.5rem'}}/>
-            <font style={{fontSize: '0.8rem'}}>본인은 <button onClick={handleShow} style={{border: '0', color: '#6c63ff', background: 'none', padding: '0', textDecoration: 'underline', cursor: 'pointer'}} data-toggle="modal" data-target="#exampleModal">개인정보처리방침</button>을 읽었으며 이에 동의합니다.</font>
+            <font style={{fontSize: '0.8rem'}}>본인은 <button onClick={handleShow} style={{border: '0', color: '#6754cb', background: 'none', padding: '0', textDecoration: 'underline', cursor: 'pointer'}} data-toggle="modal" data-target="#exampleModal">개인정보처리방침</button>을 읽었으며 이에 동의합니다.</font>
           </label>
           <Button onClick={onRegister}>회원가입하기</Button>
           <Modal scrollable={true} size="lg" show={show} onHide={handleClose}>
@@ -176,7 +176,7 @@ const Title = styled.div`
 
 const Button = styled.button`
   box-sizing: border-box;
-  background: #6c63ff;
+  background: #6754cb;
   color: white;
   width: 90%;
   padding: 0.8rem;
@@ -196,7 +196,7 @@ const Button = styled.button`
 
 const Input = styled.input`
   box-sizing: border-box;
-  border: #6c63ff 0.125rem solid;
+  border: #6754cb 0.125rem solid;
   outline: none;
   width: 90%;
   height: 50px;

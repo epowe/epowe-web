@@ -140,7 +140,7 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button`
   box-sizing: border-box;
-  background: #6C63FF;
+  background: #6754cb;
   color: white;
   width: 18rem;
   padding: 0.8rem;
