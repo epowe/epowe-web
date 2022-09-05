@@ -24,7 +24,7 @@ const FeedbackDetail = () => {
   };
 
   const getUserFeedbackDetail = async ({title, question}) => {
-    var result = await API.getUserInterviewDetail(title, question);
+    var result = await API.getUserInterviewDetail({title, question});
     if (result) {
       console.log("flask get 성공");
       console.log(result);
