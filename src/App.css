@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: "Pretendard";
-  src: url("./fonts/PretendardVariable.ttf");
+  src: url("./fonts/PretendardVariable.woff2") format("woff2");
 }
 
 /* S3 업로드 테스트 부분 */
