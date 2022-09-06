@@ -160,7 +160,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 1.5rem;
   text-align: center;
   margin: 1.5rem;
@@ -177,7 +177,7 @@ const Button = styled.button`
   margin-top: 1rem;
   border: none;
   border-radius: 50px;
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 1rem;
   cursor: pointer;
   text-align: center;

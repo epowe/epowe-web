@@ -190,7 +190,7 @@ const Container = styled.div`
 
 const Question = styled.div`
   width: 600px;
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 1.2rem;
   text-align: start;
   padding: 2rem;
@@ -207,7 +207,7 @@ const ButtonM = styled.button`
   margin-top: 1rem;
   border: none;
   border-radius: 50px;
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 1rem;
   cursor: pointer;
   text-align: center;

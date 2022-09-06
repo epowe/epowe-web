@@ -52,7 +52,7 @@ const Button = styled.button`
   margin: 1vh 0;
   border: none;
   border-radius: 50px;
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 1rem;
   cursor: pointer;
   text-align: center;

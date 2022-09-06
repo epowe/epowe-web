@@ -36,7 +36,7 @@ const BodyContainer = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 1.5rem;
   text-align: center;
   margin: 1.5rem;

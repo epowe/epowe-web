@@ -106,7 +106,7 @@ const NaverLogin = styled.div`
   border-radius: 10px;
   color: lightgray;
   background: #01be31;
-  font-family: SCDream-Light;
+  font-family: Pretendard;
 `;
 const GoogleLogin = styled.div`
   margin-top: 25px;
@@ -115,7 +115,7 @@ const GoogleLogin = styled.div`
   border: 1px solid;
   border-radius: 10px;
   color: lightgray;
-  font-family: SCDream-Light;
+  font-family: Pretendard;
 `;
 
 const ButtonContainer = styled.div`
@@ -142,7 +142,7 @@ const TitleContainer = styled.div`
   flex-direction: column;
 `;
 const TitleText = styled.div`
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 44px;
   position: relative;
 `;

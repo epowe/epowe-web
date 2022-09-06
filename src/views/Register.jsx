@@ -151,7 +151,7 @@ const ProfileContainer = styled.div`
 
 const Span = styled.span`
   margin-top: 1rem;
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
 `;
 
 const Image = styled.img`
@@ -168,7 +168,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 1.5rem;
   text-align: center;
   margin: 0;
@@ -184,7 +184,7 @@ const Button = styled.button`
   outline: none;
   border: 0;
   border-radius: 50px;
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
