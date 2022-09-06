@@ -45,7 +45,7 @@ const MyFeedback = () => {
         <Title>전체 피드백 평균 점수</Title>
         <Container>
           <FeedbackPurple>
-            <span>사투리 사용 평균 횟수</span>
+            <span>사투리 사용<br/>평균 횟수</span>
             <span>{dialectCountAvg}번</span>
           </FeedbackPurple>
           <Feedback>
