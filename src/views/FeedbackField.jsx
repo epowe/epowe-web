@@ -1,20 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 
-function FeedbackField({ count, speed, word, accent }) {
+function FeedbackField({ dialectCount, speechRate, word, intonation }) {
   return (
     <>
       <div className="row text-center">
         <div className="col mt-2">
           <Container>
             <span>사투리 사용 횟수</span>
-            <span>{count}회</span>
+            <span>{dialectCount}회</span>
           </Container>
         </div>
         <div className="col mt-2">
           <Container>
             <span>말의 빠르기</span>
-            <span>{speed}점</span>
+            <span>{speechRate}점</span>
           </Container>
         </div>
         <div className="w-100"></div>
@@ -27,7 +27,7 @@ function FeedbackField({ count, speed, word, accent }) {
         <div className="col mt-2">
           <Container>
             <span>억양</span>
-            <span>{accent}점</span>
+            <span>{intonation}점</span>
           </Container>
         </div>
       </div>
