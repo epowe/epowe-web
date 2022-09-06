@@ -37,7 +37,7 @@ const Feedback = () => {
         <Title>모의면접 평가 점수</Title>
         <FeedbackField {...feedback} />
         <ButtonContainer>
-          <Button onClick={() => navigate("/feedback/list/questions")}>
+          <Button onClick={() => navigate("/feedback/list/questions", {state: {title}})}>
             상세 피드백 보기
           </Button>
           <Button onClick={onClickHome}>홈으로</Button>
