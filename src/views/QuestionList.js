@@ -68,7 +68,7 @@ const Title = styled.div`
   position: fixed;
   top: 5rem;
   left: 12rem;
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 1.2rem;
   text-align: start;
   margin: 1.5rem;
@@ -93,7 +93,7 @@ const Question = styled.div`
   cursor: pointer;
   margin: 0.5rem;
   &:hover {
-    font-family: SCDream-Regular;
+    font-family: Pretendard;
     transition: 0.3s ease-in;
   }
 `;

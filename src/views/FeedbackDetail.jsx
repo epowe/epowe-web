@@ -75,7 +75,7 @@ const Title = styled.div`
   position: fixed;
   top: 5rem;
   left: 12rem;
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 1.2rem;
   text-align: start;
   margin: 1rem;
@@ -105,7 +105,7 @@ const VideoContainer = styled.div`
 
 const Question = styled.div`
   width: 100%;
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 1.5rem;
   text-align: start;
   margin: 1rem;

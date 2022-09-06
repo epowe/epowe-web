@@ -45,7 +45,7 @@ const MyFeedback = () => {
         <Title>전체 피드백 평균 점수</Title>
         <Container>
           <FeedbackPurple>
-            <span>사투리 사용 평균 횟수</span>
+            <span>사투리 사용<br/>평균 횟수</span>
             <span>{dialectCountAvg}번</span>
           </FeedbackPurple>
           <Feedback>
@@ -86,7 +86,8 @@ const BodyContainer = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
+  font-weight: bold;
   font-size: 1.5rem;
   text-align: center;
   margin: 0 0 1.5rem 0;
@@ -94,7 +95,7 @@ const Title = styled.div`
 
 const Text = styled.div`
   width: 100%;
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 1.2rem;
   text-align: start;
   padding: 0 12rem;
@@ -147,7 +148,7 @@ const Button = styled.button`
   margin: 0.3rem 0;
   border: none;
   border-radius: 50px;
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 0.8rem;
   cursor: pointer;
   text-align: center;

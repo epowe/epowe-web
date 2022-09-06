@@ -1,30 +1,16 @@
 * {
-  font-family: SCDream-Light;
+  font-family: Pretendard;
 }
+
 /* 폰트 설정 */
 @font-face {
   font-family: "Montserrat-Bold";
   src: url("./fonts/Montserrat-Bold.ttf");
 }
+
 @font-face {
-  font-family: "SCDream-Bold";
-  src: url("./fonts/SCDream9.otf");
-}
-@font-face {
-  font-family: "SCDream-SemiBold";
-  src: url("./fonts/SCDream7.otf");
-}
-@font-face {
-  font-family: "SCDream-Regular";
-  src: url("./fonts/SCDream5.otf");
-}
-@font-face {
-  font-family: "SCDream-Light";
-  src: url("./fonts/SCDream3.otf");
-}
-@font-face {
-  font-family: "SCDream-Thin";
-  src: url("./fonts/SCDream1.otf");
+  font-family: "Pretendard";
+  src: url("./fonts/PretendardVariable.ttf");
 }
 
 /* S3 업로드 테스트 부분 */

@@ -117,7 +117,7 @@ const SmallButton = styled.button`
   background: #6754cb;
   height: 2rem;
   width: 5rem;
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 0.7rem;
   padding: 0.5rem;
   &:hover {
@@ -142,7 +142,7 @@ const Image = styled.img`
 `;
 
 const Span = styled.span`
-  font-family: SCDream-Regular;
+  font-family: Pretendard;
   font-size: 0.8rem;
 `;
 
