@@ -42,7 +42,7 @@ const FeedbackTable = () => {
   };
 
   const getUserFeedbackTable = async () => {
-    var result = await API.getUserInterviewList();
+    let result = await API.getUserInterviewList();
     if (result) {
       console.log("flask get 성공");
       console.log(result.feedbackList);

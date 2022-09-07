@@ -12,7 +12,7 @@ const QuestionList = () => {
   const [questions, setQuestions] = useState([]);
 
   const getUserQuestionList = async ({ title }) => {
-    var result = await API.getUserQuestionList({ title });
+    let result = await API.getUserQuestionList({ title });
     if (result) {
       console.log("flask get 성공");
       setQuestions(result.questions);

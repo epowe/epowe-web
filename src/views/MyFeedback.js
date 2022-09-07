@@ -20,7 +20,7 @@ const MyFeedback = () => {
     ).reduce((a, v) => (v[1] >= a[1] ? v : a), [null, 0])[0];
 
   const getUserFeedbackAvg = async () => {
-    var result = await API.getUserAverageScore();
+    let result = await API.getUserAverageScore();
     if (result) {
       console.log("flask get 성공");
       console.log(result);

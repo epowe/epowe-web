@@ -16,7 +16,7 @@ const Feedback = () => {
   const [feedback, setFeedback] = useState({});
 
   const getUserFeedback = async ({ title }) => {
-    var result = await API.getOneUserInterviewData({ title });
+    let result = await API.getOneUserInterviewData({ title });
     if (result) {
       console.log("flask get 성공");
       console.log(result);

@@ -49,7 +49,7 @@ const Register = () => {
 
   //회원가입하기 버튼 클릭시 클라이언트 API를 사용해서 백엔드로 데이터 옮기기
   const giveAddress = async () => {
-    var result = await API.userPostAddress({
+    let result = await API.userPostAddress({
       address: addressRef.current.value,
     });
     if (result) {
