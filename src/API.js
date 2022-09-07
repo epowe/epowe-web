@@ -4,18 +4,17 @@ const BASE_URL = ApiBaseURL;
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = false;
+axios.defaults.headers = {
+  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  "Content-Type": "application/json",
+};
 
 export const API = {
   //로그인
   authAfterLogin: async () => {
     try {
       //응답 성공
-      const response = await axios.get("/auth/info", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.get("/auth/info");
       if (response.status === 200) {
         console.log("afterLogin api get 요청 성공");
         console.log(response.data);
@@ -35,10 +34,6 @@ export const API = {
     try {
       //응답 성공
       const response = await axios.get("/auth/refresh-token", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          "Content-Type": "application/json",
-        },
         withCreadentials: true,
       });
       if (response.status === 200) {
@@ -95,13 +90,7 @@ export const API = {
         `/auth/register`,
         JSON.stringify({
           address: address,
-        }),
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            "Content-Type": "application/json",
-          },
-        }
+        })
       );
       if (response.status === 200) {
         console.log("address를 서버에게 잘 전송하였습니다");
@@ -119,12 +108,7 @@ export const API = {
   //해당 면접 제목에 있는 단일 결과 데이터, 배열 행식 x, 하나의 질문에 있는 것들
   getOneUserInterviewData: async ({ title }) => {
     try {
-      const response = await axios.get(`/model/data/score?title=${title}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.get(`/model/data/score?title=${title}`);
       if (response.status === 200) {
         console.log("Flask에서 정상적으로 데이터를 받았습니다.");
         console.log(response.data);
@@ -150,13 +134,7 @@ export const API = {
           title: title,
           question: question,
           videoURL: videoURL,
-        }),
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            "Content-Type": "application/json",
-          },
-        }
+        })
       );
       if (response.status === 200) {
         console.log("유저의 면접 정보가 정상적으로 제출되었습니다.");
@@ -176,12 +154,7 @@ export const API = {
   //유저의 전체 피드백 목록을 배열 형식으로 가져오는 API
   getUserInterviewList: async () => {
     try {
-      const response = await axios.get(`/model/data/list`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.get(`/model/data/list`);
       if (response.status === 200) {
         console.log("유저의 전체 면접 데이터를 받았습니다.");
         console.log(response.data);
@@ -200,15 +173,7 @@ export const API = {
   //유저의 특정 면접에서 질문 목록을 가져오는 API
   getUserQuestionList: async ({ title }) => {
     try {
-      const response = await axios.get(
-        `/model/data/list/question?title=${title}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.get(`/model/data/list/question?title=${title}`);
       if (response.status === 200) {
         console.log(`유저의 ${title} 면접에 대한 질문 리스트를 받았습니다.`);
         console.log(response.data);
@@ -254,14 +219,7 @@ export const API = {
   getUserInterviewDetail: async ({ title, question }) => {
     try {
       const response = await axios.get(
-        `/model/data/detail?title=${title}&question=${question}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+        `/model/data/detail?title=${title}&question=${question}`);
       if (response.status === 200) {
         console.log("유저의 질문별 상세 데이터를 가져오는데 성공했습니다. ");
         console.log(response.data);
