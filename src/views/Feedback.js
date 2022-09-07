@@ -54,7 +54,7 @@ const BodyContainer = styled.div`
   right: 0;
   bottom: 0;
   width: 100vw;
-  height: 80vh;
+  height: calc(100vh-5rem);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -79,7 +79,7 @@ const Button = styled.button`
   box-sizing: border-box;
   background: #6754cb;
   color: white;
-  width: 100%;
+  width: 350px;
   padding: 0.8rem;
   margin-top: 1rem;
   border: none;

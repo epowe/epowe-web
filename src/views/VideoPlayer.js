@@ -11,7 +11,7 @@ const VideoPlayer = ({ playerRef, url }) => {
         muted={false}
         controls={true}
         width="100%"
-        height="100%"
+        height="auto"
       />
     </>
   )

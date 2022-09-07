@@ -128,7 +128,7 @@ const InterviewInfo = () => {
               </div>
             </div>
           </div>
-          <Button onClick={handleStart}>면접 시작</Button>
+          <Button onClick={handleStart}>면접 시작하기</Button>
           <Toaster containerStyle={{ top: "5.1rem" }} />
         </Container>
       </BodyContainer>
@@ -143,7 +143,7 @@ const BodyContainer = styled.div`
   right: 0;
   bottom: 0;
   width: 100vw;
-  height: 80vh;
+  height: calc(100vh-5rem);
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -156,23 +156,23 @@ const Container = styled.div`
   align-items: center;
   min-width: 30rem;
   width: 30%;
-  height: 90%;
+  height: 100%;
 `;
 
 const Title = styled.div`
   font-family: Pretendard;
   font-size: 1.5rem;
   text-align: center;
-  margin: 1.5rem;
+  margin: 2rem;
 `;
 
 const Button = styled.button`
   box-sizing: border-box;
-  position: sticky;
-  top: 100%;
+  position: fixed;
+  top: 90%;
   background: #6754cb;
   color: white;
-  width: 90%;
+  width: 350px;
   padding: 0.8rem;
   margin-top: 1rem;
   border: none;

@@ -140,25 +140,23 @@ const InterviewPage = () => {
           <Question>
             질문{current + 1} {questions.at(current).question}
           </Question>
-          <Video>
-            <div>
-              <video
-                ref={videoRef}
-                autoPlay
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-                muted
-              />
-            </div>
-          </Video>
-          <ButtonM id="record" onClick={beginOrStopRecording} disabled={done}>
+          <VideoContainer>
+            <video
+              ref={videoRef}
+              autoPlay
+              style={{
+                width: "auto",
+                height: "70vh",
+              }}
+              muted
+            />
+          </VideoContainer>
+          <Button id="record" onClick={beginOrStopRecording} disabled={done}>
             {recorder ? "답변 그만하기" : "답변 시작하기"}
-          </ButtonM>
-          <ButtonM disabled={!recorded} onClick={handleNext}>
+          </Button>
+          <Button disabled={!recorded} onClick={handleNext}>
             {isNext ? "다음" : "면접 끝내기"}
-          </ButtonM>
+          </Button>
         </Container>
       </BodyContainer>
     </>
@@ -172,7 +170,7 @@ const BodyContainer = styled.div`
   right: 0;
   bottom: 0;
   width: 100vw;
-  height: 80vh;
+  height: calc(100vh-5rem);
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -180,29 +178,30 @@ const BodyContainer = styled.div`
 `;
 
 const Container = styled.div`
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 30rem;
-  width: 30%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
 `;
 
 const Question = styled.div`
-  width: 600px;
+  width: 100%;
   font-family: Pretendard;
   font-size: 1.2rem;
   text-align: start;
   padding: 2rem;
+  padding-left: 12rem;
 `;
 
-const ButtonM = styled.button`
+const Button = styled.button`
   box-sizing: border-box;
-  position: sticky;
-  top: 100%;
+  position: fixed;
+  top: 90%;
   background: #6754cb;
   color: white;
-  width: 90%;
+  width: 350px; 
   padding: 0.8rem;
   margin-top: 1rem;
   border: none;
@@ -220,9 +219,9 @@ const ButtonM = styled.button`
   }
 `;
 
-const Video = styled.div`
-  min-height: 360px;
-  width: 640px;
+const VideoContainer = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 
 export default InterviewPage;

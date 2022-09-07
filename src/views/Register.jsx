@@ -75,7 +75,7 @@ const Register = () => {
     <>
       <Header />
       <BodyContainer>
-        <ButtonContainer>
+        <Container>
           <Title>회원가입</Title>
           <ProfileContainer>
             <Span>
@@ -122,7 +122,7 @@ const Register = () => {
             </Modal.Body>
           </Modal>
           <Toaster containerStyle={{ top: "5.1rem" }} />
-        </ButtonContainer>
+        </Container>
       </BodyContainer>
     </>
   );
@@ -135,7 +135,7 @@ const BodyContainer = styled.div`
   right: 0;
   bottom: 0;
   width: 100vw;
-  height: 80vh;
+  height: calc(100vh-5rem);
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -160,7 +160,7 @@ const Image = styled.img`
   border-radius: 50%;
 `;
 
-const ButtonContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

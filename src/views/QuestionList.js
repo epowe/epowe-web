@@ -57,7 +57,7 @@ const BodyContainer = styled.div`
   right: 0;
   bottom: 0;
   width: 100vw;
-  height: 80vh;
+  height: calc(100vh-5rem);
   display: flex;
   flex-direction: column;
   align-items: center;
