@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 const cookies = new Cookies();
 
 export function setRefreshTokenToCookie(refreshToken) {
-  var decoded = jwt_decode(refreshToken);
+  let decoded = jwt_decode(refreshToken);
   const expireDate = new Date(decoded.exp * 1000);
   console.log("리프레쉬 토큰의 만료일: " + expireDate);
   cookies.set("refreshToken", refreshToken, {

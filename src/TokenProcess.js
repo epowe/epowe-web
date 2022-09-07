@@ -26,7 +26,7 @@ export const TokenProcess = () => {
 
   //백에서 전달받은 데이터 중 주소 데이터의 유무를 판별하는 함수
   const getUserAddress = async () => {
-    var result = await API.authAfterLogin();
+    let result = await API.authAfterLogin();
     if (result) {
       if (result.address) {
         console.log(
@@ -45,7 +45,7 @@ export const TokenProcess = () => {
 
   //백에서 전달 받은 리프레쉬 토큰을 가져와서 쿠키에 저장하는 함수
   const bringRefreshToken = async () => {
-    var result = await API.getRefreshToken();
+    let result = await API.getRefreshToken();
     if (result) {
       if (result.refreshToken) {
         console.log("새로 받아온 리프레쉬 토큰은?:" + result.refreshToken);
@@ -60,7 +60,7 @@ export const TokenProcess = () => {
 
   //유저 정보 가져오는 함수
   const getUserInfo = async () => {
-    var result = await API.authAfterLogin();
+    let result = await API.authAfterLogin();
     if (result) {
       console.log("헤더에 사용자 데이터 잘 들어옴");
       myContext.setUserEmail(result.email);

@@ -60,8 +60,8 @@ const App = () => {
     //   console.log("로그인 페이지로 와서 localStorage와 쿠키 사라짐");
     // }
     //웹 내 cookie refresh token 확인
-    var accessToken = localStorage.getItem("accessToken");
-    var refreshToken = getCookieToken();
+    let accessToken = localStorage.getItem("accessToken");
+    let refreshToken = getCookieToken();
     console.log("리프레쉬 토큰은:???:", refreshToken);
     if (!accessToken) return;
     if (!isTokenExpired(accessToken)) {
@@ -93,7 +93,7 @@ const App = () => {
 
   //유저 정보 가져오는 함수
   const getUserInfo = async () => {
-    var result = await API.authAfterLogin();
+    let result = await API.authAfterLogin();
     if (result) {
       console.log("사용자 데이터 잘 들어옴");
       setUserEmail(result.email);
@@ -107,7 +107,7 @@ const App = () => {
   const getNewAccess = async ({ accessToken, refreshToken }) => {
     console.log("엑세스: " + accessToken);
     console.log("리프레쉬 : " + refreshToken);
-    var result = await API.getAccessUsingRefresh({
+    let result = await API.getAccessUsingRefresh({
       accessToken: accessToken,
       refreshToken: refreshToken,
     });
@@ -128,7 +128,7 @@ const App = () => {
   };
   // 토큰 만료일 계산해주는 함수
   const isTokenExpired = (token) => {
-    var decoded = jwt_decode(token);
+    let decoded = jwt_decode(token);
     if (decoded.exp * 1000 < Date.now()) {
       return true;
     } else {
