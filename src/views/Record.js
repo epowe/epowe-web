@@ -22,7 +22,7 @@ const initMediaStream = async () => {
       echoCancellation: { exact: true },
     },
     video: {
-      with: 1280,
+      width: 1280,
       height: 720,
     },
   };
