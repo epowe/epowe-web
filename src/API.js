@@ -9,6 +9,14 @@ axios.defaults.headers = {
   "Content-Type": "application/json",
 };
 
+// 요청 보내기 전 header에 토큰 갱신
+axios.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem("accessToken");
+  config.headers.Authorization = `Bearer ${accessToken}`;
+
+  return config;
+});
+
 export const API = {
   //로그인
   authAfterLogin: async () => {
