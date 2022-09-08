@@ -2,10 +2,8 @@ import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
 const BASE_URL = ApiBaseURL;
 
-const authInstance = axios.create({
-  baseURL: BASE_URL,
-  withCredentials: true,
-});
+axios.defaults.baseURL = BASE_URL;
+axios.defaults.withCredentials = false;
 
 export const modelInstance = axios.create({
   baseURL: BASE_URL,
@@ -17,7 +15,7 @@ export const API = {
   authAfterLogin: async () => {
     try {
       //응답 성공
-      const response = await authInstance.get("/auth/info", {
+      const response = await axios.get("/auth/info", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "application/json",
@@ -41,7 +39,7 @@ export const API = {
   getRefreshToken: async () => {
     try {
       //응답 성공
-      const response = await authInstance.get("/auth/refresh-token", {
+      const response = await axios.get("/auth/refresh-token", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "application/json",
@@ -65,7 +63,7 @@ export const API = {
   //(리프레쉬, 엑세스)토큰 재발급 api
   getAccessUsingRefresh: async ({ accessToken, refreshToken }) => {
     try {
-      const response = await authInstance.post(
+      const response = await axios.post(
         `/auth/reissue`,
         JSON.stringify({
           accessToken: accessToken,
@@ -98,7 +96,7 @@ export const API = {
   //유저의 주소 정보를 보내주는 api
   userPostAddress: async ({ address }) => {
     try {
-      const response = await authInstance.post(
+      const response = await axios.post(
         `/auth/register`,
         JSON.stringify({
           address: address,
