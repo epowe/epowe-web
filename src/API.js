@@ -2,15 +2,22 @@ import axios from "axios";
 import ApiBaseURL from "./ApiBaseURL";
 const BASE_URL = ApiBaseURL;
 
-axios.defaults.baseURL = BASE_URL;
-axios.defaults.withCredentials = false;
+const authInstance = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
+});
+
+export const modelInstance = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: false,
+});
 
 export const API = {
   //로그인
   authAfterLogin: async () => {
     try {
       //응답 성공
-      const response = await axios.get("/auth/info", {
+      const response = await authInstance.get("/auth/info", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "application/json",
@@ -34,7 +41,7 @@ export const API = {
   getRefreshToken: async () => {
     try {
       //응답 성공
-      const response = await axios.get("/auth/refresh-token", {
+      const response = await authInstance.get("/auth/refresh-token", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "application/json",
@@ -58,7 +65,7 @@ export const API = {
   //(리프레쉬, 엑세스)토큰 재발급 api
   getAccessUsingRefresh: async ({ accessToken, refreshToken }) => {
     try {
-      const response = await axios.post(
+      const response = await authInstance.post(
         `/auth/reissue`,
         JSON.stringify({
           accessToken: accessToken,
@@ -91,7 +98,7 @@ export const API = {
   //유저의 주소 정보를 보내주는 api
   userPostAddress: async ({ address }) => {
     try {
-      const response = await axios.post(
+      const response = await authInstance.post(
         `/auth/register`,
         JSON.stringify({
           address: address,
@@ -119,7 +126,7 @@ export const API = {
   //해당 면접 제목에 있는 단일 결과 데이터, 배열 행식 x, 하나의 질문에 있는 것들
   getOneUserInterviewData: async ({ title }) => {
     try {
-      const response = await axios.get(`/model/data/score?title=${title}`, {
+      const response = await modelInstance.get(`/model/data/score?title=${title}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "application/json",
@@ -144,7 +151,7 @@ export const API = {
   //유저 인터뷰 정보들 서버에 보내주는 api
   sendUserInterviewInfo: async ({ title, question, videoURL }) => {
     try {
-      const response = await axios.post(
+      const response = await modelInstance.post(
         `/model/video`,
         JSON.stringify({
           title: title,
@@ -176,7 +183,7 @@ export const API = {
   //유저의 전체 피드백 목록을 배열 형식으로 가져오는 API
   getUserInterviewList: async () => {
     try {
-      const response = await axios.get(`/model/data/list`, {
+      const response = await modelInstance.get(`/model/data/list`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "application/json",
@@ -200,7 +207,7 @@ export const API = {
   //유저의 특정 면접에서 질문 목록을 가져오는 API
   getUserQuestionList: async ({ title }) => {
     try {
-      const response = await axios.get(
+      const response = await modelInstance.get(
         `/model/data/list/question?title=${title}`,
         {
           headers: {
@@ -229,7 +236,7 @@ export const API = {
   //전체 피드백 평균 점수 데이터 가져오는 API
   getUserAverageScore: async () => {
     try {
-      const response = await axios.get(`/model/score/average`, {
+      const response = await modelInstance.get(`/model/score/average`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "application/json",
@@ -253,7 +260,7 @@ export const API = {
   //유저 질문별 상세 분석 데이터 가져오는 API
   getUserInterviewDetail: async ({ title, question }) => {
     try {
-      const response = await axios.get(
+      const response = await modelInstance.get(
         `/model/data/detail?title=${title}&question=${question}`,
         {
           headers: {

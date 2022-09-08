@@ -12,7 +12,7 @@ import QuestionList from "./views/QuestionList";
 import FeedbackDetail from "./views/FeedbackDetail.jsx";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
-import { API } from "./API";
+import { API, modelInstance } from "./API";
 import {
   removeCookieToken,
   getCookieToken,
@@ -52,6 +52,27 @@ const App = () => {
     userProfile,
     setUserProfile,
   };
+
+  // flask server 401 에러 발생 시 토큰 재발급 후 재요청
+  modelInstance.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      const originalConfig = error.config;
+      if (error.response) {
+        if ( error.response.status === 401  && !originalConfig._retry) {
+          originalConfig._retry = true;
+          let refreshToken = getCookieToken();
+          let accessToken = localStorage.getItem("accessToken");
+          getNewAccess({ accessToken, refreshToken });
+          return modelInstance(originalConfig);
+        }
+      }
+      
+      return Promise.reject(error);
+    }
+  );
 
   useEffect(() => {
     // if (window.location.pathname === "/") {
