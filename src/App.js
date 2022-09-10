@@ -69,7 +69,7 @@ const App = () => {
           .then((result) => {
             console.log("재발급 후 헤더에 엑세스 토큰 갱신" + result.accessToken);
             originalConfig.headers.Authorization = `Bearer ${result.accessToken}`;
-            return modelInstance(originalConfig);
+            return modelInstance.request(originalConfig);
           });
         }
       }
