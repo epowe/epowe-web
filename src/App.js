@@ -67,8 +67,8 @@ const App = () => {
           let accessToken = localStorage.getItem("accessToken");
           getNewAccess({ accessToken, refreshToken })
           .then((result) => {
-            console.log("재발급 후 헤더에 엑세스 토큰 갱신" + result);
-            modelInstance.defaults.headers.common['Authorization'] = `Bearer ${result}`;
+            console.log("재발급 후 헤더에 엑세스 토큰 갱신" + result.accessToken);
+            originalConfig.headers.Authorization = `Bearer ${result.accessToken}`;
             return modelInstance(originalConfig);
           });
         }
