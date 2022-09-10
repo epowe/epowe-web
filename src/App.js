@@ -58,19 +58,17 @@ const App = () => {
     (response) => {
       return response;
     },
-    (error) => {
+    async (error) => {
       const originalConfig = error.config;
       if (error.response) {
         if ( error.response.status === 401  && !originalConfig._retry) {
           originalConfig._retry = true;
           let refreshToken = getCookieToken();
           let accessToken = localStorage.getItem("accessToken");
-          getNewAccess({ accessToken, refreshToken })
-          .then((result) => {
-            console.log("재발급 후 헤더에 엑세스 토큰 갱신" + result.accessToken);
-            originalConfig.headers.Authorization = `Bearer ${result.accessToken}`;
-            return modelInstance.request(originalConfig);
-          });
+          let result = await getNewAccess({ accessToken, refreshToken });
+          console.log("재발급 후 헤더에 엑세스 토큰 갱신" + result.accessToken);
+          originalConfig.headers.Authorization = `Bearer ${result.accessToken}`;
+          return modelInstance.request(originalConfig);
         }
       }
       
