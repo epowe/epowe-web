@@ -65,10 +65,12 @@ const App = () => {
           originalConfig._retry = true;
           let refreshToken = getCookieToken();
           let accessToken = localStorage.getItem("accessToken");
-          getNewAccess({ accessToken, refreshToken });
-          accessToken = localStorage.getItem("accessToken");
-          originalConfig.headers.Authorization = `Bearer ${accessToken}`;
-          return modelInstance(originalConfig);
+          getNewAccess({ accessToken, refreshToken })
+          .then((result) => {
+            console.log("재발급 후 헤더에 엑세스 토큰 갱신" + result);
+            modelInstance.defaults.headers.common['Authorization'] = `Bearer ${result}`;
+            return modelInstance(originalConfig);
+          });
         }
       }
       
@@ -144,6 +146,7 @@ const App = () => {
       localStorage.setItem("isLogged", true);
       setRefreshTokenToCookie(result.refreshToken);
       getUserInfo();
+      return result;
     } else {
       console.log("서버에 만료된 토큰 전송 실패.");
       console.log(result);
