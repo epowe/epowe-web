@@ -66,6 +66,8 @@ const App = () => {
           let refreshToken = getCookieToken();
           let accessToken = localStorage.getItem("accessToken");
           getNewAccess({ accessToken, refreshToken });
+          accessToken = localStorage.getItem("accessToken");
+          originalConfig.headers.Authorization = `Bearer ${accessToken}`;
           return modelInstance(originalConfig);
         }
       }
