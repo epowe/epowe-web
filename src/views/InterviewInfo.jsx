@@ -46,7 +46,6 @@ const InterviewInfo = () => {
     list[index][name] = value;
     setQuestions(list);
     setIsValidQuestion(true);
-    setIsValidTitle(true);
   };
 
   const handleStart = async () => {
@@ -87,7 +86,7 @@ const InterviewInfo = () => {
             <div className="row my-3">
               <input
                 type="text"
-                onChange={(event) => setTitle(event.target.value)}
+                onChange={(event) => {setTitle(event.target.value);setIsValidTitle(true)}}
                 value={title}
                 name="title"
                 className={
