@@ -4,7 +4,7 @@ import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
 import Header from "./Header.js";
 import toast, { Toaster } from "react-hot-toast";
-import { API } from '../API.js';
+import { API } from "../API.js";
 
 const InterviewInfo = () => {
   const navigate = useNavigate();
@@ -45,25 +45,38 @@ const InterviewInfo = () => {
     const list = [...questions];
     list[index][name] = value;
     setQuestions(list);
+    setIsValidQuestion(true);
+    setIsValidTitle(true);
   };
 
   const handleStart = async () => {
     if (title === "") {
+      setIsValidTitle(false);
+      setTitleInvalidFeedback("제목을 입력해주세요.")
       notify("면접 제목을 입력해주세요");
     } else if (!questions.every((q) => q.question !== "")) {
+      setIsValidQuestion(false);
       notify("면접 질문을 입력해주세요");
     } else {
-      let result = await API.getTitleOverlap({title});
+      let result = await API.getTitleOverlap({ title });
       if (result === 200) {
         // 면접 페이지로 이동
         navigate("/interview/ing", { state: { title, questions } });
       } else {
         // 면접 제목 중복 안내
+        setIsValidTitle(false);
+        setTitleInvalidFeedback("중복된 제목입니다.");
         notify("면접 제목이 중복되었습니다.");
       }
     }
   };
 
+  const [isValidTitle, setIsValidTitle] = useState(true);
+  const [isValidQuestion, setIsValidQuestion] = useState(true);
+  const [titleInvalidFeedback, setTitleInvalidFeedback] =
+    useState("제목을 입력해주세요.");
+  const [questionInvalidFeedback, setQuestionInvalidFeedback] =
+    useState("질문을 입력해주세요.");
   return (
     <>
       <Header />
@@ -77,10 +90,14 @@ const InterviewInfo = () => {
                 onChange={(event) => setTitle(event.target.value)}
                 value={title}
                 name="title"
-                className="form-control shadow-none"
+                className={
+                  "form-control shadow-none" +
+                  (isValidTitle ? null : " is-invalid")
+                }
                 placeholder="면접 제목"
                 autocomplete="off"
               />
+              <div className="invalid-feedback">{titleInvalidFeedback}</div>
             </div>
           </div>
           <div className="container">
@@ -97,10 +114,16 @@ const InterviewInfo = () => {
                             onChange={(event) => handleChange(index, event)}
                             value={question}
                             name="question"
-                            className="form-control shadow-none"
+                            className={
+                              "form-control shadow-none" +
+                              (isValidQuestion ? null : " is-invalid")
+                            }
                             placeholder="질문"
                             autocomplete="off"
                           />
+                          <div className="invalid-feedback">
+                            {questionInvalidFeedback}
+                          </div>
                         </div>
                       </div>
                       <div className="col-1">
