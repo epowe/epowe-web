@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import styled from "styled-components"
-import { API } from '../API'
-import Header from './Header'
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { API } from "../API";
+import Header from "./Header";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
 
 const MyFeedback = () => {
   const navigate = useNavigate();
@@ -11,7 +13,7 @@ const MyFeedback = () => {
   const [speechRateAvg, setspeechRateAvg] = useState(0);
   const [wordArr, setwordArr] = useState([]);
 
-  const mostFrequent = (arr) => 
+  const mostFrequent = (arr) =>
     Object.entries(
       arr.reduce((a, v) => {
         a[v] = a[v] ? a[v] + 1 : 1;
@@ -32,7 +34,12 @@ const MyFeedback = () => {
       console.log("Flask get 실패");
     }
   };
-
+  const popover = (header, body) => (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3">{header}</Popover.Header>
+      <Popover.Body>{body}</Popover.Body>
+    </Popover>
+  );
   useEffect(() => {
     getUserFeedbackAvg();
   }, []);
@@ -45,30 +52,50 @@ const MyFeedback = () => {
         <Title>전체 피드백 평균 점수</Title>
         <Container>
           <FeedbackPurple>
-            <span>사투리 사용<br/>평균 횟수</span>
+            <span>
+              사투리 사용
+              <br />
+              평균 횟수
+            </span>
             <span>{dialectCountAvg}번</span>
           </FeedbackPurple>
           <Feedback>
             <span>억양</span>
             <span>{intonationAvg}</span>
           </Feedback>
-          <Feedback>
-            <span>말의 빠르기</span>
-            <span>{speechRateAvg}</span>
-          </Feedback>
-          <Feedback>
-            <span>단어</span>
-            <span>{wordArr}</span>
-          </Feedback>
+          <OverlayTrigger
+            trigger="hover"
+            placement="top"
+            overlay={popover("말의 빠르기", "말의 빠르기는 음절/시간(초)를 통해 1초에 몇 음절을 말하는지 나타냅니다.")}
+          >
+            <Feedback>
+              <span>말의 빠르기</span>
+              <span>{speechRateAvg}</span>
+            </Feedback>
+          </OverlayTrigger>
+          <OverlayTrigger
+            trigger="hover"
+            placement="right"
+            overlay={popover("단어", "내용이들어갑니다")}
+          >
+            <Feedback>
+              <span>단어</span>
+              <span>{wordArr}</span>
+            </Feedback>
+          </OverlayTrigger>
         </Container>
         <ButtonContainer>
-          <Button onClick={() => navigate("/feedback/list")}>전체 피드백 목록</Button>
-          <Button onClick={() => navigate("/interview/info")}>모의면접 시작하기</Button>
+          <Button onClick={() => navigate("/feedback/list")}>
+            전체 피드백 목록
+          </Button>
+          <Button onClick={() => navigate("/interview/info")}>
+            모의면접 시작하기
+          </Button>
         </ButtonContainer>
       </BodyContainer>
     </>
-  )
-}
+  );
+};
 
 const BodyContainer = styled.div`
   position: fixed;
@@ -116,7 +143,7 @@ const FeedbackPurple = styled.div`
   text-align: center;
   font-size: 0.85rem;
   color: white;
-  background: #4F46BA;
+  background: #4f46ba;
   border-radius: 60.399px;
 `;
 
@@ -130,7 +157,7 @@ const Feedback = styled.div`
   margin: 0.5rem;
   text-align: center;
   font-size: 0.85rem;
-  border: 1px solid #E2E2E2;
+  border: 1px solid #e2e2e2;
   border-radius: 60.399px;
 `;
 
@@ -158,4 +185,4 @@ const Button = styled.button`
   }
 `;
 
-export default MyFeedback
+export default MyFeedback;
