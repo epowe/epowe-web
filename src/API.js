@@ -281,4 +281,31 @@ export const API = {
     }
     return false;
   },
+
+  //면접 제목 중복 확인하는 API
+  getTitleOverlap: async ({ title }) => {
+    try {
+      const response = await modelInstance.get(
+        `/model/check/title/title=${title}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200 || response.status === 400) {
+        console.log("면접 제목 중복 정보를 가져오는데 성공했습니다. ");
+        console.log(response);
+        return response.status;
+      } else {
+        console.log("면접 제목 중복 정보를 가져오는데 실패했습니다. ");
+        console.log(response);
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    return false;
+  },
 };
