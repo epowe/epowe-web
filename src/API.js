@@ -286,7 +286,7 @@ export const API = {
   getTitleOverlap: async ({ title }) => {
     try {
       const response = await modelInstance.get(
-        `/model/check/title/title=${title}`,
+        `/model/check/title?title=${title}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
