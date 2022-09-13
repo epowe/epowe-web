@@ -4,6 +4,7 @@ import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
 import Header from "./Header.js";
 import toast, { Toaster } from "react-hot-toast";
+import { API } from '../API.js';
 
 const InterviewInfo = () => {
   const navigate = useNavigate();
@@ -46,14 +47,20 @@ const InterviewInfo = () => {
     setQuestions(list);
   };
 
-  const handleStart = () => {
+  const handleStart = async () => {
     if (title === "") {
       notify("면접 제목을 입력해주세요");
     } else if (!questions.every((q) => q.question !== "")) {
       notify("면접 질문을 입력해주세요");
     } else {
-      // 면접 페이지로 이동
-      navigate("/interview/ing", { state: { title, questions } });
+      let result = await API.getTitleOverlap({title});
+      if (result === 200) {
+        // 면접 페이지로 이동
+        navigate("/interview/ing", { state: { title, questions } });
+      } else {
+        // 면접 제목 중복 안내
+        notify("면접 제목이 중복되었습니다.");
+      }
     }
   };
 
