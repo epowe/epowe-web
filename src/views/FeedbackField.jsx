@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function FeedbackField({ dialectCount, speechRate, word, intonation }) {
+function FeedbackField({ dialectCount, speechRate, word }) {
   return (
     <>
       <div className="row text-center">
@@ -22,12 +22,6 @@ function FeedbackField({ dialectCount, speechRate, word, intonation }) {
           <Container>
             <span>가장 많이 반복된 단어</span>
             <span>{word}</span>
-          </Container>
-        </div>
-        <div className="col mt-2">
-          <Container>
-            <span>억양</span>
-            <span>{intonation}점</span>
           </Container>
         </div>
       </div>

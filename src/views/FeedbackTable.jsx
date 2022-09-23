@@ -9,7 +9,6 @@ const FeedbackTable = () => {
     return (
       <>
         <th scope="col">면접 제목</th>
-        <th scope="col">억양</th>
         <th scope="col">말의 빠르기</th>
         <th scope="col">최대 단어 반복</th>
         <th scope="col">사투리 사용 횟수</th>
@@ -32,7 +31,6 @@ const FeedbackTable = () => {
               {data["title"]}
             </Link>
           </td>
-          <td>{data["intonation"]}</td>
           <td>{data["speechRate"]}</td>
           <td>{data["word"]}</td>
           <td>{data["dialectCount"]}</td>

@@ -9,7 +9,6 @@ import Popover from "react-bootstrap/Popover";
 const MyFeedback = () => {
   const navigate = useNavigate();
   const [dialectCountAvg, setDialectCountAvg] = useState(0);
-  const [intonationAvg, setintonationAvg] = useState(0);
   const [speechRateAvg, setspeechRateAvg] = useState(0);
   const [wordArr, setwordArr] = useState([]);
 
@@ -27,7 +26,6 @@ const MyFeedback = () => {
       console.log("flask get 성공");
       console.log(result);
       setDialectCountAvg(Math.round(result.dialectCountAvg));
-      setintonationAvg(Math.round(result.intonationAvg));
       setspeechRateAvg(Math.round(result.speechRateAvg));
       setwordArr(mostFrequent(result.wordArr));
     } else {
@@ -59,10 +57,6 @@ const MyFeedback = () => {
             </span>
             <span>{dialectCountAvg}번</span>
           </FeedbackPurple>
-          <Feedback>
-            <span>억양</span>
-            <span>{intonationAvg}</span>
-          </Feedback>
           <OverlayTrigger
             trigger="hover"
             placement="top"
