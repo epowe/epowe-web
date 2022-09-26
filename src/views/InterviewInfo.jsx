@@ -60,7 +60,8 @@ const InterviewInfo = () => {
       let result = await API.getTitleOverlap({ title });
       if (result === 200) {
         // 면접 페이지로 이동
-        navigate("/interview/ing", { state: { title, questions } });
+        let speaker = document.querySelector('input[name="speaker"]:checked').value;
+        navigate("/interview/ing", { state: { title, questions, speaker } });
       } else {
         // 면접 제목 중복 안내
         setIsValidTitle(false);
@@ -157,6 +158,19 @@ const InterviewInfo = () => {
               </div>
             </div>
           </div>
+          <fieldset style={{textAlign: "center"}}>
+            <legend style={{fontSize: '1.2rem'}}>피드백 목소리 선택</legend>
+            <div style={{display: 'flex'}}>
+              <input type="radio" id="nkitae" name="speaker" value="nkitae" checked />
+              <label for="nkitae" style={{margin: '1rem'}}>기태</label>
+              <audio controls src="/sounds/nkitae.mp3" />
+            </div>
+            <div style={{display: 'flex'}}>
+              <input type="radio" id="nyuna" name="speaker" value="nyuna" />
+              <label for="nyuna" style={{margin: '1rem'}}>유나</label>
+              <audio controls src="/sounds/nyuna.mp3" />
+            </div>
+          </fieldset>
           <Button onClick={handleStart}>면접 시작하기</Button>
           <Toaster containerStyle={{ top: "5.1rem" }} />
         </Container>

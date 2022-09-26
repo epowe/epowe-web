@@ -147,7 +147,7 @@ export const API = {
   },
 
   //유저 인터뷰 정보들 서버에 보내주는 api
-  sendUserInterviewInfo: async ({ title, question, videoURL }) => {
+  sendUserInterviewInfo: async ({ title, question, videoURL, speaker }) => {
     try {
       const response = await modelInstance.post(
         `/model/video`,
@@ -155,6 +155,7 @@ export const API = {
           title: title,
           question: question,
           videoURL: videoURL,
+          speaker: speaker,
         }),
         {
           headers: {

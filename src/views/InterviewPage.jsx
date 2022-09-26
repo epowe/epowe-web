@@ -12,6 +12,7 @@ const InterviewPage = () => {
   const navigate = useNavigate();
   const title = location.state.title;
   const questions = location.state.questions;
+  const speaker = location.state.speaker;
   const [urls, setUrls] = useState([]);
   const [isNext, setIsNext] = useState(true);
   const [current, setCurrent] = useState(0);
@@ -79,6 +80,7 @@ const InterviewPage = () => {
           title: title,
           question: sendQuestionData,
           videoURL: urls,
+          speaker: speaker,
         }).then((result) => {
           // 페이지 이동
           if (result.status === 200) {
@@ -97,11 +99,12 @@ const InterviewPage = () => {
     });
 
   //서버로 제목, 질문, 동영상 URL 보내는 함수
-  const sendInterviewInfo = async ({ title, question, videoURL }) => {
+  const sendInterviewInfo = async ({ title, question, videoURL, speaker }) => {
     let result = await API.sendUserInterviewInfo({
       title: title,
       question: question,
       videoURL: videoURL,
+      speaker: speaker,
     });
 
     if (result) {
