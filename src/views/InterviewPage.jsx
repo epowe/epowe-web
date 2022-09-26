@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useBeforeunload } from "react-beforeunload";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
@@ -21,6 +21,7 @@ const InterviewPage = () => {
   const [recorded, setRecorded] = useState(false);
   const [done, setDone] = useState(false);
   const [sendable, setSendable] = useState(false);
+  const [stoppable, setStoppable] = useState(false);
 
   useBeforeunload((event) => event.preventDefault());
 
@@ -31,8 +32,14 @@ const InterviewPage = () => {
           (stream) => playStream(videoRef.current, stream),
           (recordedBlobs) => setData(recordedBlobs)
         );
+        setStoppable(false);
         setRecorder(mediaRecorder);
+        setTimeout(setStoppable, 10000, true);
       } else {
+        if (!stoppable) {
+          notify("10초 이상 답변 해주세요");
+          return;
+        }
         if (recorder.state === 'inactive') {
           stopPlaying(videoRef.current);
           setRecorder(undefined);
@@ -157,6 +164,7 @@ const InterviewPage = () => {
           <Button disabled={!recorded} onClick={handleNext}>
             {isNext ? "다음" : "면접 끝내기"}
           </Button>
+          <Toaster containerStyle={{ top: "5.1rem" }} />
         </Container>
       </BodyContainer>
     </>
