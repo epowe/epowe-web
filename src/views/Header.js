@@ -121,7 +121,7 @@ const SmallButton = styled.button`
   font-size: 0.7rem;
   padding: 0.5rem;
   &:hover {
-    background: #5850e6;
+    background: #4B3C93;
     transition: 0.3s;
   }
 `;
