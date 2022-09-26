@@ -49,18 +49,30 @@ const MyFeedback = () => {
         <Text>마이페이지</Text>
         <Title>전체 피드백 평균 점수</Title>
         <Container>
-          <FeedbackPurple>
-            <span>
-              사투리 사용
-              <br />
-              평균 횟수
-            </span>
-            <span>{dialectCountAvg}번</span>
-          </FeedbackPurple>
           <OverlayTrigger
             trigger="hover"
             placement="top"
-            overlay={popover("말의 빠르기", "말의 빠르기는 음절/시간(초)를 통해 1초에 몇 음절을 말하는지 나타냅니다.")}
+            overlay={popover(
+              "사투리 사용 평균 횟수",
+              "사투리 사용 평균 횟수는 1회 면접 당 평균적으로 사투리를 사용하는 횟수를 말합니다."
+            )}
+          >
+            <FeedbackPurple>
+              <span>
+                사투리 사용
+                <br />
+                평균 횟수
+              </span>
+              <span>{dialectCountAvg}번</span>
+            </FeedbackPurple>
+          </OverlayTrigger>
+          <OverlayTrigger
+            trigger="hover"
+            placement="top"
+            overlay={popover(
+              "말의 빠르기",
+              "말의 빠르기는 음절/시간(초)를 통해 1초에 몇 음절을 말하는지 나타냅니다."
+            )}
           >
             <Feedback>
               <span>말의 빠르기</span>
@@ -69,8 +81,11 @@ const MyFeedback = () => {
           </OverlayTrigger>
           <OverlayTrigger
             trigger="hover"
-            placement="right"
-            overlay={popover("단어", "내용이들어갑니다")}
+            placement="top"
+            overlay={popover(
+              "단어",
+              "단어는 전체 면접 중 가장 많이 사용하는 단어를 말합니다."
+            )}
           >
             <Feedback>
               <span>단어</span>
