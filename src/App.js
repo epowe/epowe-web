@@ -21,6 +21,7 @@ import {
 import { QueryClient, QueryClientProvider } from "react-query";
 import AppContext from "./AppContext";
 import InterviewPage from "./views/InterviewPage.jsx";
+import ErrorPage from "./views/ErrorPage.jsx";
 
 const queryClient = new QueryClient();
 
@@ -225,6 +226,12 @@ const App = () => {
             path="/feedback/list/questions/detail"
             element={
               !isLogged ? <Navigate replace to="/" /> : <FeedbackDetail />
+            }
+          />
+          <Route
+            path="/error"
+            element={
+              !isLogged ? <Navigate replace to="/" /> : <ErrorPage />
             }
           />
         </Routes>

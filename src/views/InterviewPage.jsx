@@ -85,6 +85,8 @@ const InterviewPage = () => {
           // 페이지 이동
           if (result.status === 200) {
             navigate("/interview/feedback", {state: {title}});
+          } else {
+            navigate("/error");
           }
         })
       }
