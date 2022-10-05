@@ -45,8 +45,8 @@ const MyFeedback = () => {
   return (
     <>
       <Header />
+      <Text>마이페이지</Text>
       <BodyContainer>
-        <Text>마이페이지</Text>
         <Title>전체 피드백 평균 점수</Title>
         <Container>
           <OverlayTrigger
@@ -134,7 +134,7 @@ const Text = styled.div`
   font-family: Pretendard;
   font-size: 1.2rem;
   text-align: start;
-  padding: 0 12rem;
+  padding: 7rem 12rem;
 `;
 
 const Container = styled.div`
