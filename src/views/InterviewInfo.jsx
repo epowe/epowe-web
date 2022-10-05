@@ -83,6 +83,10 @@ const InterviewInfo = () => {
       <BodyContainer>
         <Container>
           <Title>모의면접 정보 입력</Title>
+          <div style={{backgroundColor: 'whiteSmoke', borderRadius: '50px', padding: '20px 30px', margin: '0 0 12px 0'}}>
+            <p style={{margin: '0'}}>모의면접은 <b>각 질문당 최대 5분</b>동안 답변할 수 있으며</p>
+            <p style={{margin: '0'}}>시간이 초과될 시 자동으로 녹화가 종료됩니다.</p>
+          </div>
           <div className="container">
             <div className="row my-3">
               <input
@@ -204,6 +208,7 @@ const Container = styled.div`
 
 const Title = styled.div`
   font-family: Pretendard;
+  font-weight: bold;
   font-size: 1.5rem;
   text-align: center;
   margin: 2rem;
