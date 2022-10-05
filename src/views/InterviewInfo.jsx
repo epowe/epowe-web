@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useBeforeunload } from "react-beforeunload";
 import styled from "styled-components";
 import Header from "./Header.js";
-import toast, { Toaster } from "react-hot-toast";
 import { API } from "../API.js";
 
 const InterviewInfo = () => {
@@ -16,14 +15,6 @@ const InterviewInfo = () => {
   ]);
 
   useBeforeunload((event) => event.preventDefault());
-
-  const notify = (msg) =>
-    toast(msg, {
-      duration: 2500,
-      style: {
-        borderRadius: "50px",
-      },
-    });
 
   const addInputField = () => {
     setQuestions([
@@ -45,18 +36,28 @@ const InterviewInfo = () => {
     const list = [...questions];
     list[index][name] = value;
     setQuestions(list);
-    setIsValidQuestion(true);
   };
 
   const handleStart = async () => {
-    if (title === "") {
-      setIsValidTitle(false);
-      setTitleInvalidFeedback("제목을 입력해주세요.")
-      notify("면접 제목을 입력해주세요");
-    } else if (!questions.every((q) => q.question !== "")) {
-      setIsValidQuestion(false);
-      notify("면접 질문을 입력해주세요");
+    let qs = document.querySelectorAll(".form-control");
+    if (title === "" || !questions.every((q) => q.question !== "") ) {
+      qs.forEach((q) => {
+        if (q.value == "") {
+          setTitleInvalidFeedback("제목을 입력해주세요.");
+          q.classList.add("is-invalid");
+        } else {
+          q.classList.remove("is-invalid");
+        }
+      });
     } else {
+      qs.forEach((q) => {
+        if (q.value == "") {
+          setTitleInvalidFeedback("제목을 입력해주세요.");
+          q.classList.add("is-invalid");
+        } else {
+          q.classList.remove("is-invalid");
+        }
+      });
       let result = await API.getTitleOverlap({ title });
       if (result === 200) {
         // 면접 페이지로 이동
@@ -64,15 +65,16 @@ const InterviewInfo = () => {
         navigate("/interview/ing", { state: { title, questions, speaker } });
       } else {
         // 면접 제목 중복 안내
-        setIsValidTitle(false);
         setTitleInvalidFeedback("중복된 제목입니다.");
-        notify("면접 제목이 중복되었습니다.");
+        qs.forEach((q) => {
+          if (q.name == "title") {
+            q.classList.add("is-invalid");
+          }
+        });
       }
     }
   };
 
-  const [isValidTitle, setIsValidTitle] = useState(true);
-  const [isValidQuestion, setIsValidQuestion] = useState(true);
   const [titleInvalidFeedback, setTitleInvalidFeedback] =
     useState("제목을 입력해주세요.");
   const [questionInvalidFeedback, setQuestionInvalidFeedback] =
@@ -91,12 +93,11 @@ const InterviewInfo = () => {
             <div className="row my-3">
               <input
                 type="text"
-                onChange={(event) => {setTitle(event.target.value);setIsValidTitle(true)}}
+                onChange={(event) => {setTitle(event.target.value)}}
                 value={title}
                 name="title"
                 className={
-                  "form-control shadow-none" +
-                  (isValidTitle ? null : " is-invalid")
+                  "form-control shadow-none"
                 }
                 placeholder="면접 제목"
                 autocomplete="off"
@@ -106,7 +107,7 @@ const InterviewInfo = () => {
           </div>
           <div className="container">
             <div className="row">
-              <div className="col-xl-13">
+              <div className="col-xl-13 questions">
                 {questions.map((data, index) => {
                   const { question } = data;
                   return (
@@ -119,8 +120,7 @@ const InterviewInfo = () => {
                             value={question}
                             name="question"
                             className={
-                              "form-control shadow-none" +
-                              (isValidQuestion ? null : " is-invalid")
+                              "form-control shadow-none"
                             }
                             placeholder="질문"
                             autocomplete="off"
@@ -176,7 +176,6 @@ const InterviewInfo = () => {
             </div>
           </fieldset>
           <Button onClick={handleStart}>면접 시작하기</Button>
-          <Toaster containerStyle={{ top: "5.1rem" }} />
         </Container>
       </BodyContainer>
     </>
