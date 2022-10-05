@@ -15,7 +15,7 @@ const FeedbackList = () => {
         <TableContainer>
           <FeedbackTable />
         </TableContainer>
-        <SmallButton onClick={() => navigate(-1)}>마이페이지</SmallButton>
+        <SmallButton onClick={() => navigate("/feedback")}>마이페이지</SmallButton>
       </BodyContainer>
     </>
   )

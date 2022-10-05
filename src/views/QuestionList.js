@@ -43,7 +43,7 @@ const QuestionList = () => {
               );
             })}
           </QuestionContainer>
-          <SmallButton onClick={() => navigate(-1)}>면접 목록</SmallButton>
+          <SmallButton onClick={() => navigate("/feedback/list")}>면접 목록</SmallButton>
         </Container>
       </BodyContainer>
     </>

@@ -54,7 +54,7 @@ const FeedbackDetail = () => {
           <TableContainer>
             <FeedbackDetailTable handleClick={handleClick} detailData={detail}/>
           </TableContainer>
-        <SmallButton onClick={()=>navigate(-1)}>질문 목록</SmallButton>
+        <SmallButton onClick={()=>navigate("/feedback/list")}>질문 목록</SmallButton>
         </Container>
       </BodyContainer>
     </>
