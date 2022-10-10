@@ -119,14 +119,14 @@ const InterviewPage = () => {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     setRecorded(false);
     setDone(false);
     
     try {
       console.log(`질문${current + 1}: ${questions.at(current).question}`);
       // 녹화된 파일 s3에 전송 및 url 받기
-      let getUrl = uploadVideoAndGetUrl(data);
+      let getUrl = await uploadVideoAndGetUrl(data);
       setUrls([...urls, getUrl]);
     } catch (err) {
       console.error(err);

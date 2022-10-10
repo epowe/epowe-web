@@ -91,14 +91,15 @@ export const playStream = (videoElement, stream) => {
   videoElement.play();
 };
 
-export const uploadVideoAndGetUrl = (recordedBlobs) => {
+export const uploadVideoAndGetUrl = async (recordedBlobs) => {
   const blob = combineBlobs(recordedBlobs);
   console.log(blob);
   const recordedFile = new File([blob], 'recordedVideo.webm', {
     type: {detectMimeType},
   });
   console.log(recordedFile);
-  const getUrl = uploadFile(recordedFile);
+  const getUrl = await uploadFile(recordedFile);
+  console.log(getUrl);
   return getUrl;
 };
 
@@ -122,7 +123,7 @@ const myBucket = new AWS.S3({
 });
 
 //클릭시 S3에 업로드 되도록 만들어주는 함수
-const uploadFile = (file) => {
+const uploadFile = async (file) => {
   const fileExt = file.name.split(".").pop();
   let today = new Date();
   let year = today.getFullYear(); // 년도
@@ -158,16 +159,21 @@ const uploadFile = (file) => {
     Key: "upload/" + finalFileName,
   };
 
-  myBucket
-      .putObject(params)
-      .send((err) => {
-        if (err) console.log(err);
-      });
-      
-  const encodeFileName = encodeURIComponent(finalFileName);
-  const url =
-    "https://epowe-bucket.s3.ap-northeast-2.amazonaws.com/upload/" +
-    encodeFileName;
-  console.log(url);
-  return url;
+  return new Promise((resolve, reject) => {
+    myBucket
+    .putObject(params)
+    .send((err) => {
+      if (err) {
+        console.log(err);
+        reject(err);
+      } else {
+        const encodeFileName = encodeURIComponent(finalFileName);
+        const url =
+          "https://epowe-bucket.s3.ap-northeast-2.amazonaws.com/upload/" +
+          encodeFileName;
+        console.log(url);
+        resolve(url);
+      }
+    });
+  });
 };
