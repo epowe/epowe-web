@@ -13,8 +13,33 @@ const InterviewInfo = () => {
       question: "",
     },
   ]);
+  const [titleInvalidFeedback, setTitleInvalidFeedback] =
+    useState("제목을 입력해주세요.");
+  const [questionInvalidFeedback, setQuestionInvalidFeedback] =
+    useState("질문을 입력해주세요.");
 
   useBeforeunload((event) => event.preventDefault());
+
+  const checkTitleIsValid = () => {
+    let t = document.getElementsByName("title")[0];
+    if (t.value === "") {
+      setTitleInvalidFeedback("제목을 입력해주세요.");
+      t.classList.add("is-invalid");
+    } else {
+      t.classList && t.classList.remove("is-invalid");
+    }
+  };
+
+  const checkQuestionIsValid = () => {
+    let qs = document.getElementsByName("question");
+    qs.forEach((q) => {
+      if (q.value === "") {
+        q.classList.add("is-invalid");
+      } else {
+        q.classList && q.classList.remove("is-invalid");
+      }
+    });
+  };
 
   const addInputField = () => {
     setQuestions([
@@ -39,25 +64,13 @@ const InterviewInfo = () => {
   };
 
   const handleStart = async () => {
-    let qs = document.querySelectorAll(".form-control");
-    if (title === "" || !questions.every((q) => q.question !== "") ) {
-      qs.forEach((q) => {
-        if (q.value == "") {
-          setTitleInvalidFeedback("제목을 입력해주세요.");
-          q.classList.add("is-invalid");
-        } else {
-          q.classList.remove("is-invalid");
-        }
-      });
+    let t = document.getElementsByName("title")[0];
+    if (title === "") {
+      checkTitleIsValid();
+    } else if (!questions.every((q) => q.question !== "")) {
+      checkQuestionIsValid();
     } else {
-      qs.forEach((q) => {
-        if (q.value == "") {
-          setTitleInvalidFeedback("제목을 입력해주세요.");
-          q.classList.add("is-invalid");
-        } else {
-          q.classList.remove("is-invalid");
-        }
-      });
+      checkTitleIsValid();
       let result = await API.getTitleOverlap({ title });
       if (result === 200) {
         // 면접 페이지로 이동
@@ -66,19 +79,11 @@ const InterviewInfo = () => {
       } else {
         // 면접 제목 중복 안내
         setTitleInvalidFeedback("중복된 제목입니다.");
-        qs.forEach((q) => {
-          if (q.name == "title") {
-            q.classList.add("is-invalid");
-          }
-        });
+        t.classList.add("is-invalid");
       }
     }
   };
 
-  const [titleInvalidFeedback, setTitleInvalidFeedback] =
-    useState("제목을 입력해주세요.");
-  const [questionInvalidFeedback, setQuestionInvalidFeedback] =
-    useState("질문을 입력해주세요.");
   return (
     <>
       <Header />
@@ -93,7 +98,10 @@ const InterviewInfo = () => {
             <div className="row my-3">
               <input
                 type="text"
-                onChange={(event) => {setTitle(event.target.value)}}
+                onChange={(event) => {
+                  setTitle(event.target.value);
+                  checkTitleIsValid();
+                }}
                 value={title}
                 name="title"
                 className={
@@ -107,7 +115,7 @@ const InterviewInfo = () => {
           </div>
           <div className="container">
             <div className="row">
-              <div className="col-xl-13 questions">
+              <div className="col-xl-13">
                 {questions.map((data, index) => {
                   const { question } = data;
                   return (
@@ -116,7 +124,10 @@ const InterviewInfo = () => {
                         <div className="form-group">
                           <input
                             type="text"
-                            onChange={(event) => handleChange(index, event)}
+                            onChange={(event) => {
+                              handleChange(index, event);
+                              checkQuestionIsValid();
+                            }}
                             value={question}
                             name="question"
                             className={
