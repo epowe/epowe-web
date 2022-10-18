@@ -7,7 +7,7 @@ const FeedbackDetailTable = ({ handleClick, detailData }) => {
       <>
         <th scope="col">사투리 사용 시점</th>
         <th scope="col">사투리 문장</th>
-        <th scope="col">변환된 문장</th>
+        <th scope="col">변환된 음성</th>
       </>
     );
   };
@@ -28,7 +28,7 @@ const FeedbackDetailTable = ({ handleClick, detailData }) => {
             </div>
           </td>
           <td>{data["dialectString"]}</td>
-          <td>{data["feedback"]}</td>
+          <td><button onClick={()=>{}}>play</button></td>
         </tr>
       );
     });
