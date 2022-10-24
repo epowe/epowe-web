@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 
 const FeedbackDetailTable = ({ handleClick, detailData }) => {
-
   const ThData = () => {
     return (
       <>
@@ -16,7 +15,10 @@ const FeedbackDetailTable = ({ handleClick, detailData }) => {
     return detailData.map((data) => {
       return (
         <tr>
-          <td value={data["dialectTime"]} onClick={() => handleClick(data["dialectTime"])}>
+          <td
+            value={data["dialectTime"]}
+            onClick={() => handleClick(data["dialectTime"])}
+          >
             <div
               style={{
                 textDecoration: "underline",
@@ -28,7 +30,17 @@ const FeedbackDetailTable = ({ handleClick, detailData }) => {
             </div>
           </td>
           <td>{data["dialectString"]}</td>
-          <td><button onClick={()=>{}}>play</button></td>
+          <td>
+            <button
+              onClick={() => {
+                const audio = new Audio();
+                audio.src=data["voiceUrl"];
+                audio.play();
+              }}
+            >
+              play
+            </button>
+          </td>
         </tr>
       );
     });
