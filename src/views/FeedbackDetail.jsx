@@ -19,7 +19,7 @@ const FeedbackDetail = () => {
 
   const handleClick = (time) => {
     let s = time.split(':');
-    let seconds = (+s[0])*60+(+s[1]);
+    let seconds = (s[1])*60+(s[2]);
     playerRef.current.seekTo(seconds);
   };
 
