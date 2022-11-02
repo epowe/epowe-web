@@ -17,6 +17,7 @@ const InterviewInfo = () => {
     useState("제목을 입력해주세요.");
   const [questionInvalidFeedback, setQuestionInvalidFeedback] =
     useState("질문을 입력해주세요.");
+  const [selectValue, setSelectValue] = useState("nkitae");
 
   useBeforeunload((event) => event.preventDefault());
 
@@ -176,12 +177,16 @@ const InterviewInfo = () => {
           <fieldset style={{textAlign: "center"}}>
             <legend style={{fontSize: '1.2rem'}}>피드백 목소리 선택</legend>
             <div style={{display: 'flex'}}>
-              <input type="radio" id="nkitae" name="speaker" value="nkitae" checked />
+              <input type="radio" id="nkitae" name="speaker" value="nkitae" checked={selectValue === "nkitae"}
+                onChange = {(e) => setSelectValue(e.target.value)}
+              />
               <label for="nkitae" style={{margin: '1rem'}}>기태</label>
               <audio controls src="/sounds/nkitae.mp3" />
             </div>
             <div style={{display: 'flex'}}>
-              <input type="radio" id="nyuna" name="speaker" value="nyuna" />
+              <input type="radio" id="nyuna" name="speaker" value="nyuna" checked={selectValue === "nyuna"}
+                onChange = {(e) => setSelectValue(e.target.value)}
+              />
               <label for="nyuna" style={{margin: '1rem'}}>유나</label>
               <audio controls src="/sounds/nyuna.mp3" />
             </div>
