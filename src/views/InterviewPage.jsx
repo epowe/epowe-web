@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import { beginRecord, uploadVideoAndGetUrl, playStream, stopPlaying } from "./Record";
 import { API } from "../API";
+import ReactLoading from "react-loading";
 
 const InterviewPage = () => {
   const location = useLocation();
@@ -23,6 +24,7 @@ const InterviewPage = () => {
   const [done, setDone] = useState(false);
   const [sendable, setSendable] = useState(false);
   const [stoppable, setStoppable] = useState(false);
+  const [loading, setLoading] = useState(null);
 
   useBeforeunload((event) => event.preventDefault());
 
@@ -102,12 +104,16 @@ const InterviewPage = () => {
 
   //서버로 제목, 질문, 동영상 URL 보내는 함수
   const sendInterviewInfo = async ({ title, question, videoURL, speaker }) => {
+    setLoading(true);
+    
     let result = await API.sendUserInterviewInfo({
       title: title,
       question: question,
       videoURL: videoURL,
       speaker: speaker,
     });
+
+    setLoading(false);
 
     if (result) {
       console.log("flask에 유저의 면접 정보 보내기 완료");
@@ -149,27 +155,33 @@ const InterviewPage = () => {
       <Header />
       <BodyContainer>
         <Container>
-          <Question>
-            질문{current + 1} {questions.at(current).question}
-          </Question>
-          <VideoContainer>
-            <video
-              ref={videoRef}
-              autoPlay
-              style={{
-                width: "auto",
-                height: "70vh",
-              }}
-              muted
-            />
-          </VideoContainer>
-          <Button id="record" onClick={beginOrStopRecording} disabled={done}>
-            {recorder ? "답변 그만하기" : "답변 시작하기"}
-          </Button>
-          <Button disabled={!recorded} onClick={handleNext}>
-            {isNext ? "다음" : "면접 끝내기"}
-          </Button>
-          <Toaster containerStyle={{ top: "5.1rem" }} />
+          {
+            loading
+            ? <ReactLoading type="bubbles" color="#6754cb" />
+            : <>
+                <Question>
+                    질문{current + 1} {questions.at(current).question}
+                  </Question>
+                  <VideoContainer>
+                    <video
+                      ref={videoRef}
+                      autoPlay
+                      style={{
+                        width: "auto",
+                        height: "70vh",
+                      }}
+                      muted
+                    />
+                  </VideoContainer>
+                  <Button id="record" onClick={beginOrStopRecording} disabled={done}>
+                    {recorder ? "답변 그만하기" : "답변 시작하기"}
+                  </Button>
+                  <Button disabled={!recorded} onClick={handleNext}>
+                    {isNext ? "다음" : "면접 끝내기"}
+                  </Button>
+                  <Toaster containerStyle={{ top: "5.1rem" }} />
+              </>
+          }
         </Container>
       </BodyContainer>
     </>
@@ -195,6 +207,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
 `;
