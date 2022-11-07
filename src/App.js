@@ -12,7 +12,7 @@ import QuestionList from "./views/QuestionList";
 import FeedbackDetail from "./views/FeedbackDetail.jsx";
 import { TokenProcess } from "./TokenProcess";
 import jwt_decode from "jwt-decode";
-import { API, modelInstance } from "./API";
+import { API, modelInstance, modelInstance2 } from "./API";
 import {
   removeCookieToken,
   getCookieToken,
@@ -56,6 +56,28 @@ const App = () => {
 
   // flask server 401 에러 발생 시 토큰 재발급 후 재요청
   modelInstance.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    async (error) => {
+      const originalConfig = error.config;
+      if (error.response) {
+        if ( error.response.status === 401  && !originalConfig._retry) {
+          originalConfig._retry = true;
+          let refreshToken = getCookieToken();
+          let accessToken = localStorage.getItem("accessToken");
+          let result = await getNewAccess({ accessToken, refreshToken });
+          console.log("재발급 후 헤더에 엑세스 토큰 갱신" + result.accessToken);
+          originalConfig.headers.Authorization = `Bearer ${result.accessToken}`;
+          return modelInstance.request(originalConfig);
+        }
+      }
+      
+      return Promise.reject(error);
+    }
+  );
+
+  modelInstance2.interceptors.response.use(
     (response) => {
       return response;
     },

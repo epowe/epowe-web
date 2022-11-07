@@ -1,6 +1,7 @@
 import axios from "axios";
-import ApiBaseURL from "./ApiBaseURL";
+import { ApiBaseURL, ApiBaseURL2 } from "./ApiBaseURL";
 const BASE_URL = ApiBaseURL;
+const BASE_URL_2 = ApiBaseURL2;
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = false;
@@ -8,6 +9,11 @@ axios.defaults.withCredentials = false;
 export const modelInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: false,
+});
+
+export const modelInstance2 = axios.create({
+  baseURL: BASE_URL_2,
+  withCreadentials: false,
 });
 
 export const API = {
@@ -149,7 +155,7 @@ export const API = {
   //유저 인터뷰 정보들 서버에 보내주는 api
   sendUserInterviewInfo: async ({ title, question, videoURL, speaker }) => {
     try {
-      const response = await modelInstance.post(
+      const response = await modelInstance2.post(
         `/model/video`,
         JSON.stringify({
           title: title,
