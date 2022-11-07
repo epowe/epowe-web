@@ -91,7 +91,7 @@ const App = () => {
           let result = await getNewAccess({ accessToken, refreshToken });
           console.log("재발급 후 헤더에 엑세스 토큰 갱신" + result.accessToken);
           originalConfig.headers.Authorization = `Bearer ${result.accessToken}`;
-          return modelInstance.request(originalConfig);
+          return modelInstance2.request(originalConfig);
         }
       }
       
