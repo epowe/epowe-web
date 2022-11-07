@@ -135,6 +135,7 @@ const Text = styled.div`
   font-size: 1.2rem;
   text-align: start;
   padding: 7rem 12rem;
+  white-space: nowrap;
 `;
 
 const Container = styled.div`
