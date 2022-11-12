@@ -168,14 +168,10 @@ export const API = {
         console.log("유저의 면접 정보가 정상적으로 제출되었습니다.");
         console.log(response);
         return response;
-      } else if (response.status === 504) {
-        console.log("유저의 면접 정보 제출 중 504 에러 발생");
-        console.log(response);
-        return response;
       } else {
         console.log("유저의 면접 정보가 정상적으로 제출되지 못하였습니다");
         console.log(response);
-        return false;
+        return response;
       }
     } catch (error) {
       console.error(error);
