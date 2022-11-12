@@ -85,7 +85,7 @@ const InterviewPage = () => {
           speaker: speaker,
         }).then((result) => {
           // 페이지 이동
-          if (result.status === 200) {
+          if (result) {
             navigate("/interview/feedback", {state: {title}});
           } else {
             navigate("/error");
@@ -113,12 +113,20 @@ const InterviewPage = () => {
       speaker: speaker,
     });
 
-    setLoading(false);
-
     if (result) {
-      console.log("flask에 유저의 면접 정보 보내기 완료");
-      return result;
+      if (result.status === 200) {
+        console.log("flask에 유저의 면접 정보 보내기 완료");
+        setLoading(false);
+        return result;
+      } else if (result.status === 504) {
+        console.log("flask에 유저의 면접 정보 보내는 중 1분 대기");
+        setTimeout(() => {
+          setLoading(false);
+          return result;
+        }, 60000);
+      }
     } else {
+      setLoading(false);
       console.log("flask에 유저의 면접 정보 보내기 실패");
       console.log(result);
       return result;
