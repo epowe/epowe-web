@@ -88,7 +88,8 @@ const InterviewPage = () => {
           if (result) {
             navigate("/interview/feedback", {state: {title}});
           } else {
-            navigate("/error");
+            // navigate("/error");
+            navigate("/interview/feedback", {state: {title}});
           }
         })
       }
