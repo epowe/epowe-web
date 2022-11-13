@@ -140,7 +140,7 @@ export const API = {
         return false;
       }
     } catch (error) {
-      console.log("accessToken과 refreshToken을 재발급 받지 못하였습니다.");
+      console.log("Flask에서 데이터를 받지 못하였습니다.");
       console.error(error);
     }
     return false;
