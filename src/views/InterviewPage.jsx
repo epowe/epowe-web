@@ -89,7 +89,9 @@ const InterviewPage = () => {
             navigate("/interview/feedback", {state: {title}});
           } else {
             // navigate("/error");
-            navigate("/interview/feedback", {state: {title}});
+            setTimeout(() => {
+              navigate("/interview/feedback", {state: {title}})
+            }, 60000);
           }
         })
       }
@@ -118,22 +120,9 @@ const InterviewPage = () => {
       console.log("flask에 유저의 면접 정보 보내기 완료");
       setLoading(false);
       return result;
-    } else if (result.status === 504) {
-      console.log("flask에 유저의 면접 정보 보내는 중 1분 대기");
-      setTimeout(() => {
-        setLoading(false);
-        return result;
-      }, 60000);
     } else {
-      // setLoading(false);
-      // console.log("flask에 유저의 면접 정보 보내기 실패");
-      // console.log(result);
-      // return result;
       console.log("flask에 유저의 면접 정보 보내는 중 1분 대기");
-      setTimeout(() => {
-        setLoading(false);
-        return result;
-      }, 60000);
+      return false;
     }
   };
 
