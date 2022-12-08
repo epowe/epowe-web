@@ -2,4 +2,5 @@
 
 [![React deploy](https://github.com/epowe/epowe-web/actions/workflows/react-deploy.yml/badge.svg)](https://github.com/epowe/epowe-web/actions/workflows/react-deploy.yml)
 
-epowe 웹 레포입니다.
+
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/68911475/206371167-e5b7b343-6a69-49c7-a818-5bae422d8324.gif)
